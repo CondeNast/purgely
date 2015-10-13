@@ -1,0 +1,26 @@
+{
+    "name": "CondeNast/purgely",
+    "description": "Cache and purging management for WordPress sites fronted by Fastly.",
+    "type": "wordpress-plugin",
+    "require-dev": {
+        "phpunit/phpunit": "^4.0.0",
+        "10up/wp_mock": "dev-master",
+        "squizlabs/php_codesniffer": "~2.2",
+        "wp-coding-standards/wpcs": "~0.7.1",
+        "satooshi/php-coveralls": "dev-master"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Zack Tollman",
+            "email": "tollmanz@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "scripts": {
+        "test": "./vendor/bin/phpunit --colors=always",
+        "style": "./vendor/bin/phpcs --standard=WordPress src/ purgely.php",
+        "post-install-cmd": "mkdir -p build/logs && ./vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs",
+        "post-update-cmd": "mkdir -p build/logs && ./vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs"
+    }
+}
