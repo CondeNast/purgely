@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+        bootstrap="./test/bootstrap.php"
+        colors="always"
+        beStrictAboutTestsThatDoNotTestAnything="true"
+        checkForUnintentionallyCoveredCode="true"
+        beStrictAboutOutputDuringTests="true"
+        beStrictAboutTestSize="true"
+        beStrictAboutChangesToGlobalState="true"
+        >
+    <testsuites>
+        <testsuite name="all">
+            <directory>./test/tests/</directory>
+        </testsuite>
+    </testsuites>
+    <logging>
+        <log type="coverage-clover" target="./build/logs/clover.xml"/>
+    </logging>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./src</directory>
+        </whitelist>
+        <blacklist>
+            <directory suffix=".php">./vendor</directory>
+        </blacklist>
+    </filter>
+</phpunit>
