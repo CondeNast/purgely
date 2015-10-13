@@ -27,7 +27,7 @@ abstract class Purgely_Header {
 	/**
 	 * Set the header name.
 	 *
-	 * @param  string    $header_name    The header name.
+	 * @param  string $header_name    The header name.
 	 * @return void
 	 */
 	public function set_header_name( $header_name ) {
@@ -46,7 +46,7 @@ abstract class Purgely_Header {
 	/**
 	 * Set the header value.
 	 *
-	 * @param  string    $value    The header value.
+	 * @param  string $value    The header value.
 	 * @return void
 	 */
 	public function set_value( $value ) {

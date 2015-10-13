@@ -18,8 +18,8 @@ class Purgely_Cache_Control_Header extends Purgely_Header {
 	/**
 	 * Construct the object.
 	 *
-	 * @param  int                             $seconds      The TTL for the object.
-	 * @param  string                          $directive    The cache control directive to set.
+	 * @param  int    $seconds      The TTL for the object.
+	 * @param  string $directive    The cache control directive to set.
 	 * @return Purgely_Cache_Control_Header
 	 */
 	public function __construct( $seconds, $directive ) {
@@ -32,8 +32,8 @@ class Purgely_Cache_Control_Header extends Purgely_Header {
 	/**
 	 * Generate the full header value string.
 	 *
-	 * @param  int       $seconds      The number of seconds to cache the resource.
-	 * @param  string    $directive    The cache control directive to set.
+	 * @param  int    $seconds      The number of seconds to cache the resource.
+	 * @param  string $directive    The cache control directive to set.
 	 * @return string
 	 */
 	public function prepare_value( $seconds, $directive ) {
@@ -52,7 +52,7 @@ class Purgely_Cache_Control_Header extends Purgely_Header {
 	/**
 	 * Set the TTL for the object.
 	 *
-	 * @param  int    $seconds    The TTL for the object.
+	 * @param  int $seconds    The TTL for the object.
 	 * @return void
 	 */
 	public function set_seconds( $seconds ) {
@@ -71,7 +71,7 @@ class Purgely_Cache_Control_Header extends Purgely_Header {
 	/**
 	 * Set the directive.
 	 *
-	 * @param  int    $directive    The directive.
+	 * @param  int $directive    The directive.
 	 * @return void
 	 */
 	public function set_directive( $directive ) {

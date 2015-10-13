@@ -11,17 +11,17 @@ class Purgely_Surrogate_Key_Collection {
 	/**
 	 * Construct the object.
 	 *
-	 * @param  WP_Query                            $wp_query    The main query object.
+	 * @param  WP_Query $wp_query    The main query object.
 	 * @return Purgely_Surrogate_Key_Collection
 	 */
 	public function __construct( $wp_query ) {
-		// Register the keys that need to be set for the current request, starting with post IDs
+		// Register the keys that need to be set for the current request, starting with post IDs.
 		$keys = $this->_add_key_post_ids( $wp_query );
 
-		// Get the query type
+		// Get the query type.
 		$template_key = $this->_add_key_query_type( $wp_query );
 
-		// Get all taxomony terms and author info if on a single post
+		// Get all taxomony terms and author info if on a single post.
 		$term_keys   = array();
 		$author_keys = array();
 
@@ -32,11 +32,11 @@ class Purgely_Surrogate_Key_Collection {
 				$term_keys = array_merge( $term_keys, $this->_add_key_terms( $wp_query->post->ID, $taxonomy ) );
 			}
 
-			// Get author information
+			// Get author information.
 			$author_keys = $this->_add_key_author( $wp_query->post );
 		}
 
-		// Merge, de-dupe, and prune empties
+		// Merge, de-dupe, and prune empties.
 		$keys = array_merge(
 			$keys,
 			$template_key,
@@ -53,7 +53,7 @@ class Purgely_Surrogate_Key_Collection {
 	/**
 	 * Add a key for each post ID to all pages that include the post.
 	 *
-	 * @param  WP_Query    $wp_query    The main query.
+	 * @param  WP_Query $wp_query    The main query.
 	 * @return array       $keys        The "post-{ID}" keys.
 	 */
 	private function _add_key_post_ids( $wp_query ) {
@@ -70,7 +70,7 @@ class Purgely_Surrogate_Key_Collection {
 	/**
 	 * Determine the type of WP template being displayed.
 	 *
-	 * @param  WP_Query    $wp_query    The query object to inspect.
+	 * @param  WP_Query $wp_query    The query object to inspect.
 	 * @return string      $key         The template key.
 	 */
 	private function _add_key_query_type( $wp_query ) {
@@ -83,7 +83,7 @@ class Purgely_Surrogate_Key_Collection {
 		 * cautious and make sure that the $wp_query object is indeed a WP_Query object.
 		 */
 		if ( is_a( $wp_query, 'WP_Query' ) ) {
-			// List of all "is" calls
+			// List of all "is" calls.
 			$types = array(
 				'single',
 				'preview',
@@ -129,7 +129,7 @@ class Purgely_Surrogate_Key_Collection {
 			}
 		}
 
-		// Only set the key if it exists
+		// Only set the key if it exists.
 		if ( ! empty( $template_type ) ) {
 			$key = 'template-' . $template_type;
 		}
@@ -140,8 +140,8 @@ class Purgely_Surrogate_Key_Collection {
 	/**
 	 * Get the term keys for every term associated with a post.
 	 *
-	 * @param  int       $post_id     Post ID.
-	 * @param  string    $taxonomy    The taxonomy to look for associated terms.
+	 * @param  int    $post_id     Post ID.
+	 * @param  string $taxonomy    The taxonomy to look for associated terms.
 	 * @return array                  The term slug/taxonomy combos for the post.
 	 */
 	private function _add_key_terms( $post_id, $taxonomy ) {
@@ -162,7 +162,7 @@ class Purgely_Surrogate_Key_Collection {
 	/**
 	 * Get author related to this post.
 	 *
-	 * @param  WP_Post    $post    The post object to search for related author information.
+	 * @param  WP_Post $post    The post object to search for related author information.
 	 * @return array               The related author key.
 	 */
 	private function _add_key_author( $post ) {
@@ -179,7 +179,7 @@ class Purgely_Surrogate_Key_Collection {
 	/**
 	 * Set the keys variable.
 	 *
-	 * @param  array    $keys    Array of Purgely_Surrogate_Key objects
+	 * @param  array $keys    Array of Purgely_Surrogate_Key objects
 	 * @return void
 	 */
 	public function set_keys( $keys ) {
@@ -189,7 +189,7 @@ class Purgely_Surrogate_Key_Collection {
 	/**
 	 * Set an individual key.
 	 *
-	 * @param  Purgely_Surrogate_Keys_Header    $key    Purgely_Surrogate_Key object.
+	 * @param  Purgely_Surrogate_Keys_Header $key    Purgely_Surrogate_Key object.
 	 * @return void
 	 */
 	public function set_key( $key ) {

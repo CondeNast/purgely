@@ -30,7 +30,7 @@ class Purgely_Surrogate_Keys_Header extends Purgely_Header {
 	/**
 	 * Prepare the keys into a header value string.
 	 *
-	 * @param  array     $keys    The keys for the header.
+	 * @param  array $keys    The keys for the header.
 	 * @return string             Space delimited list of sanitized keys.
 	 */
 	public function prepare_keys( $keys ) {
@@ -41,7 +41,7 @@ class Purgely_Surrogate_Keys_Header extends Purgely_Header {
 	/**
 	 * Sanitize a surrogate key.
 	 *
-	 * @param  string    $key    The unsanitized key.
+	 * @param  string $key    The unsanitized key.
 	 * @return string            The sanitized key.
 	 */
 	public function sanitize_key( $key ) {
@@ -51,7 +51,7 @@ class Purgely_Surrogate_Keys_Header extends Purgely_Header {
 	/**
 	 * Add a key to the list.
 	 *
-	 * @param  string    $key    The key to add to the list.
+	 * @param  string $key    The key to add to the list.
 	 * @return array             The full list of keys.
 	 */
 	public function add_key( $key ) {
@@ -65,7 +65,7 @@ class Purgely_Surrogate_Keys_Header extends Purgely_Header {
 	/**
 	 * Add multiple keys to the list.
 	 *
-	 * @param  string    $keys    The keys to add to the list.
+	 * @param  string $keys    The keys to add to the list.
 	 * @return array              The full list of keys.
 	 */
 	public function add_keys( $keys ) {
@@ -79,7 +79,7 @@ class Purgely_Surrogate_Keys_Header extends Purgely_Header {
 	/**
 	 * Set the keys for the Surrogate Keys header.
 	 *
-	 * @param  array    $keys    The keys for the header.
+	 * @param  array $keys    The keys for the header.
 	 * @return void
 	 */
 	public function set_keys( $keys ) {

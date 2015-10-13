@@ -11,7 +11,7 @@ class Purgely_Surrogate_Control_Header extends Purgely_Header {
 	/**
 	 * Construct the object.
 	 *
-	 * @param  int                                 $seconds    The TTL for the object.
+	 * @param  int $seconds    The TTL for the object.
 	 * @return Purgely_Surrogate_Control_Header
 	 */
 	public function __construct( $seconds ) {
@@ -23,7 +23,7 @@ class Purgely_Surrogate_Control_Header extends Purgely_Header {
 	/**
 	 * Generate the full header value string.
 	 *
-	 * @param  int       $seconds    The number of seconds to cache the resource.
+	 * @param  int $seconds    The number of seconds to cache the resource.
 	 * @return string
 	 */
 	public function prepare_value( $seconds ) {
@@ -42,7 +42,7 @@ class Purgely_Surrogate_Control_Header extends Purgely_Header {
 	/**
 	 * Set the TTL for the object.
 	 *
-	 * @param int    $seconds    The TTL for the object.
+	 * @param int $seconds    The TTL for the object.
 	 */
 	public function set_seconds( $seconds ) {
 		$this->_seconds = $seconds;

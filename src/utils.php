@@ -2,11 +2,11 @@
 
 /**
  * Sanitize a surrogate key to only allow hash-like keys.
- * 
+ *
  * This function will allow surrogate keys to be a-z, A-Z, 0-9, -, and _. This will hopefully ward off any weird issues
  * that might occur with unusual characters.
- * 
- * @param  string    $key    The key to sanitize.
+ *
+ * @param  string $key    The key to sanitize.
  * @return string            The sanitized key.
  */
 function purgely_sanitize_surrogate_key( $key ) {
@@ -18,8 +18,8 @@ function purgely_sanitize_surrogate_key( $key ) {
  *
  * @since  1.0.0.
  *
- * @param  string                 $url           The URL to purge.
- * @param  array                  $purge_args    Additional args to pass to the purge request.
+ * @param  string $url           The URL to purge.
+ * @param  array  $purge_args    Additional args to pass to the purge request.
  * @return array|bool|WP_Error                   The purge response.
  */
 function purgely_purge_url( $url, $purge_args = array() ) {
@@ -39,8 +39,8 @@ function purgely_purge_url( $url, $purge_args = array() ) {
  *
  * @since  1.0.0.
  *
- * @param  string                 $key           The surrogate key to purge.
- * @param  array                  $purge_args    Additional args to pass to the purge request.
+ * @param  string $key           The surrogate key to purge.
+ * @param  array  $purge_args    Additional args to pass to the purge request.
  * @return array|bool|WP_Error                   The purge response.
  */
 function purgely_purge_surrogate_key( $key, $purge_args = array() ) {
@@ -54,7 +54,7 @@ function purgely_purge_surrogate_key( $key, $purge_args = array() ) {
  *
  * @since  1.0.0.
  *
- * @param  array                  $purge_args    Additional args to pass to the purge request.
+ * @param  array $purge_args    Additional args to pass to the purge request.
  * @return array|bool|WP_Error                   The purge response.
  */
 function purgely_purge_all( $purge_args = array() ) {
@@ -68,7 +68,7 @@ function purgely_purge_all( $purge_args = array() ) {
 /**
  * Add a key to the list.
  *
- * @param  string    $key    The key to add to the list.
+ * @param  string $key    The key to add to the list.
  * @return array             The full list of keys.
  */
 function purgely_add_surrogate_key( $key ) {
@@ -78,7 +78,7 @@ function purgely_add_surrogate_key( $key ) {
 /**
  * Set the TTL for the current request.
  *
- * @param  int    $seconds    The amount of seconds to cache the object for.
+ * @param  int $seconds    The amount of seconds to cache the object for.
  * @return int                The amount of seconds to cache the object for.
  */
 function purgely_set_ttl( $seconds ) {
@@ -93,7 +93,7 @@ function purgely_set_ttl( $seconds ) {
 /**
  * Set the stale while revalidate directive.
  *
- * @param  int      $seconds    The TTL for stale while revalidate.
+ * @param  int $seconds    The TTL for stale while revalidate.
  * @return array                All of the cache control headers.
  */
 function purgely_set_stale_while_revalidate( $seconds ) {
@@ -104,7 +104,7 @@ function purgely_set_stale_while_revalidate( $seconds ) {
 /**
  * Set the stale while error directive.
  *
- * @param  int      $seconds    The TTL for stale while error.
+ * @param  int $seconds    The TTL for stale while error.
  * @return array                All of the cache control headers.
  */
 function purgely_set_stale_while_error( $seconds ) {

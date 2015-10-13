@@ -102,13 +102,13 @@ class Purgely {
 	 * @return Purgely
 	 */
 	public function __construct() {
-		// Set the main paths for the plugin
+		// Set the main paths for the plugin.
 		$this->root_dir  = dirname( __FILE__ );
 		$this->src_dir   = $this->root_dir . '/src';
 		$this->file_path = $this->root_dir . '/' . basename( __FILE__ );
 		$this->url_base  = untrailingslashit( plugins_url( '/', __FILE__ ) );
 
-		// Include dependent files
+		// Include dependent files.
 		include $this->src_dir . '/config.php';
 		include $this->src_dir . '/utils.php';
 		include $this->src_dir . '/classes/related-urls.php';
@@ -120,19 +120,19 @@ class Purgely {
 		include $this->src_dir . '/classes/header-surrogate-keys.php';
 		include $this->src_dir . '/classes/surrogate-key-collection.php';
 
-		// Handle all automatic purges
+		// Handle all automatic purges.
 		include $this->src_dir . '/wp-purges.php';
 
-		// Initialize the key collector
+		// Initialize the key collector.
 		$this::$surrogate_keys_header = new Purgely_Surrogate_Keys_Header();
 
-		// Initialize the surrogate control header
+		// Initialize the surrogate control header.
 		$this::$surrogate_control_header = new Purgely_Surrogate_Control_Header( PURGELY_SURROGATE_CONTROL_TTL );
 
-		// Add the surrogate keys
+		// Add the surrogate keys.
 		add_action( 'wp', array( $this, 'set_standard_keys' ), 100 );
 
-		// Set the default stale while revalidate and stale while error values
+		// Set the default stale while revalidate and stale while error values.
 		if ( true === PURGELY_ENABLE_STALE_WHILE_REVALIDATE ) {
 			$this->add_cache_control_header( PURGELY_STALE_WHILE_REVALIDATE_TTL, 'stale-while-revalidate' );
 		}
@@ -141,17 +141,17 @@ class Purgely {
 			$this->add_cache_control_header( PURGELY_STALE_WHILE_ERROR_TTL, 'stale-while-error' );
 		}
 
-		// Send the surrogate keys
+		// Send the surrogate keys.
 		add_action( 'wp', array( $this, 'send_surrogate_keys' ), 101 );
 
-		// Set and send the surrogate control header
+		// Set and send the surrogate control header.
 		add_action( 'template_redirect', array( $this, 'send_surrogate_control' ), 9 );
 
-		// Set and send the surrogate control header
+		// Set and send the surrogate control header.
 		add_action( 'template_redirect', array( $this, 'send_cache_control' ), 9 );
 
 		// Load in WP CLI
-		if ( defined('WP_CLI') && WP_CLI ) {
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			include $this->root_dir . '/wp-cli.php';
 		}
 	}
@@ -195,7 +195,7 @@ class Purgely {
 	/**
 	 * Add a key to the list.
 	 *
-	 * @param  string    $key    The key to add to the list.
+	 * @param  string $key    The key to add to the list.
 	 * @return array             The full list of keys.
 	 */
 	public function add_key( $key ) {
@@ -227,7 +227,7 @@ class Purgely {
 	/**
 	 * Set the TTL for the current request.
 	 *
-	 * @param  int    $seconds    The amount of seconds to cache the object for.
+	 * @param  int $seconds    The amount of seconds to cache the object for.
 	 * @return int                The amount of seconds to cache the object for.
 	 */
 	public function set_ttl( $seconds ) {
@@ -257,8 +257,8 @@ class Purgely {
 	/**
 	 * Adds a new cache control header.
 	 *
-	 * @param  int       $seconds      The time to set the directive for.
-	 * @param  string    $directive    The cache control directive to set.
+	 * @param  int    $seconds      The time to set the directive for.
+	 * @param  string $directive    The cache control directive to set.
 	 * @return array                   Array of cache control headers to send.
 	 */
 	public function add_cache_control_header( $seconds, $directive ) {
