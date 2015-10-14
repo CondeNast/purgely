@@ -4,7 +4,7 @@
 
     <rule ref="WordPress-Core" />
     <rule ref="WordPress-Docs">
-        <exclude name="Squiz.Commenting.FileComment.Missing" />
+        <exclude name="Squiz.Commenting.FileComment" />
     </rule>
     <rule ref="WordPress-Extra" />
     <rule ref="WordPress-VIP" />
