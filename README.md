@@ -1,5 +1,11 @@
 ## Purgely
 
+Purgely manages caching and purging behavior for WordPress sites using
+the Fastly edge caching services. The plugin sets up default behaviors
+based on best practices for WordPress websites. Additionally, the
+plugin exposes practical APIs to customize the caching behavior and
+provides WP CLI utility for advanced cache management.
+
 ## Demo
 
 ## Installing
