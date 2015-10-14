@@ -1,17 +1,11 @@
 <?php
 /**
- * Contains the abstract class from which all header classes inherit behavior.
- *
- * @package Purgely
- */
-
-/**
  * Abstract class that defines basic header behavior.
  *
  * A big part of this plugin is defining response headers that control the Fastly caching behavior. This class
  * simplifies some of the basic functionality of the header classes.
  *
- * @since 1.0.0
+ * @since 1.0.0.
  */
 abstract class Purgely_Header {
 	/**
@@ -48,7 +42,7 @@ abstract class Purgely_Header {
 	 *
 	 * @since 1.0.0.
 	 *
-	 * @param string $header_name The header name.
+	 * @param  string $header_name The header name.
 	 * @return void
 	 */
 	public function set_header_name( $header_name ) {
@@ -71,7 +65,7 @@ abstract class Purgely_Header {
 	 *
 	 * @since 1.0.0.
 	 *
-	 * @param string $value The header value.
+	 * @param  string $value The header value.
 	 * @return void
 	 */
 	public function set_value( $value ) {
