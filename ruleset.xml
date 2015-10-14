@@ -104,5 +104,8 @@
     </rule>
 
     <rule ref="WordPress-Extra" />
-    <rule ref="WordPress-VIP" />
+    <rule ref="WordPress-VIP">
+        <exclude name="WordPress.VIP.RestrictedFunctions.get_term_link" />
+        <exclude name="WordPress.VIP.RestrictedFunctions.url_to_postid" />
+    </rule>
 </ruleset>
