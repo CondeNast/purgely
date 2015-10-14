@@ -1,22 +1,41 @@
 <?php
+/**
+ * Contains the abstract class from which all header classes inherit behavior.
+ *
+ * @package Purgely
+ */
 
+/**
+ * Abstract class that defines basic header behavior.
+ *
+ * A big part of this plugin is defining response headers that control the Fastly caching behavior. This class
+ * simplifies some of the basic functionality of the header classes.
+ *
+ * @since 1.0.0
+ */
 abstract class Purgely_Header {
 	/**
 	 * The header name that will be set.
 	 *
-	 * @var string    The header name.
+	 * @since 1.0.0.
+	 *
+	 * @var string The header name.
 	 */
 	protected $_header_name = '';
 
 	/**
 	 * The surrogate key value.
 	 *
-	 * @var string    The surrogate key that will be set.
+	 * @since 1.0.0.
+	 *
+	 * @var string The surrogate key that will be set.
 	 */
 	protected $_value = '';
 
 	/**
 	 * Send the key by setting the header.
+	 *
+	 * @since 1.0.0.
 	 *
 	 * @return void
 	 */
@@ -27,7 +46,9 @@ abstract class Purgely_Header {
 	/**
 	 * Set the header name.
 	 *
-	 * @param  string $header_name    The header name.
+	 * @since 1.0.0.
+	 *
+	 * @param string $header_name The header name.
 	 * @return void
 	 */
 	public function set_header_name( $header_name ) {
@@ -37,7 +58,9 @@ abstract class Purgely_Header {
 	/**
 	 * Return the header name.
 	 *
-	 * @return string    The header name.
+	 * @since 1.0.0.
+	 *
+	 * @return string The header name.
 	 */
 	public function get_header_name() {
 		return $this->_header_name;
@@ -46,7 +69,9 @@ abstract class Purgely_Header {
 	/**
 	 * Set the header value.
 	 *
-	 * @param  string $value    The header value.
+	 * @since 1.0.0.
+	 *
+	 * @param string $value The header value.
 	 * @return void
 	 */
 	public function set_value( $value ) {
@@ -56,7 +81,9 @@ abstract class Purgely_Header {
 	/**
 	 * Return the value of the header.
 	 *
-	 * @return string    The header value.
+	 * @since 1.0.0.
+	 *
+	 * @return string The header value.
 	 */
 	public function get_value() {
 		return $this->_value;
