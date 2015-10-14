@@ -1,17 +1,28 @@
 <?php
-
+/**
+ * Control the surrogate control header.
+ *
+ * The surrogate control header controls the TTL for objects on Fastly. This class extends the basic header class and
+ * ensures that the TTL is properly set.
+ *
+ * @since 1.0.0.
+ */
 class Purgely_Surrogate_Control_Header extends Purgely_Header {
 	/**
 	 * The TTL for the resource.
 	 *
-	 * @var int    The TTL for the resource.
+	 * @since 1.0.0.
+	 *
+	 * @var int The TTL for the resource.
 	 */
 	private $_seconds = 0;
 
 	/**
 	 * Construct the object.
 	 *
-	 * @param  int $seconds    The TTL for the object.
+	 * @since 1.0.0.
+	 *
+	 * @param  int $seconds The TTL for the object.
 	 * @return Purgely_Surrogate_Control_Header
 	 */
 	public function __construct( $seconds ) {
@@ -23,7 +34,9 @@ class Purgely_Surrogate_Control_Header extends Purgely_Header {
 	/**
 	 * Generate the full header value string.
 	 *
-	 * @param  int $seconds    The number of seconds to cache the resource.
+	 * @since 1.0.0.
+	 *
+	 * @param  int $seconds The number of seconds to cache the resource.
 	 * @return string
 	 */
 	public function prepare_value( $seconds ) {
@@ -33,7 +46,9 @@ class Purgely_Surrogate_Control_Header extends Purgely_Header {
 	/**
 	 * Get the TTL for an object.
 	 *
-	 * @return int    The TTL in seconds.
+	 * @since 1.0.0.
+	 *
+	 * @return int The TTL in seconds.
 	 */
 	public function get_seconds() {
 		return $this->_seconds;
@@ -42,7 +57,9 @@ class Purgely_Surrogate_Control_Header extends Purgely_Header {
 	/**
 	 * Set the TTL for the object.
 	 *
-	 * @param int $seconds    The TTL for the object.
+	 * @since 1.0.0.
+	 *
+	 * @param int $seconds The TTL for the object.
 	 */
 	public function set_seconds( $seconds ) {
 		$this->_seconds = $seconds;
