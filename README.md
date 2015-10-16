@@ -6,8 +6,6 @@ based on best practices for WordPress websites. Additionally, the
 plugin exposes practical APIs to customize the caching behavior and
 provides WP CLI utility for advanced cache management.
 
-## Demo
-
 ## Installing
 
 If you do not intend to contribute to this project, the best way to
