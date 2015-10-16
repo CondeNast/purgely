@@ -4,8 +4,6 @@
  *
  * The surrogate control header controls the TTL for objects on Fastly. This class extends the basic header class and
  * ensures that the TTL is properly set.
- *
- * @since 1.0.0.
  */
 class Purgely_Surrogate_Control_Header extends Purgely_Header {
 	/**

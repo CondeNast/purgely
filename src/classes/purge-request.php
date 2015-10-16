@@ -1,12 +1,17 @@
 <?php
-
+/**
+ * Issue a purge request for a resource.
+ *
+ * This is the main class to handle all purge related activities. This class will handle individual URL, key, and all
+ * purges. Additionally, it can set soft purges and purge links related to the passed URL.
+ */
 class Purgely_Purge {
 	/**
 	 * The url or surrogate key to purge.
 	 *
 	 * @since 1.0.0.
 	 *
-	 * @var   string    The thing that will be purged.
+	 * @var string The thing that will be purged.
 	 */
 	private $_thing = '';
 
@@ -15,7 +20,7 @@ class Purgely_Purge {
 	 *
 	 * @since 1.0.0.
 	 *
-	 * @var   string    The type of purge request.
+	 * @var string The type of purge request.
 	 */
 	private $_type = 'url';
 
@@ -24,7 +29,7 @@ class Purgely_Purge {
 	 *
 	 * @since 1.0.0.
 	 *
-	 * @var   array    Args used for processing the purge request.
+	 * @var array Args used for processing the purge request.
 	 */
 	private $_purge_args = array();
 
@@ -33,19 +38,19 @@ class Purgely_Purge {
 	 *
 	 * @since 1.0.0.
 	 *
-	 * @var   bool|object    The object from the completed purge request.
+	 * @var bool|object The object from the completed purge request.
 	 */
 	private $_response = false;
 
 	/**
 	 * Issue the purge request.
 	 *
-	 * @since  1.0.0.
+	 * @since 1.0.0.
 	 *
-	 * @param  string $type          The type of purge request.
-	 * @param  string $thing         The identifier for the item to purge.
-	 * @param  array  $purge_args    Additional args to pass to the purge request.
-	 * @return array|bool|WP_Error                   The response from the purge request.
+	 * @param string $type       The type of purge request.
+	 * @param string $thing      The identifier for the item to purge.
+	 * @param array  $purge_args Additional args to pass to the purge request.
+	 * @return array|bool|WP_Error The response from the purge request.
 	 */
 	public function purge( $type = 'url', $thing = '', $purge_args = array() ) {
 		if ( 'all' === $type && ( ! isset( $purge_args['allow-all'] ) || true !== $purge_args['allow-all'] ) ) {
@@ -58,12 +63,12 @@ class Purgely_Purge {
 	/**
 	 * Issue the purge request.
 	 *
-	 * @since  1.0.0.
+	 * @since 1.0.0.
 	 *
-	 * @param  string $type          The type of purge request.
-	 * @param  string $thing         The identifier for the item to purge.
-	 * @param  array  $purge_args    Additional args to pass to the purge request.
-	 * @return array|bool|WP_Error                   The response from the purge request.
+	 * @param  string $type       The type of purge request.
+	 * @param  string $thing      The identifier for the item to purge.
+	 * @param  array  $purge_args Additional args to pass to the purge request.
+	 * @return array|bool|WP_Error The response from the purge request.
 	 */
 	private function _issue_purge_request( $type = 'url', $thing = '', $purge_args = array() ) {
 		$response = false;
@@ -111,7 +116,9 @@ class Purgely_Purge {
 	/**
 	 * Get the result of the purge.
 	 *
-	 * @return string    "success" if purge was successful, "failure" if it was not.
+	 * @since 1.0.0.
+	 *
+	 * @return string "success" if purge was successful, "failure" if it was not.
 	 */
 	public function get_result() {
 		$response = $this->get_response();
@@ -130,10 +137,10 @@ class Purgely_Purge {
 	 * Note that this is just a wrapper for the URI itself. It is set up this way for consistency with the rest of the
 	 * class methods, as well as for updating should this request ever become more complicated.
 	 *
-	 * @since  1.0.0.
+	 * @since 1.0.0.
 	 *
-	 * @param  string $uri    The URI to purge.
-	 * @return string            The purge URI.
+	 * @param  string $uri The URI to purge.
+	 * @return string The purge URI.
 	 */
 	private function _build_request_uri_for_single_item( $uri ) {
 		return $uri;
@@ -142,10 +149,10 @@ class Purgely_Purge {
 	/**
 	 * Build the URI for the purge request.
 	 *
-	 * @since  1.0.0.
+	 * @since 1.0.0.
 	 *
-	 * @param  string $key    The surrogate key for the group of items to purge.
-	 * @return string            The purge URI.
+	 * @param  string $key The surrogate key for the group of items to purge.
+	 * @return string The purge URI.
 	 */
 	private function _build_request_uri_for_surrogate_key( $key ) {
 		return trailingslashit( PURGELY_API_ENDPOINT ) . 'service/' . PURGELY_FASTLY_SERVICE_ID . '/purge/' . purgely_sanitize_surrogate_key( $key );
@@ -154,9 +161,9 @@ class Purgely_Purge {
 	/**
 	 * Build the URI for the purge request.
 	 *
-	 * @since  1.0.0.
+	 * @since 1.0.0.
 	 *
-	 * @return string    The purge URI to purge all items.
+	 * @return string The purge URI to purge all items.
 	 */
 	private function _build_request_uri_for_purge_all() {
 		return trailingslashit( PURGELY_API_ENDPOINT ) . 'service/' . PURGELY_FASTLY_SERVICE_ID . '/purge_all';
@@ -165,9 +172,11 @@ class Purgely_Purge {
 	/**
 	 * Add the soft purge headers if requested.
 	 *
-	 * @param  array $purge_args             The purge request args.
-	 * @param  array $remote_request_args    The current remote request args.
-	 * @return array                            The potentially modified remote request args.
+	 * @since 1.0.0.
+	 *
+	 * @param  array $purge_args          The purge request args.
+	 * @param  array $remote_request_args The current remote request args.
+	 * @return array The potentially modified remote request args.
 	 */
 	private function _maybe_add_soft_purge( $purge_args, $remote_request_args ) {
 		if ( isset( $purge_args['soft-purge'] ) && true === $purge_args['soft-purge'] ) {
@@ -180,8 +189,10 @@ class Purgely_Purge {
 	/**
 	 * Add the Fastly soft purge header to the request.
 	 *
-	 * @param  array $remote_request_args    The current remote request args.
-	 * @return array                            The modified remote request args.
+	 * @since 1.0.0.
+	 *
+	 * @param  array $remote_request_args The current remote request args.
+	 * @return array The modified remote request args.
 	 */
 	private function _add_soft_purge( $remote_request_args ) {
 		$remote_request_args['headers']['Fastly-Soft-Purge'] = 1;
@@ -191,9 +202,11 @@ class Purgely_Purge {
 	/**
 	 * Add the Fastly API credential header if requested.
 	 *
-	 * @param  array  $remote_request_args    The current remote request args.
-	 * @param  string $type                   The type of request being issues.
-	 * @return array                            The potentially modified remote request args.
+	 * @since 1.0.0.
+	 *
+	 * @param  array  $remote_request_args The current remote request args.
+	 * @param  string $type                The type of request being issues.
+	 * @return array The potentially modified remote request args.
 	 */
 	private function _maybe_add_credentials( $remote_request_args, $type ) {
 		if ( in_array( $type, array( 'surrogate-key', 'all' ) ) ) {
@@ -207,8 +220,10 @@ class Purgely_Purge {
 	/**
 	 * Add the Fastly API credential header to the request.
 	 *
-	 * @param  array $remote_request_args    The current remote request args.
-	 * @return array                            The modified remote request args.
+	 * @since 1.0.0.
+	 *
+	 * @param array $remote_request_args The current remote request args.
+	 * @return array The modified remote request args.
 	 */
 	private function _add_credentials( $remote_request_args ) {
 		$remote_request_args['headers']['Fastly-Key'] = PURGELY_FASTLY_KEY;
@@ -218,8 +233,10 @@ class Purgely_Purge {
 	/**
 	 * Make the request a post request.
 	 *
-	 * @param  array $remote_request_args    The current remote request args.
-	 * @return array                            The modified remote request args.
+	 * @since 1.0.0.
+	 *
+	 * @param array $remote_request_args The current remote request args.
+	 * @return array The modified remote request args.
 	 */
 	private function _make_post_request( $remote_request_args ) {
 		$remote_request_args['method'] = 'POST';
@@ -229,9 +246,9 @@ class Purgely_Purge {
 	/**
 	 * Set the thing to purge.
 	 *
-	 * @since  1.0.0.
+	 * @since 1.0.0.
 	 *
-	 * @param  string $thing    The identifier for the purged item.
+	 * @param string $thing The identifier for the purged item.
 	 * @return void
 	 */
 	public function set_thing( $thing ) {
@@ -241,9 +258,9 @@ class Purgely_Purge {
 	/**
 	 * Get the thing to purge.
 	 *
-	 * @since  1.0.0.
+	 * @since 1.0.0.
 	 *
-	 * @return string    The identifier for the purged item.
+	 * @return string The identifier for the purged item.
 	 */
 	public function get_thing() {
 		return $this->_thing;
@@ -252,9 +269,9 @@ class Purgely_Purge {
 	/**
 	 * Set the type of purge.
 	 *
-	 * @since  1.0.0.
+	 * @since 1.0.0.
 	 *
-	 * @param  string $type    The type of purge to perform.
+	 * @param string $type The type of purge to perform.
 	 * @return void
 	 */
 	public function set_type( $type ) {
@@ -264,9 +281,9 @@ class Purgely_Purge {
 	/**
 	 * Set the args for the purge.
 	 *
-	 * @since  1.0.0.
+	 * @since 1.0.0.
 	 *
-	 * @param  array $purge_args    The args to modify the purge request.
+	 * @param  array $purge_args The args to modify the purge request.
 	 * @return void
 	 */
 	public function set_purge_args( $purge_args ) {
@@ -276,9 +293,9 @@ class Purgely_Purge {
 	/**
 	 * Get the type of purge.
 	 *
-	 * @since  1.0.0.
+	 * @since 1.0.0.
 	 *
-	 * @return string    The type of purge being performed.
+	 * @return string The type of purge being performed.
 	 */
 	public function get_type() {
 		return $this->_type;
@@ -287,9 +304,9 @@ class Purgely_Purge {
 	/**
 	 * Get the args for the purge.
 	 *
-	 * @since  1.0.0.
+	 * @since 1.0.0.
 	 *
-	 * @return string    The args used in the purge request.
+	 * @return string The args used in the purge request.
 	 */
 	public function get_purge_args() {
 		return $this->_purge_args;
@@ -298,9 +315,9 @@ class Purgely_Purge {
 	/**
 	 * Get the response object for the purge.
 	 *
-	 * @since  1.0.0.
+	 * @since 1.0.0.
 	 *
-	 * @return array|WP_Error    The response from the purge request.
+	 * @return array|WP_Error The response from the purge request.
 	 */
 	public function get_response() {
 		return $this->_response;
@@ -309,9 +326,9 @@ class Purgely_Purge {
 	/**
 	 * Set the response for the purge.
 	 *
-	 * @since  1.0.0.
+	 * @since 1.0.0.
 	 *
-	 * @param  WP_Error|object $response    The response for the purge request.
+	 * @param  WP_Error|object $response The response for the purge request.
 	 * @return void
 	 */
 	public function set_response( $response ) {

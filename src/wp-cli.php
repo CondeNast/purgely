@@ -1,9 +1,8 @@
 <?php
 if ( ! class_exists( 'Purgely_Command' ) ) :
+
 	/**
 	 * Define the "fast" WP CLI command.
-	 *
-	 * @since 1.0.0
 	 */
 	class Purgely_Command extends WP_CLI_Command {
 		/**
@@ -61,13 +60,13 @@ if ( ! class_exists( 'Purgely_Command' ) ) :
 		 *   # Purge the 10 latest published posts
 		 *   wp fp $(wp post list --field=ID --post_status=publish --posts_per_page=10)
 		 *
-		 * @since  1.0.0
+		 * @since 1.0.0.
 		 *
 		 * Note that we are using __invoke in order to allow for this to be deployed without an unnecessary subcommand. A
 		 * subcommand is just not needed and would cause additional typing.
 		 *
-		 * @param  array $args          The unflagged args.
-		 * @param  array $assoc_args    The flagged args.
+		 * @param  array $args       The unflagged args.
+		 * @param  array $assoc_args The flagged args.
 		 * @return void
 		 */
 		public function __invoke( $args, $assoc_args ) {
@@ -137,7 +136,7 @@ if ( ! class_exists( 'Purgely_Command' ) ) :
 		/**
 		 * Determine if the args represent a list of IDs.
 		 *
-		 * @param  array $args    The list of args passed to the command.
+		 * @param  array $args The list of args passed to the command.
 		 * @return bool              True if the args are a list of IDs, false if not.
 		 */
 		private function _is_ids( $args ) {
@@ -145,7 +144,7 @@ if ( ! class_exists( 'Purgely_Command' ) ) :
 
 			if ( is_array( $args ) && count( $args ) > 0 ) {
 				foreach ( $args as $id ) {
-					if ( ! is_numeric( $id ) || absint( $id ) != $id ) {
+					if ( ! is_numeric( $id ) || absint( $id ) < 1 ) {
 						$are_ids = false;
 						break;
 					}
@@ -160,21 +159,21 @@ if ( ! class_exists( 'Purgely_Command' ) ) :
 		/**
 		 * Determine if the first arg is a URL.
 		 *
-		 * @param  string $thing    The first argument passed to the function.
+		 * @param  string $thing The first argument passed to the function.
 		 * @return bool                True if the thing is a URL, false if not.
 		 */
 		private function _is_url( $thing ) {
-			return 0 === strpos( $thing, 'http' ) && $thing === esc_url_raw( $thing );
+			return 0 === strpos( $thing, 'http' ) && esc_url_raw( $thing ) === $thing;
 		}
 
 		/**
 		 * Determine if the first arg is a surrogate key.
 		 *
-		 * @param  string $thing    The first argument passed to the function.
+		 * @param  string $thing The first argument passed to the function.
 		 * @return bool                True if the thing is a surrogate key, false if not.
 		 */
 		private function _is_key( $thing ) {
-			return ! empty( $thing ) && $thing === purgely_sanitize_surrogate_key( $thing );
+			return ! empty( $thing ) && purgely_sanitize_surrogate_key( $thing ) === $thing;
 		}
 
 		/**
@@ -182,8 +181,8 @@ if ( ! class_exists( 'Purgely_Command' ) ) :
 		 *
 		 * @since  1.0.0.
 		 *
-		 * @param  string $url           The URL to purge.
-		 * @param  array  $purge_args    Additional args to pass to the purge request.
+		 * @param  string $url        The URL to purge.
+		 * @param  array  $purge_args Additional args to pass to the purge request.
 		 * @return array|bool|WP_Error                   The purge response.
 		 */
 		private function _purge_url( $url, $purge_args ) {
@@ -195,8 +194,8 @@ if ( ! class_exists( 'Purgely_Command' ) ) :
 		 *
 		 * @since  1.0.0.
 		 *
-		 * @param  string $key           The surrogate key to purge.
-		 * @param  array  $purge_args    Additional args to pass to the purge request.
+		 * @param  string $key        The surrogate key to purge.
+		 * @param  array  $purge_args Additional args to pass to the purge request.
 		 * @return array|bool|WP_Error                   The purge response.
 		 */
 		private function _purge_key( $key, $purge_args ) {
@@ -208,7 +207,7 @@ if ( ! class_exists( 'Purgely_Command' ) ) :
 		 *
 		 * @since  1.0.0.
 		 *
-		 * @param  array $purge_args    Additional args to pass to the purge request.
+		 * @param  array $purge_args Additional args to pass to the purge request.
 		 * @return array|bool|WP_Error                   The purge response.
 		 */
 		private function _purge_all( $purge_args ) {
@@ -220,8 +219,8 @@ if ( ! class_exists( 'Purgely_Command' ) ) :
 		 *
 		 * @since  1.0.0.
 		 *
-		 * @param  int   $id            The ID to purge.
-		 * @param  array $purge_args    Additional args to pass to the purge request.
+		 * @param  int   $id         The ID to purge.
+		 * @param  array $purge_args Additional args to pass to the purge request.
 		 * @return array|bool|WP_Error                   The purge response.
 		 */
 		private function _purge_id( $id, $purge_args ) {

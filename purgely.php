@@ -150,7 +150,7 @@ class Purgely {
 		// Set and send the surrogate control header.
 		add_action( 'template_redirect', array( $this, 'send_cache_control' ), 9 );
 
-		// Load in WP CLI
+		// Load in WP CLI.
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			include $this->root_dir . '/wp-cli.php';
 		}
@@ -195,7 +195,7 @@ class Purgely {
 	/**
 	 * Add a key to the list.
 	 *
-	 * @param  string $key    The key to add to the list.
+	 * @param  string $key The key to add to the list.
 	 * @return array             The full list of keys.
 	 */
 	public function add_key( $key ) {
@@ -227,7 +227,7 @@ class Purgely {
 	/**
 	 * Set the TTL for the current request.
 	 *
-	 * @param  int $seconds    The amount of seconds to cache the object for.
+	 * @param  int $seconds The amount of seconds to cache the object for.
 	 * @return int                The amount of seconds to cache the object for.
 	 */
 	public function set_ttl( $seconds ) {
@@ -257,8 +257,8 @@ class Purgely {
 	/**
 	 * Adds a new cache control header.
 	 *
-	 * @param  int    $seconds      The time to set the directive for.
-	 * @param  string $directive    The cache control directive to set.
+	 * @param  int    $seconds   The time to set the directive for.
+	 * @param  string $directive The cache control directive to set.
 	 * @return array                   Array of cache control headers to send.
 	 */
 	public function add_cache_control_header( $seconds, $directive ) {

@@ -4,8 +4,6 @@
  *
  * A big part of this plugin is defining response headers that control the Fastly caching behavior. This class
  * simplifies some of the basic functionality of the header classes.
- *
- * @since 1.0.0.
  */
 abstract class Purgely_Header {
 	/**

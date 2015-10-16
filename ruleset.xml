@@ -9,6 +9,11 @@
     noted where appropriate
     -->
     <rule ref="Squiz.Commenting">
+        <!-- Custom -->
+        <!-- We want class comments, but this rule does not work without a file comment. Remove the noise. -->
+        <exclude name="Squiz.Commenting.ClassComment.Missing" />
+        <!-- End Custom -->
+
         <!-- Diversions from core -->
         <exclude name="Squiz.Commenting.FileComment" />
 
