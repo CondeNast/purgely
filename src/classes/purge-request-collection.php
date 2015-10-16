@@ -1,10 +1,17 @@
 <?php
-
+/**
+ * Issues a collections of purge requests related to a single URL.
+ *
+ * When attempting to purge URLs related to a URL, this class is used to collect all of the individual purge request
+ * objects and manage the purge.
+ */
 class Purgely_Purge_Request_Collection {
 	/**
 	 * Purge request objects.
 	 *
-	 * @var Purgely_Purge    The Purgely_Purge request objects from the purges.
+	 * @since 1.0.0.
+	 *
+	 * @var Purgely_Purge The Purgely_Purge request objects from the purges.
 	 */
 	var $_purge_requests = array();
 
@@ -13,7 +20,7 @@ class Purgely_Purge_Request_Collection {
 	 *
 	 * @since 1.0.0.
 	 *
-	 * @var   array    The objects from the completed purge requests.
+	 * @var array The objects from the completed purge requests.
 	 */
 	var $_responses = array();
 
@@ -22,42 +29,46 @@ class Purgely_Purge_Request_Collection {
 	 *
 	 * @since 1.0.0.
 	 *
-	 * @var   array    Args used for processing the purge request.
+	 * @var array Args used for processing the purge request.
 	 */
 	var $_purge_args = array();
 
 	/**
 	 * The categorized list of URLs to purge.
 	 *
-	 * @var array    The categorized list of URLs.
+	 * @var array The categorized list of URLs.
 	 */
 	var $_urls = array();
 
 	/**
 	 * Construct the object.
 	 *
-	 * @param  string                              $url           The main URL to purge.
-	 * @param  array                               $purge_args    The args for the purges.
+	 * @since 1.0.0.
+	 *
+	 * @param  string $url        The main URL to purge.
+	 * @param  array  $purge_args The args for the purges.
 	 * @return Purgely_Purge_Request_Collection
 	 */
 	public function __construct( $url, $purge_args = array() ) {
-		// Set the args
+		// Set the args.
 		$this->set_purge_args( $purge_args );
 
-		// Get all the related URLs
+		// Get all the related URLs.
 		$urls = $this->get_related_urls( $url );
 
-		// Add the initial URL
+		// Add the initial URL.
 		$urls = array_merge( array( 'url' => array( $url ) ), $urls );
 
-		// Save the URLs
+		// Save the URLs.
 		$this->set_urls( $urls );
 	}
 
 	/**
 	 * Collect the URLs related to the main URL.
 	 *
-	 * @param  string    $url    The main URL.
+	 * @since 1.0.0.
+	 *
+	 * @param  string $url The main URL.
 	 * @return array             The categorized list of related URLs.
 	 */
 	public function get_related_urls( $url ) {
@@ -68,14 +79,16 @@ class Purgely_Purge_Request_Collection {
 	/**
 	 * Iterate through and purge all related URLs.
 	 *
-	 * @param  array    $purge_args    The arguments to send to the purge request.
+	 * @since 1.0.0.
+	 *
+	 * @param  array $purge_args The arguments to send to the purge request.
 	 * @return array                   The list of purge request responses.
 	 */
 	public function purge_related( $purge_args = array() ) {
 		$responses = array();
 		$urls      = $this->get_urls();
 
-		// Iterate through each and purge
+		// Iterate through each and purge.
 		if ( count( $urls ) > 0 ) {
 			foreach ( $urls as $categories ) {
 				foreach ( $categories as $url ) {
@@ -92,6 +105,8 @@ class Purgely_Purge_Request_Collection {
 
 	/**
 	 * Get the collective results of the purge requests.
+	 *
+	 * @since 1.0.0.
 	 *
 	 * @return string    "success" if all purges are successful, "failure" if one or more requests fails.
 	 */
@@ -113,6 +128,8 @@ class Purgely_Purge_Request_Collection {
 	/**
 	 * Get all of the Purgely_Purge objects.
 	 *
+	 * @since 1.0.0.
+	 *
 	 * @return Purgely_Purge    The list of Purgely_Purge objects.
 	 */
 	public function get_purge_requests() {
@@ -122,7 +139,9 @@ class Purgely_Purge_Request_Collection {
 	/**
 	 * Set the purge requests object.
 	 *
-	 * @param  array    $purge_requests    A list of Purgely_Purge objects.
+	 * @since 1.0.0.
+	 *
+	 * @param  array $purge_requests A list of Purgely_Purge objects.
 	 * @return void
 	 */
 	public function set_purge_requests( $purge_requests ) {
@@ -132,7 +151,9 @@ class Purgely_Purge_Request_Collection {
 	/**
 	 * Set an individual purge request object.
 	 *
-	 * @param  Purgely_Purge    $purge_request    A Purgely_Purge object.
+	 * @since 1.0.0.
+	 *
+	 * @param  Purgely_Purge $purge_request A Purgely_Purge object.
 	 * @return void
 	 */
 	public function set_purge_request( $purge_request ) {
@@ -141,6 +162,8 @@ class Purgely_Purge_Request_Collection {
 
 	/**
 	 * Get all of the purge responses.
+	 *
+	 * @since 1.0.0.
 	 *
 	 * @return array    The list of responses.
 	 */
@@ -151,7 +174,9 @@ class Purgely_Purge_Request_Collection {
 	/**
 	 * Set all responses.
 	 *
-	 * @param  array    $responses    A list of HTTP responses.
+	 * @since 1.0.0.
+	 *
+	 * @param  array $responses A list of HTTP responses.
 	 * @return void
 	 */
 	public function set_responses( $responses ) {
@@ -161,7 +186,9 @@ class Purgely_Purge_Request_Collection {
 	/**
 	 * Set an individual response.
 	 *
-	 * @param  WP_Error|object    $response    An individual purge response.
+	 * @since 1.0.0.
+	 *
+	 * @param  WP_Error|object $response An individual purge response.
 	 * @return void
 	 */
 	public function set_response( $response ) {
@@ -170,6 +197,8 @@ class Purgely_Purge_Request_Collection {
 
 	/**
 	 * Get the list of categorized URLs.
+	 *
+	 * @since 1.0.0.
 	 *
 	 * @return array    The list of categorized URLs.
 	 */
@@ -180,7 +209,9 @@ class Purgely_Purge_Request_Collection {
 	/**
 	 * Set the list of categorized URLs.
 	 *
-	 * @param  array    $urls    The list of categorized URLs.
+	 * @since 1.0.0.
+	 *
+	 * @param  array $urls The list of categorized URLs.
 	 * @return void
 	 */
 	public function set_urls( $urls ) {
@@ -190,8 +221,10 @@ class Purgely_Purge_Request_Collection {
 	/**
 	 * Set an individual URL.
 	 *
-	 * @param  string    $url    The URL.
-	 * @param  string    $type    The type of URL.
+	 * @since 1.0.0.
+	 *
+	 * @param  string $url  The URL.
+	 * @param  string $type The type of URL.
 	 * @return void
 	 */
 	public function set_url( $url, $type ) {
@@ -200,6 +233,8 @@ class Purgely_Purge_Request_Collection {
 
 	/**
 	 * Get the purge args.
+	 *
+	 * @since 1.0.0.
 	 *
 	 * @return array    The list of purge args.
 	 */
@@ -210,7 +245,9 @@ class Purgely_Purge_Request_Collection {
 	/**
 	 * Set the purge args.
 	 *
-	 * @param  array    $purge_args    The list of purge args.
+	 * @since 1.0.0.
+	 *
+	 * @param  array $purge_args The list of purge args.
 	 * @return void
 	 */
 	public function set_purge_args( $purge_args ) {

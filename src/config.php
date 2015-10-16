@@ -4,7 +4,7 @@
  *
  * @since 1.0.0.
  */
-if ( ! defined( 'PURGELY_API_ENDPOINT') ) {
+if ( ! defined( 'PURGELY_API_ENDPOINT' ) ) {
 	define( 'PURGELY_API_ENDPOINT', 'https://api.fastly.com/' );
 }
 
@@ -13,7 +13,7 @@ if ( ! defined( 'PURGELY_API_ENDPOINT') ) {
  *
  * @since 1.0.0.
  */
-if ( ! defined( 'PURGELY_FASTLY_KEY') ) {
+if ( ! defined( 'PURGELY_FASTLY_KEY' ) ) {
 	define( 'PURGELY_FASTLY_KEY', '' );
 }
 
@@ -22,7 +22,7 @@ if ( ! defined( 'PURGELY_FASTLY_KEY') ) {
  *
  * @since 1.0.0.
  */
-if ( ! defined( 'PURGELY_FASTLY_SERVICE_ID') ) {
+if ( ! defined( 'PURGELY_FASTLY_SERVICE_ID' ) ) {
 	define( 'PURGELY_FASTLY_SERVICE_ID', '' );
 }
 
@@ -31,7 +31,7 @@ if ( ! defined( 'PURGELY_FASTLY_SERVICE_ID') ) {
  *
  * @since 1.0.0.
  */
-if ( ! defined( 'PURGELY_ALLOW_PURGE_ALL') ) {
+if ( ! defined( 'PURGELY_ALLOW_PURGE_ALL' ) ) {
 	define( 'PURGELY_ALLOW_PURGE_ALL', false );
 }
 

@@ -15,6 +15,7 @@ before_script:
 
 script:
     - composer test
+    - composer style
 
 after_script:
     - php vendor/bin/coveralls -v

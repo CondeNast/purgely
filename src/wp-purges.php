@@ -2,6 +2,7 @@
 /**
  * Singleton for registering default WP purges.
  */
+
 class Purgely_Purges {
 	/**
 	 * The one instance of Purgely_Purges.
@@ -37,9 +38,9 @@ class Purgely_Purges {
 	/**
 	 * Callback for post changing events to purge URLs.
 	 *
-	 * @param  int        $post_id    Post ID.
-	 * @param  WP_Post    $post       Post object.
-	 * @param  bool       $update     Whether this is an existing post being updated or not.
+	 * @param  int     $post_id Post ID.
+	 * @param  WP_Post $post    Post object.
+	 * @param  bool    $update  Whether this is an existing post being updated or not.
 	 * @return void
 	 */
 	public function purge_url( $post_id, $post, $update ) {

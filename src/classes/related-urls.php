@@ -1,51 +1,67 @@
 <?php
 
+/**
+ * Collects URLs related to another URL.
+ *
+ * Attempts to find all URLs that are related to an individual post URL. This is helpful when purging a group of URLs
+ * based on an individual URL.
+ */
 class Purgely_Related_Urls {
 	/**
 	 * The URL from which relationships are determined.
 	 *
-	 * @var string    The URL from which relationships are determined.
+	 * @since 1.0.0.
+	 *
+	 * @var string The URL from which relationships are determined.
 	 */
 	var $_url = '';
 
 	/**
 	 * The post ID from which relationships are determined.
 	 *
-	 * @var string    The post ID from which relationships are determined.
+	 * @since 1.0.0.
+	 *
+	 * @var string The post ID from which relationships are determined.
 	 */
 	var $_post_id = 0;
 
 	/**
 	 * The WP_Post object from which relationships are determined.
 	 *
-	 * @var null|WP_Post    The WP_Post object from which relationships are determined.
+	 * @since 1.0.0.
+	 *
+	 * @var null|WP_Post The WP_Post object from which relationships are determined.
 	 */
 	var $_post = null;
 
 	/**
 	 * The list of URLs related to the main URL.
 	 *
-	 * @var array    The list of URLs related to the main URL.
+	 * @since 1.0.0.
+	 *
+	 * @var array The list of URLs related to the main URL.
 	 */
 	var $_related_urls = array();
 
 	/**
 	 * Construct the object.
 	 *
-	 * @param  array                   $identifiers    An array with an 'id', 'post', or 'url' index. You can send a
-	 *                                                 post ID, a post object or a URL to the class and it will find
-	 *                                                 related URLs.
+	 * @since 1.0.0.
+	 *
+	 * @param  array $identifiers An array with an 'id', 'post', or 'url' index. You can send a
+	 *                            post ID, a post object or a URL to the class and it will find
+	 *                            related URLs.
 	 * @return Purgely_Related_Urls
 	 */
 	public function __construct( $identifiers ) {
-		// Pull the post object from the $identifiers array and setup a standard post object
+		// Pull the post object from the $identifiers array and setup a standard post object.
 		$this->set_post( $this->_determine_post( $identifiers ) );
 
-		// Now that we have the post, let's fill out the other identifiers
+		// Now that we have the post, let's fill out the other identifiers.
 		$this->set_url( get_permalink( $this->get_post() ) );
 		$this->set_post_id( $this->get_post()->ID );
 
-		// Set all of the URLs
+		// Set all of the URLs.
 		$this->_locate_terms_urls( $this->get_post_id(), 'category' );
 		$this->_locate_terms_urls( $this->get_post_id(), 'post_tag' );
 		$this->_locate_author_urls( $this->get_post() );
@@ -60,7 +76,9 @@ class Purgely_Related_Urls {
 	 * WP_Post object. This makes all of the other methods much simpler in that they can operate on a WP_Post object
 	 * instead of various inputs.
 	 *
-	 * @param  array           $identifiers    The list of identifiers used when instantiating the object.
+	 * @since 1.0.0.
+	 *
+	 * @param  array $identifiers The list of identifiers used when instantiating the object.
 	 * @return null|WP_Post                    null if post is not found, otherwise a WP_Post object.
 	 */
 	private function _determine_post( $identifiers ) {
@@ -73,12 +91,12 @@ class Purgely_Related_Urls {
 				$post_id = url_to_postid( $identifiers['url'] );
 			}
 
-			// 'id' can override 'url' because it is more specific
+			// 'id' can override 'url' because it is more specific.
 			if ( isset( $identifiers['id'] ) ) {
 				$post_id = $identifiers['id'];
 			}
 
-			// Get the post from the ID
+			// Get the post from the ID.
 			if ( isset( $post_id ) && absint( $post_id ) > 0 ) {
 				$post = get_post( absint( $post_id ) );
 			}
@@ -90,8 +108,10 @@ class Purgely_Related_Urls {
 	/**
 	 * Get the term link pages for all terms associated with a post in a particular taxonomy.
 	 *
-	 * @param  int       $post_id     Post ID.
-	 * @param  string    $taxonomy    The taxonomy to look for associated terms.
+	 * @since 1.0.0.
+	 *
+	 * @param  int    $post_id  Post ID.
+	 * @param  string $taxonomy The taxonomy to look for associated terms.
 	 * @return array                  The URLs for term pages associated with this post.
 	 */
 	private function _locate_terms_urls( $post_id, $taxonomy ) {
@@ -113,7 +133,9 @@ class Purgely_Related_Urls {
 	/**
 	 * Get author links related to this post.
 	 *
-	 * @param  WP_Post    $post    The post object to search for related author information.
+	 * @since 1.0.0.
+	 *
+	 * @param  WP_Post $post The post object to search for related author information.
 	 * @return array               The related author URLs.
 	 */
 	private function _locate_author_urls( $post ) {
@@ -127,14 +149,16 @@ class Purgely_Related_Urls {
 
 		return array(
 			$author_page,
-			$author_feed
+			$author_feed,
 		);
 	}
 
 	/**
 	 * Get the post type archives associated with the post.
 	 *
-	 * @param  WP_Post    $post    The post object to search for post type information.
+	 * @since 1.0.0.
+	 *
+	 * @param  WP_Post $post The post object to search for post type information.
 	 * @return array               The related post type archive URLs.
 	 */
 	private function _locate_post_type_archive_url( $post ) {
@@ -160,7 +184,9 @@ class Purgely_Related_Urls {
 	/**
 	 * Get all of the feed URLs.
 	 *
-	 * @param  WP_Post    $post    The post object to search for the feed information.
+	 * @since 1.0.0.
+	 *
+	 * @param  WP_Post $post The post object to search for the feed information.
 	 * @return array               The feed URLs.
 	 */
 	private function _locate_feed_urls( $post ) {
@@ -170,7 +196,7 @@ class Purgely_Related_Urls {
 			get_bloginfo_rss( 'rss2_url' ),
 			get_bloginfo_rss( 'atom_url' ),
 			get_bloginfo_rss( 'comments_rss2_url' ),
-			get_post_comments_feed_link( $post->ID )
+			get_post_comments_feed_link( $post->ID ),
 		);
 
 		$this->set_related_urls_by_category( $feeds, 'feed' );
@@ -181,6 +207,8 @@ class Purgely_Related_Urls {
 	/**
 	 * Get the main URL.
 	 *
+	 * @since 1.0.0.
+	 *
 	 * @return string    The main URL.
 	 */
 	public function get_url() {
@@ -190,7 +218,9 @@ class Purgely_Related_Urls {
 	/**
 	 * Set the main URL.
 	 *
-	 * @param  string    $url    The main URL.
+	 * @since 1.0.0.
+	 *
+	 * @param  string $url The main URL.
 	 * @return void
 	 */
 	public function set_url( $url ) {
@@ -199,6 +229,8 @@ class Purgely_Related_Urls {
 
 	/**
 	 * Get the main post ID.
+	 *
+	 * @since 1.0.0.
 	 *
 	 * @return int    The main post ID.
 	 */
@@ -209,7 +241,9 @@ class Purgely_Related_Urls {
 	/**
 	 * Set the main post ID.
 	 *
-	 * @param  int     $post_id    The main post ID.
+	 * @since 1.0.0.
+	 *
+	 * @param  int $post_id The main post ID.
 	 * @return void
 	 */
 	public function set_post_id( $post_id ) {
@@ -218,6 +252,8 @@ class Purgely_Related_Urls {
 
 	/**
 	 * Get the main post object.
+	 *
+	 * @since 1.0.0.
 	 *
 	 * @return WP_Post|null    The main post object.
 	 */
@@ -228,7 +264,9 @@ class Purgely_Related_Urls {
 	/**
 	 * Set the main post object.
 	 *
-	 * @param  WP_Post     $post    The main post object.
+	 * @since 1.0.0.
+	 *
+	 * @param  WP_Post $post The main post object.
 	 * @return void
 	 */
 	public function set_post( $post ) {
@@ -238,7 +276,9 @@ class Purgely_Related_Urls {
 	/**
 	 * Get the related URLs.
 	 *
-	 * @param  string    $type    The category of URL to get. All will be returned if this is left blank.
+	 * @since 1.0.0.
+	 *
+	 * @param  string $type The category of URL to get. All will be returned if this is left blank.
 	 * @return array              The related URLs.
 	 */
 	public function get_related_urls( $type = '' ) {
@@ -254,7 +294,9 @@ class Purgely_Related_Urls {
 	/**
 	 * Set the related URLs array.
 	 *
-	 * @param  array    $urls    The related URLs.
+	 * @since 1.0.0.
+	 *
+	 * @param  array $urls The related URLs.
 	 * @return void
 	 */
 	public function set_related_urls( $urls ) {
@@ -264,8 +306,10 @@ class Purgely_Related_Urls {
 	/**
 	 * Set a single related URL by type of URL.
 	 *
-	 * @param  string    $url     The url to add to the collection.
-	 * @param  string    $type    The category to place the URL in.
+	 * @since 1.0.0.
+	 *
+	 * @param  string $url  The url to add to the collection.
+	 * @param  string $type The category to place the URL in.
 	 * @return void
 	 */
 	public function set_related_url( $url, $type ) {
@@ -275,8 +319,10 @@ class Purgely_Related_Urls {
 	/**
 	 * Set a group of related URLs by type of URL.
 	 *
-	 * @param  array     $urls    The urls to add to the collection.
-	 * @param  string    $type    The category to place the URLs in.
+	 * @since 1.0.0.
+	 *
+	 * @param  array  $urls The urls to add to the collection.
+	 * @param  string $type The category to place the URLs in.
 	 * @return void
 	 */
 	public function set_related_urls_by_category( $urls, $type ) {
