@@ -1,4 +1,7 @@
-## Purgely
+# Purgely
+
+[![Build Status](https://travis-ci.org/CondeNast/purgely.svg?branch=master)](https://travis-ci.org/CondeNast/purgely)
+[![Coverage Status](https://coveralls.io/repos/CondeNast/purgely/badge.svg?branch=master&service=github)](https://coveralls.io/github/CondeNast/purgely?branch=master)
 
 Purgely manages caching and purging behavior for WordPress sites using
 the Fastly edge caching services. The plugin sets up default behaviors

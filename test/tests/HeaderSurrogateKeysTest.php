@@ -90,7 +90,10 @@ class HeaderSurrogateKeysTest extends PHPUnit_Framework_TestCase {
 
 		// Get the headers that were sent
 		$this->assertEquals( $keys_string, $object->get_value() );
-		$this->assertEquals( array( 'Surrogate-Key: ' . $keys_string ), xdebug_get_headers() );
+
+		if ( function_exists( 'xdebug_get_headers' ) ) {
+			$this->assertEquals( array( 'Surrogate-Key: ' . $keys_string ), xdebug_get_headers() );
+		}
 	}
 
 	public function tearDown() {

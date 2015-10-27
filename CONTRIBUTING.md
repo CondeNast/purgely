@@ -84,7 +84,6 @@ in an environment with PHP installed.
 Please note that the tests are executed in the build environment
 against the following PHP versions:
 
-* 5.2
 * 5.3
 * 5.4
 * 5.5
@@ -101,7 +100,7 @@ This project proudly uses the WordPress Coding Style, which is enforced
 by [PHP Code Sniffer] and the [WordPress Coding Standards sniffs].
 There are some small deviations from this standard, which include:
 
-* Code comment alignment...
+* List items here...
 
 To review your code for adherence to the standard, you can use the
 following command:
@@ -139,15 +138,16 @@ person's excellent article].
 
 ## Minimum PHP version
 
-This project aims to be compatible with PHP 5.2, the same version that
-WordPress itself maintains. This may change in future releases.
+This project aims to be compatible with PHP 5.3, as 5.2 just shouldn't
+be used anymore. Note that this minimum requirement could change in the
+future.
 
 ## Acknowledgement
 
 The [Thoughbot's] [contributing.md]  for the [Factory Girl Rails]
 project was a source of inspiration for this document. Thank you!
 
-[code of conduct]:
+[code of conduct]: https://github.com/CondeNast/purgely/blob/master/CONDUCT.md
 [Composer]: https://getcomposer.org/
 [install Composer]: https://getcomposer.org/doc/00-intro.md
 [PHPUnit]: https://phpunit.de/
