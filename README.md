@@ -48,5 +48,5 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[CONTRIBUTING.md document]:
-[Code of Conduct]:
+[CONTRIBUTING.md document]: https://github.com/CondeNast/purgely/blob/master/CONTRIBUTING.md
+[Code of Conduct]: https://github.com/CondeNast/purgely/blob/master/CONDUCT.md
