@@ -147,7 +147,7 @@ WordPress itself maintains. This may change in future releases.
 The [Thoughbot's] [contributing.md]  for the [Factory Girl Rails]
 project was a source of inspiration for this document. Thank you!
 
-[code of conduct]:
+[code of conduct]: https://github.com/CondeNast/purgely/blob/master/CONDUCT.md
 [Composer]: https://getcomposer.org/
 [install Composer]: https://getcomposer.org/doc/00-intro.md
 [PHPUnit]: https://phpunit.de/
