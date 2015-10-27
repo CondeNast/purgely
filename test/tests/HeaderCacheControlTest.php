@@ -51,7 +51,9 @@ class HeaderCacheControlTest extends PHPUnit_Framework_TestCase {
 		$object->send_header();
 
 		// Get the headers that were sent
-		$this->assertEquals( array( 'Cache-Control: ' . $directive . '=' . $seconds ), xdebug_get_headers() );
+		if ( function_exists( 'xdebug_get_headers' ) ) {
+			$this->assertEquals( array( 'Cache-Control: ' . $directive . '=' . $seconds ), xdebug_get_headers() );
+		}
 	}
 
 	public function tearDown() {
