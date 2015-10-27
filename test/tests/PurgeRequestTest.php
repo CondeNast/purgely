@@ -5,6 +5,34 @@ class PurgeRequestTest extends PHPUnit_Framework_TestCase {
 		\WP_Mock::setUp();
 	}
 
+	public function test_purge_sets_all_vars() {
+		$url             = 'http://www.example.org/2015/05/test-post';
+		$expected_result = MockData::purge_url_response_200();
+
+		// Mock the remote request
+		\WP_Mock::wpFunction( 'wp_remote_request', array(
+			'args'   => array(
+				$url,
+				array(
+					'method' => 'PURGE',
+				)
+			),
+			'times'  => 1,
+			'return' => MockData::purge_url_response_200(),
+		) );
+
+		$purge         = new Purgely_Purge();
+		$actual_result = $purge->purge( 'url', $url, array( 'test' => 'value' ) );
+
+		$this->assertEquals( $expected_result, $actual_result );
+		$this->assertEquals( $expected_result, $purge->get_response() );
+
+		// Test that properties are set correctly
+		$this->assertEquals( 'url', $purge->get_type() );
+		$this->assertEquals( $url, $purge->get_thing() );
+		$this->assertEquals( array( 'test' => 'value' ), $purge->get_purge_args() );
+	}
+
 	public function test_successful_purge_request_for_individual_url() {
 		$url             = 'http://www.example.org/2015/05/test-post';
 		$expected_result = MockData::purge_url_response_200();
