@@ -89,13 +89,13 @@ class Purgely_Surrogate_Keys_Header extends Purgely_Header {
 	public function add_keys( $keys ) {
 		$current_keys = $this->get_keys();
 
-		// Combine keys
+		// Combine keys.
 		$keys = array_merge( $current_keys, $keys );
 
-		// De-dupe keys
+		// De-dupe keys.
 		$keys = array_unique( $keys );
 
-		// Rekey the keys
+		// Rekey the keys.
 		$keys = array_values( $keys );
 
 		$this->set_keys( $keys );
