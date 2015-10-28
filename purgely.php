@@ -1,9 +1,11 @@
 <?php
 /**
  * Plugin Name: Purgely
- * Description: Control Fastly purges with laser precision.
+ * Description: A plugin to manage Fastly caching behavior and purging.
  * Author:      Zack Tollman, WIRED Tech Team
  * Version:     1.0.0
+ * Text Domain: purgely
+ * Domain Path: /languages
  */
 
 /**
@@ -154,6 +156,9 @@ class Purgely {
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			include $this->root_dir . '/wp-cli.php';
 		}
+
+		// Load the textdomain.
+		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
 	}
 
 	/**
@@ -268,6 +273,17 @@ class Purgely {
 
 		$this::$cache_control_headers = $headers;
 		return $this::$cache_control_headers;
+	}
+
+	/**
+	 * Load the plugin text domain.
+	 *
+	 * @since 1.0.0.
+	 *
+	 * @return void
+	 */
+	public function load_plugin_textdomain() {
+		load_plugin_textdomain( 'purgely', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 	}
 }
 

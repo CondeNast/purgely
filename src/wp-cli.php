@@ -99,7 +99,7 @@ if ( ! class_exists( 'Purgely_Command' ) ) :
 				$result = $this->_purge_url( $thing, $purge_args );
 
 				if ( 'success' === $result ) {
-					WP_CLI::success( sprintf( __( 'purged %s' ), esc_url( $thing ) ) );
+					WP_CLI::success( sprintf( __( 'purged %s', 'purgely' ), esc_url( $thing ) ) );
 				} else {
 					WP_CLI::error( __( 'URL could not be purged', 'purgely' ) );
 				}
@@ -107,7 +107,7 @@ if ( ! class_exists( 'Purgely_Command' ) ) :
 				$result = $this->_purge_key( $thing, $purge_args );
 
 				if ( 'success' === $result ) {
-					WP_CLI::success( sprintf( __( 'purged %s' ), purgely_sanitize_surrogate_key( $thing ) ) );
+					WP_CLI::success( sprintf( __( 'purged %s', 'purgely' ), purgely_sanitize_surrogate_key( $thing ) ) );
 				} else {
 					WP_CLI::error( __( 'key could not be purged', 'purgely' ) );
 				}
@@ -115,7 +115,7 @@ if ( ! class_exists( 'Purgely_Command' ) ) :
 				$result = $this->_purge_all( $purge_args );
 
 				if ( 'success' === $result ) {
-					WP_CLI::success( __( 'purged all' ) );
+					WP_CLI::success( __( 'purged all', 'purgely' ) );
 				} else {
 					WP_CLI::error( __( 'cache could not be purged', 'purgely' ) );
 				}
