@@ -27,6 +27,13 @@ class PurgeRequestCollectionTest extends PHPUnit_Framework_TestCase {
 
 		$object->set_purge_requests( $fake_requests );
 		$this->assertEquals( $fake_requests, $object->get_purge_requests() );
+
+		$response = (object) array( 'test' );
+		$object->set_response( $response );
+		$this->assertEquals( array( $response ), $object->get_responses() );
+
+		$object->set_url( 'http://example.org', 'test' );
+		$this->assertEquals( array( 'http://example.org' ), $object->get_urls()['test'] );
 	}
 
 	public function test_purge_related() {
