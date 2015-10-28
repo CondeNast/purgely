@@ -18,6 +18,17 @@ class PurgeRequestCollectionTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( $this->get_url_collection(), $object->get_urls() );
 	}
 
+	public function test_unused_getters_and_setters() {
+		$url        = 'http://example.com/2015/09/my-url';
+		$purge_args = array( 'soft-purge' => true );
+		$object     = $this->setup_standard_collection( $url, $purge_args );
+
+		$fake_requests = array( 1, 2 );
+
+		$object->set_purge_requests( $fake_requests );
+		$this->assertEquals( $fake_requests, $object->get_purge_requests() );
+	}
+
 	public function test_purge_related() {
 		$url    = 'http://example.com/2015/09/my-url';
 		$object = $this->setup_standard_collection( $url );
@@ -45,6 +56,11 @@ class PurgeRequestCollectionTest extends PHPUnit_Framework_TestCase {
 		}
 
 		$this->assertEquals( $responses, $object->get_responses() );
+
+		// Ensure that all request objects are indeed request objects
+		foreach ( $object->get_purge_requests() as $purge_request ) {
+			$this->assertInstanceOf( 'Purgely_Purge', $purge_request );
+		}
 	}
 
 	public function test_purge_related_when_there_are_no_urls_to_purge() {
