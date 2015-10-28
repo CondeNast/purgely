@@ -22,6 +22,7 @@
         </whitelist>
         <blacklist>
             <directory suffix=".php">./vendor</directory>
+            <file>./src/config.php</file>
         </blacklist>
     </filter>
 </phpunit>
