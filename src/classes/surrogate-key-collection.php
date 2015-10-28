@@ -67,10 +67,9 @@ class Purgely_Surrogate_Key_Collection {
 	 */
 	private function _add_key_post_ids( $wp_query ) {
 		$keys = array();
-		$ids  = wp_list_pluck( $wp_query->posts, 'ID' );
 
-		foreach ( $ids as $id ) {
-			$keys[] = 'post-' . absint( $id );
+		foreach ( $wp_query->posts as $post ) {
+			$keys[] = 'post-' . absint( $post->ID );
 		}
 
 		return $keys;
