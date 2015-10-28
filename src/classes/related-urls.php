@@ -130,12 +130,14 @@ class Purgely_Related_Urls {
 		$terms   = get_the_terms( $post_id, $taxonomy );
 		$related = array();
 
-		foreach ( $terms as $term ) {
-			$link = get_term_link( $term, $taxonomy );
+		if ( is_array( $terms ) ) {
+			foreach ( $terms as $term ) {
+				$link = get_term_link( $term, $taxonomy );
 
-			if ( ! is_wp_error( $link ) ) {
-				$related[] = $link;
-				$this->set_related_url( $link, $taxonomy );
+				if ( ! is_wp_error( $link ) ) {
+					$related[] = $link;
+					$this->set_related_url( $link, $taxonomy );
+				}
 			}
 		}
 
