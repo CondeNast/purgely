@@ -94,6 +94,9 @@ class Purgely_Purge_Request_Collection {
 				foreach ( $categories as $url ) {
 					$purge             = new Purgely_Purge();
 					$responses[ $url ] = $purge->purge( 'url', $url, $purge_args );
+
+					// Record the object
+					$this->set_purge_request( $purge );
 				}
 			}
 		}
