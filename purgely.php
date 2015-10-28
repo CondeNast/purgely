@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Purgely
- * Description: Control Fastly purges with laser precision.
+ * Description: A plugin to manage Fastly caching behavior and purging.
  * Author:      Zack Tollman, WIRED Tech Team
  * Version:     1.0.0
  * Text Domain: purgely
