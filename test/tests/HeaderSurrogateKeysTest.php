@@ -57,6 +57,34 @@ class HeaderSurrogateKeysTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( array( 'key-1', 'key-2' ), $object->get_keys() );
 	}
 
+	public function test_keys_adding_multiple() {
+		$object = new Purgely_Surrogate_Keys_Header();
+		$keys   = array(
+			'key-1',
+			'key-2',
+		);
+
+		$object->set_keys( $keys );
+
+		$keys2 = array(
+			'key-3',
+			'key-4',
+		);
+
+		$object->add_keys( $keys2 );
+
+		$this->assertEquals( array( 'key-1', 'key-2', 'key-3', 'key-4' ), $object->get_keys() );
+
+		$keys3 = array(
+			'key-4',
+			'key-5',
+		);
+
+		$object->add_keys( $keys3 );
+
+		$this->assertEquals( array( 'key-1', 'key-2', 'key-3', 'key-4', 'key-5' ), $object->get_keys() );
+	}
+
 	public function test_keys_setting_all_keys() {
 		$object = new Purgely_Surrogate_Keys_Header();
 		$keys   = array(

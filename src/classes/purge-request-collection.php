@@ -73,7 +73,7 @@ class Purgely_Purge_Request_Collection {
 	 */
 	public function get_related_urls( $url ) {
 		$related = new Purgely_Related_Urls( array( 'url' => $url ) );
-		return $related->get_related_urls();
+		return $related->locate_all();
 	}
 
 	/**
@@ -92,8 +92,11 @@ class Purgely_Purge_Request_Collection {
 		if ( count( $urls ) > 0 ) {
 			foreach ( $urls as $categories ) {
 				foreach ( $categories as $url ) {
-					$purge = new Purgely_Purge();
+					$purge             = new Purgely_Purge();
 					$responses[ $url ] = $purge->purge( 'url', $url, $purge_args );
+
+					// Record the object.
+					$this->set_purge_request( $purge );
 				}
 			}
 		}

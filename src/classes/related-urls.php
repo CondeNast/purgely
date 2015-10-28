@@ -60,13 +60,25 @@ class Purgely_Related_Urls {
 		// Now that we have the post, let's fill out the other identifiers.
 		$this->set_url( get_permalink( $this->get_post() ) );
 		$this->set_post_id( $this->get_post()->ID );
+	}
 
+	/**
+	 * Locate all of the URLs.
+	 *
+	 * @since 1.0.0.
+	 *
+	 * @return array The related URLs.
+	 */
+	public function locate_all() {
 		// Set all of the URLs.
-		$this->_locate_terms_urls( $this->get_post_id(), 'category' );
-		$this->_locate_terms_urls( $this->get_post_id(), 'post_tag' );
-		$this->_locate_author_urls( $this->get_post() );
-		$this->_locate_post_type_archive_url( $this->get_post() );
-		$this->_locate_feed_urls( $this->get_post() );
+		$this->locate_terms_urls( $this->get_post_id(), 'category' );
+		$this->locate_terms_urls( $this->get_post_id(), 'post_tag' );
+		$this->locate_author_urls( $this->get_post() );
+		$this->locate_post_type_archive_url( $this->get_post() );
+		$this->locate_feed_urls( $this->get_post() );
+
+		// Return what has been found.
+		return $this->get_related_urls();
 	}
 
 	/**
@@ -114,16 +126,18 @@ class Purgely_Related_Urls {
 	 * @param  string $taxonomy The taxonomy to look for associated terms.
 	 * @return array                  The URLs for term pages associated with this post.
 	 */
-	private function _locate_terms_urls( $post_id, $taxonomy ) {
+	public function locate_terms_urls( $post_id, $taxonomy ) {
 		$terms   = get_the_terms( $post_id, $taxonomy );
 		$related = array();
 
-		foreach ( $terms as $term ) {
-			$link = get_term_link( $term, $taxonomy );
+		if ( is_array( $terms ) ) {
+			foreach ( $terms as $term ) {
+				$link = get_term_link( $term, $taxonomy );
 
-			if ( ! is_wp_error( $link ) ) {
-				$related[] = $link;
-				$this->set_related_url( $link, $taxonomy );
+				if ( ! is_wp_error( $link ) ) {
+					$related[] = $link;
+					$this->set_related_url( $link, $taxonomy );
+				}
 			}
 		}
 
@@ -138,7 +152,7 @@ class Purgely_Related_Urls {
 	 * @param  WP_Post $post The post object to search for related author information.
 	 * @return array               The related author URLs.
 	 */
-	private function _locate_author_urls( $post ) {
+	public function locate_author_urls( $post ) {
 		$author = $post->post_author;
 
 		$author_page = get_author_posts_url( $author );
@@ -159,9 +173,9 @@ class Purgely_Related_Urls {
 	 * @since 1.0.0.
 	 *
 	 * @param  WP_Post $post The post object to search for post type information.
-	 * @return array               The related post type archive URLs.
+	 * @return array         The related post type archive URLs.
 	 */
-	private function _locate_post_type_archive_url( $post ) {
+	public function locate_post_type_archive_url( $post ) {
 		$related   = array();
 		$post_type = get_post_type( $post );
 
@@ -176,7 +190,9 @@ class Purgely_Related_Urls {
 			$related[] = $post_type_feed;
 		}
 
-		$this->set_related_urls_by_category( $related, 'post-type-archive' );
+		if ( ! empty( $related ) ) {
+			$this->set_related_urls_by_category( $related, 'post-type-archive' );
+		}
 
 		return $related;
 	}
@@ -189,7 +205,7 @@ class Purgely_Related_Urls {
 	 * @param  WP_Post $post The post object to search for the feed information.
 	 * @return array               The feed URLs.
 	 */
-	private function _locate_feed_urls( $post ) {
+	public function locate_feed_urls( $post ) {
 		$feeds = array(
 			get_bloginfo_rss( 'rdf_url' ),
 			get_bloginfo_rss( 'rss_url' ),
