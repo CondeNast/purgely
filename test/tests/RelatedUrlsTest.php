@@ -243,6 +243,212 @@ class RelatedUrlsTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( array( $term2_link ), $object->get_related_urls( $taxonomy ) );
 	}
 
+	public function test_author_urls_get_set() {
+		$id                = 5;
+		$author_id         = 10;
+		$url               = 'http://example.org/2015/05/test-post';
+		$post              = $this->getMockBuilder( 'WP_Post' )->getMock();
+		$post->ID          = $id;
+		$post->post_author = $author_id;
+
+		$posts_url = 'http://example.org/author/author_name';
+		$feed_url  = $posts_url . '/feed';
+
+		\WP_Mock::wpFunction( 'get_author_posts_url', array(
+			'args' => array(
+				$author_id,
+			),
+			'times' => 1,
+			'return' => $posts_url,
+		) );
+
+		\WP_Mock::wpFunction( 'get_author_feed_link', array(
+			'args' => array(
+				$author_id,
+			),
+			'times' => 1,
+			'return' => $feed_url,
+		) );
+
+		$object = $this->setup_object( 'url', $url, $id, $post );
+		$urls   = $object->locate_author_urls( $post );
+
+		$this->assertEquals( array( $posts_url, $feed_url ), $urls );
+		$this->assertEquals( array( $posts_url, $feed_url ), $object->get_related_urls( 'author' ) );
+	}
+
+	public function test_archive_urls_get_set() {
+		$id                = 5;
+		$author_id         = 10;
+		$post_type         = 'record';
+		$url               = 'http://example.org/2015/05/test-post';
+		$post              = $this->getMockBuilder( 'WP_Post' )->getMock();
+		$post->ID          = $id;
+		$post->post_author = $author_id;
+		$post->post_type   = $post_type;
+
+		$archive_link      = 'http://example.org/' . $post_type;
+		$archive_feed_link = $archive_link . '/feed';
+
+		\WP_Mock::wpFunction( 'get_post_type', array(
+			'args'   => array(
+				$post,
+			),
+			'times'  => 1,
+			'return' => $post_type,
+		) );
+
+		\WP_Mock::wpFunction( 'get_post_type_archive_link', array(
+			'args'   => array(
+				$post_type,
+			),
+			'times'  => 1,
+			'return' => $archive_link,
+		) );
+
+		\WP_Mock::wpFunction( 'get_post_type_archive_feed_link', array(
+			'args'   => array(
+				$post_type,
+			),
+			'times'  => 1,
+			'return' => $archive_feed_link,
+		) );
+
+		$object = $this->setup_object( 'url', $url, $id, $post );
+		$urls   = $object->locate_post_type_archive_url( $post );
+
+		$this->assertEquals( array( $archive_link, $archive_feed_link ), $urls );
+		$this->assertEquals( array( $archive_link, $archive_feed_link ), $object->get_related_urls( 'post-type-archive' ) );
+	}
+
+	public function test_archive_urls_set_correctly_when_archive_is_false() {
+		$id                = 5;
+		$author_id         = 10;
+		$post_type         = 'record';
+		$url               = 'http://example.org/2015/05/test-post';
+		$post              = $this->getMockBuilder( 'WP_Post' )->getMock();
+		$post->ID          = $id;
+		$post->post_author = $author_id;
+		$post->post_type   = $post_type;
+
+		$archive_link      = 'http://example.org/' . $post_type;
+		$archive_feed_link = $archive_link . '/feed';
+
+		\WP_Mock::wpFunction( 'get_post_type', array(
+			'args'   => array(
+				$post,
+			),
+			'times'  => 1,
+			'return' => $post_type,
+		) );
+
+		\WP_Mock::wpFunction( 'get_post_type_archive_link', array(
+			'args'   => array(
+				$post_type,
+			),
+			'times'  => 1,
+			'return' => false,
+		) );
+
+		\WP_Mock::wpFunction( 'get_post_type_archive_feed_link', array(
+			'args'   => array(
+				$post_type,
+			),
+			'times'  => 1,
+			'return' => $archive_feed_link,
+		) );
+
+		$object = $this->setup_object( 'url', $url, $id, $post );
+		$urls   = $object->locate_post_type_archive_url( $post );
+
+		$this->assertEquals( array( $archive_feed_link ), $urls );
+		$this->assertEquals( array( $archive_feed_link ), $object->get_related_urls( 'post-type-archive' ) );
+	}
+
+	public function test_archive_urls_set_correctly_when_archive_feed_is_false() {
+		$id                = 5;
+		$author_id         = 10;
+		$post_type         = 'record';
+		$url               = 'http://example.org/2015/05/test-post';
+		$post              = $this->getMockBuilder( 'WP_Post' )->getMock();
+		$post->ID          = $id;
+		$post->post_author = $author_id;
+		$post->post_type   = $post_type;
+
+		$archive_link = 'http://example.org/' . $post_type;
+
+		\WP_Mock::wpFunction( 'get_post_type', array(
+			'args'   => array(
+				$post,
+			),
+			'times'  => 1,
+			'return' => $post_type,
+		) );
+
+		\WP_Mock::wpFunction( 'get_post_type_archive_link', array(
+			'args'   => array(
+				$post_type,
+			),
+			'times'  => 1,
+			'return' => $archive_link,
+		) );
+
+		\WP_Mock::wpFunction( 'get_post_type_archive_feed_link', array(
+			'args'   => array(
+				$post_type,
+			),
+			'times'  => 1,
+			'return' => false,
+		) );
+
+		$object = $this->setup_object( 'url', $url, $id, $post );
+		$urls   = $object->locate_post_type_archive_url( $post );
+
+		$this->assertEquals( array( $archive_link ), $urls );
+		$this->assertEquals( array( $archive_link ), $object->get_related_urls( 'post-type-archive' ) );
+	}
+
+	public function test_archive_urls_set_correctly_links_are_false() {
+		$id                = 5;
+		$author_id         = 10;
+		$post_type         = 'record';
+		$url               = 'http://example.org/2015/05/test-post';
+		$post              = $this->getMockBuilder( 'WP_Post' )->getMock();
+		$post->ID          = $id;
+		$post->post_author = $author_id;
+		$post->post_type   = $post_type;
+
+		\WP_Mock::wpFunction( 'get_post_type', array(
+			'args'   => array(
+				$post,
+			),
+			'times'  => 1,
+			'return' => $post_type,
+		) );
+
+		\WP_Mock::wpFunction( 'get_post_type_archive_link', array(
+			'args'   => array(
+				$post_type,
+			),
+			'times'  => 1,
+			'return' => false,
+		) );
+
+		\WP_Mock::wpFunction( 'get_post_type_archive_feed_link', array(
+			'args'   => array(
+				$post_type,
+			),
+			'times'  => 1,
+			'return' => false,
+		) );
+
+		$object = $this->setup_object( 'url', $url, $id, $post );
+		$urls   = $object->locate_post_type_archive_url( $post );
+
+		$this->assertEquals( array(), $urls );
+		$this->assertEquals( array(), $object->get_related_urls( 'post-type-archive' ) );
+	}
+
 	/**
 	 * Setup a Purgely_Related object.
 	 *

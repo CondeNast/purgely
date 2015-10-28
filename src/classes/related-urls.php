@@ -173,9 +173,9 @@ class Purgely_Related_Urls {
 	 * @since 1.0.0.
 	 *
 	 * @param  WP_Post $post The post object to search for post type information.
-	 * @return array               The related post type archive URLs.
+	 * @return array         The related post type archive URLs.
 	 */
-	private function locate_post_type_archive_url( $post ) {
+	public function locate_post_type_archive_url( $post ) {
 		$related   = array();
 		$post_type = get_post_type( $post );
 
@@ -190,7 +190,9 @@ class Purgely_Related_Urls {
 			$related[] = $post_type_feed;
 		}
 
-		$this->set_related_urls_by_category( $related, 'post-type-archive' );
+		if ( ! empty( $related ) ) {
+			$this->set_related_urls_by_category( $related, 'post-type-archive' );
+		}
 
 		return $related;
 	}
