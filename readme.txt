@@ -116,6 +116,3 @@ unless it is cached within the app. Changing this value changes the value for th
 
 = 1.0.0 =
 Initial release.
-
-= 0.5 =
-This version fixes a security related bug.  Upgrade immediately.
