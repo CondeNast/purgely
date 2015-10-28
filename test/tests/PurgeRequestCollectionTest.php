@@ -33,7 +33,8 @@ class PurgeRequestCollectionTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( array( $response ), $object->get_responses() );
 
 		$object->set_url( 'http://example.org', 'test' );
-		$this->assertEquals( array( 'http://example.org' ), $object->get_urls()['test'] );
+		$urls = $object->get_urls();
+		$this->assertEquals( array( 'http://example.org' ), $urls['test'] );
 	}
 
 	public function test_purge_related() {
