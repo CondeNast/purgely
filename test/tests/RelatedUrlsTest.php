@@ -539,6 +539,303 @@ class RelatedUrlsTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( array_values( $feed_urls ), $object->get_related_urls( 'feed' ) );
 	}
 
+	public function test_locate_all_urls() {
+		$id                = 5;
+		$author_id         = 10;
+		$post_type         = 'record';
+		$url               = 'http://example.org/2015/05/test-post';
+		$post              = $this->getMockBuilder( 'WP_Post' )->getMock();
+		$post->ID          = $id;
+		$post->post_author = $author_id;
+		$post->post_type   = $post_type;
+
+		$urls = array();
+
+		$taxonomy          = 'category';
+
+		$term1 = (object) array(
+			'term_id'          => '1',
+			'name'             => 'Bologne',
+			'slug'             => 'bologne',
+			'term_group'       => '',
+			'term_taxonomy_id' => '25',
+			'taxonomy'         => $taxonomy,
+			'description'      => '',
+			'parent'           => '',
+			'count'            => '10'
+		);
+
+		$term1_link = 'http://example.org/' . $taxonomy . '/' . $term1->slug;
+
+		$term2 = (object) array(
+			'term_id'          => '4',
+			'name'             => 'Ham',
+			'slug'             => 'ham',
+			'term_group'       => '',
+			'term_taxonomy_id' => '23',
+			'taxonomy'         => $taxonomy,
+			'description'      => '',
+			'parent'           => '',
+			'count'            => '64'
+		);
+
+		$term2_link = 'http://example.org/' . $taxonomy . '/' . $term2->slug;
+
+		\WP_Mock::wpFunction( 'get_the_terms', array(
+			'args' => array(
+				$id,
+				$taxonomy,
+			),
+			'times' => 1,
+			'return' => array(
+				$term1,
+				$term2,
+			),
+		) );
+
+		\WP_Mock::wpFunction( 'get_term_link', array(
+			'args' => array(
+				$term1,
+				$taxonomy,
+			),
+			'times' => 1,
+			'return' => $term1_link,
+		) );
+
+		\WP_Mock::wpFunction( 'get_term_link', array(
+			'args' => array(
+				$term2,
+				$taxonomy,
+			),
+			'times' => 1,
+			'return' => $term2_link,
+		) );
+
+		\WP_Mock::wpFunction( 'is_wp_error', array(
+			'args' => array(
+				$term1_link,
+			),
+			'times' => 1,
+			'return' => false,
+		) );
+
+		\WP_Mock::wpFunction( 'is_wp_error', array(
+			'args' => array(
+				$term2_link,
+			),
+			'times' => 1,
+			'return' => false,
+		) );
+
+		$urls[ $taxonomy ] = array(
+			$term1_link,
+			$term2_link,
+		);
+
+		$taxonomy          = 'post_tag';
+
+		$term1 = (object) array(
+			'term_id'          => '1',
+			'name'             => 'Bologne',
+			'slug'             => 'bologne',
+			'term_group'       => '',
+			'term_taxonomy_id' => '25',
+			'taxonomy'         => $taxonomy,
+			'description'      => '',
+			'parent'           => '',
+			'count'            => '10'
+		);
+
+		$term1_link = 'http://example.org/' . $taxonomy . '/' . $term1->slug;
+
+		$term2 = (object) array(
+			'term_id'          => '4',
+			'name'             => 'Ham',
+			'slug'             => 'ham',
+			'term_group'       => '',
+			'term_taxonomy_id' => '23',
+			'taxonomy'         => $taxonomy,
+			'description'      => '',
+			'parent'           => '',
+			'count'            => '64'
+		);
+
+		$term2_link = 'http://example.org/' . $taxonomy . '/' . $term2->slug;
+
+		\WP_Mock::wpFunction( 'get_the_terms', array(
+			'args' => array(
+				$id,
+				$taxonomy,
+			),
+			'times' => 1,
+			'return' => array(
+				$term1,
+				$term2,
+			),
+		) );
+
+		\WP_Mock::wpFunction( 'get_term_link', array(
+			'args' => array(
+				$term1,
+				$taxonomy,
+			),
+			'times' => 1,
+			'return' => $term1_link,
+		) );
+
+		\WP_Mock::wpFunction( 'get_term_link', array(
+			'args' => array(
+				$term2,
+				$taxonomy,
+			),
+			'times' => 1,
+			'return' => $term2_link,
+		) );
+
+		\WP_Mock::wpFunction( 'is_wp_error', array(
+			'args' => array(
+				$term1_link,
+			),
+			'times' => 1,
+			'return' => false,
+		) );
+
+		\WP_Mock::wpFunction( 'is_wp_error', array(
+			'args' => array(
+				$term2_link,
+			),
+			'times' => 1,
+			'return' => false,
+		) );
+
+		$urls[ $taxonomy ] = array(
+			$term1_link,
+			$term2_link,
+		);
+
+		$posts_url = 'http://example.org/author/author_name';
+		$feed_url  = $posts_url . '/feed';
+
+		\WP_Mock::wpFunction( 'get_author_posts_url', array(
+			'args' => array(
+				$author_id,
+			),
+			'times' => 1,
+			'return' => $posts_url,
+		) );
+
+		\WP_Mock::wpFunction( 'get_author_feed_link', array(
+			'args' => array(
+				$author_id,
+			),
+			'times' => 1,
+			'return' => $feed_url,
+		) );
+
+		$urls['author'] = array(
+			$posts_url,
+			$feed_url,
+		);
+
+		$archive_link      = 'http://example.org/' . $post_type;
+		$archive_feed_link = $archive_link . '/feed';
+
+		\WP_Mock::wpFunction( 'get_post_type', array(
+			'args'   => array(
+				$post,
+			),
+			'times'  => 1,
+			'return' => $post_type,
+		) );
+
+		\WP_Mock::wpFunction( 'get_post_type_archive_link', array(
+			'args'   => array(
+				$post_type,
+			),
+			'times'  => 1,
+			'return' => $archive_link,
+		) );
+
+		\WP_Mock::wpFunction( 'get_post_type_archive_feed_link', array(
+			'args'   => array(
+				$post_type,
+			),
+			'times'  => 1,
+			'return' => $archive_feed_link,
+		) );
+
+		$urls['post-type-archive'] = array(
+			$archive_link,
+			$archive_feed_link,
+		);
+
+		$base = 'http://example.org/feed/';
+
+		$feed_urls = array(
+			'rdf_url'           => $base . 'rdf',
+			'rss_url'           => $base . 'rss',
+			'rss2_url'          => $base . 'rss2',
+			'atom_url'          => $base . 'atom',
+			'comments_rss2_url' => $base . 'comments_rss2',
+			'post_comments'     => $url . '/comments/feed',
+		);
+
+		\WP_Mock::wpFunction( 'get_bloginfo_rss', array(
+			'args'   => array(
+				'rdf_url',
+			),
+			'times'  => 1,
+			'return' => $feed_urls['rdf_url'],
+		) );
+
+		\WP_Mock::wpFunction( 'get_bloginfo_rss', array(
+			'args'   => array(
+				'rss_url',
+			),
+			'times'  => 1,
+			'return' => $feed_urls['rss_url'],
+		) );
+
+		\WP_Mock::wpFunction( 'get_bloginfo_rss', array(
+			'args'   => array(
+				'rss2_url',
+			),
+			'times'  => 1,
+			'return' => $feed_urls['rss2_url'],
+		) );
+
+		\WP_Mock::wpFunction( 'get_bloginfo_rss', array(
+			'args'   => array(
+				'atom_url',
+			),
+			'times'  => 1,
+			'return' => $base . 'atom',
+		) );
+
+		\WP_Mock::wpFunction( 'get_bloginfo_rss', array(
+			'args'   => array(
+				'comments_rss2_url',
+			),
+			'times'  => 1,
+			'return' => $feed_urls['comments_rss2_url'],
+		) );
+
+		\WP_Mock::wpFunction( 'get_post_comments_feed_link', array(
+			'args'   => array(
+				$id,
+			),
+			'times'  => 1,
+			'return' => $feed_urls['post_comments'],
+		) );
+
+		$urls['feed'] = array_values( $feed_urls );
+
+		$object = $this->setup_object( 'url', $url, $id, $post );
+		$object->locate_all();
+
+		$this->assertEquals( $urls, $object->get_related_urls() );
+	}
+
 	/**
 	 * Setup a Purgely_Related object.
 	 *
