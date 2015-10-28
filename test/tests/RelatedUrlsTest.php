@@ -44,6 +44,24 @@ class RelatedUrlsTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( $post, $object->get_post() );
 	}
 
+	public function test_setting_urls() {
+		$id       = 5;
+		$url      = 'http://example.org/2015/05/test-post';
+		$post     = $this->getMockBuilder( 'WP_Post' )->getMock();
+		$post->ID = $id;
+
+		$object = $this->setup_object( 'url', $url, $id, $post );
+
+		$urls = array(
+			'http://example.org/2015/05/test-1',
+			'http://example.org/2015/05/test-2',
+		);
+
+		$object->set_related_urls( $urls );
+
+		$this->assertEquals( $urls, $object->get_related_urls() );
+	}
+
 	public function test_generating_term_urls() {
 		$id       = 5;
 		$url      = 'http://example.org/2015/05/test-post';
