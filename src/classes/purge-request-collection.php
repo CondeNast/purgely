@@ -73,7 +73,7 @@ class Purgely_Purge_Request_Collection {
 	 */
 	public function get_related_urls( $url ) {
 		$related = new Purgely_Related_Urls( array( 'url' => $url ) );
-		return $related->get_related_urls();
+		return $related->locate_all();
 	}
 
 	/**
