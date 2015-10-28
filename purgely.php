@@ -4,6 +4,8 @@
  * Description: Control Fastly purges with laser precision.
  * Author:      Zack Tollman, WIRED Tech Team
  * Version:     1.0.0
+ * Text Domain: purgely
+ * Domain Path: /languages
  */
 
 /**
