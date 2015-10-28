@@ -449,6 +449,78 @@ class RelatedUrlsTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( array(), $object->get_related_urls( 'post-type-archive' ) );
 	}
 
+	public function test_feed_links_are_set_correctly() {
+		$id       = 5;
+		$url      = 'http://example.org/2015/05/test-post';
+		$post     = $this->getMockBuilder( 'WP_Post' )->getMock();
+		$post->ID = $id;
+
+		$base = 'http://example.org/feed/';
+
+		$feed_urls = array(
+			'rdf_url'           => $base . 'rdf',
+			'rss_url'           => $base . 'rss',
+			'rss2_url'          => $base . 'rss2',
+			'atom_url'          => $base . 'atom',
+			'comments_rss2_url' => $base . 'comments_rss2',
+			'post_comments'     => $url . '/comments/feed',
+		);
+
+		\WP_Mock::wpFunction( 'get_bloginfo_rss', array(
+			'args'   => array(
+				'rdf_url',
+			),
+			'times'  => 1,
+			'return' => $feed_urls['rdf_url'],
+		) );
+
+		\WP_Mock::wpFunction( 'get_bloginfo_rss', array(
+			'args'   => array(
+				'rss_url',
+			),
+			'times'  => 1,
+			'return' => $feed_urls['rss_url'],
+		) );
+
+		\WP_Mock::wpFunction( 'get_bloginfo_rss', array(
+			'args'   => array(
+				'rss2_url',
+			),
+			'times'  => 1,
+			'return' => $feed_urls['rss2_url'],
+		) );
+
+		\WP_Mock::wpFunction( 'get_bloginfo_rss', array(
+			'args'   => array(
+				'atom_url',
+			),
+			'times'  => 1,
+			'return' => $base . 'atom',
+		) );
+
+		\WP_Mock::wpFunction( 'get_bloginfo_rss', array(
+			'args'   => array(
+				'comments_rss2_url',
+			),
+			'times'  => 1,
+			'return' => $feed_urls['comments_rss2_url'],
+		) );
+
+		\WP_Mock::wpFunction( 'get_post_comments_feed_link', array(
+			'args'   => array(
+				$id,
+			),
+			'times'  => 1,
+			'return' => $feed_urls['post_comments'],
+		) );
+
+		$object = $this->setup_object( 'url', $url, $id, $post );
+		$urls   = $object->locate_feed_urls( $post );
+
+		$this->assertEquals( array_values( $feed_urls ), $urls );
+		$this->assertEquals( array_values( $feed_urls ), $object->get_related_urls( 'feed' ) );
+	}
+
 	/**
 	 * Setup a Purgely_Related object.
 	 *

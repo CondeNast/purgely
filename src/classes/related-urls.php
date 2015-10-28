@@ -205,7 +205,7 @@ class Purgely_Related_Urls {
 	 * @param  WP_Post $post The post object to search for the feed information.
 	 * @return array               The feed URLs.
 	 */
-	private function locate_feed_urls( $post ) {
+	public function locate_feed_urls( $post ) {
 		$feeds = array(
 			get_bloginfo_rss( 'rdf_url' ),
 			get_bloginfo_rss( 'rss_url' ),
