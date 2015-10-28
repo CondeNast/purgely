@@ -137,6 +137,7 @@ class SurrogateKeyCollectionTest extends PHPUnit_Framework_TestCase {
 		) );
 
 		$object = new Purgely_Surrogate_Key_Collection( $wp_query );
+		$object->set_key( 'test-key' );
 
 		$expected_keys = array (
 			0 => 'post-' . $wp_query->post->ID ,
@@ -146,6 +147,7 @@ class SurrogateKeyCollectionTest extends PHPUnit_Framework_TestCase {
 			4 => 'post_tag-' . $post_tag[0]->slug,
 			5 => 'post_tag-' . $post_tag[1]->slug,
 			6 => 'author-' . $wp_query->post->post_author,
+			7 => 'test-key',
 		);
 
 		$this->assertEquals( $expected_keys, $object->get_keys() );
