@@ -61,7 +61,6 @@ class Purgely_Purges {
 			'save_post',
 			'deleted_post',
 			'trashed_post',
-			'edit_post',
 			'delete_attachment',
 		);
 	}
