@@ -48,7 +48,7 @@ class Purgely_Purges {
 			return;
 		}
 
-		purgely_purge_url( get_permalink( $post_id ), array( 'related' => true ) );
+		purgely_purge_surrogate_key( 'post-' . absint( $post_id ) );
 	}
 
 	/**
