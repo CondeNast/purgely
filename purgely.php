@@ -154,7 +154,7 @@ class Purgely {
 
 		// Load in WP CLI.
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
-			include $this->root_dir . '/wp-cli.php';
+			include $this->src_dir . '/wp-cli.php';
 		}
 
 		// Load the textdomain.
