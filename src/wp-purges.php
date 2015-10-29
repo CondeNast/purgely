@@ -31,7 +31,7 @@ class Purgely_Purges {
 	 */
 	public function __construct() {
 		foreach ( $this->_purge_actions() as $action ) {
-			add_action( $action, array( $this, 'purge_url' ), 10, 3 );
+			add_action( $action, array( $this, 'purge' ), 10, 3 );
 		}
 	}
 
@@ -43,7 +43,7 @@ class Purgely_Purges {
 	 * @param  bool    $update  Whether this is an existing post being updated or not.
 	 * @return void
 	 */
-	public function purge_url( $post_id, $post, $update ) {
+	public function purge( $post_id, $post, $update ) {
 		if ( ! in_array( get_post_status( $post_id ), array( 'publish', 'trash' ) ) ) {
 			return;
 		}
