@@ -221,6 +221,15 @@ class Purgely {
 	 * @return void
 	 */
 	public function send_surrogate_control() {
+		/**
+		 * If a user is logged in, surrogate control headers should be ignored. We do not want to cache any logged in
+		 * user views. WordPress sets a "Cache-Control:no-cache, must-revalidate, max-age=0" header for logged in views
+		 * and this should be sufficient for keeping logged in views uncached.
+		 */
+		if ( is_user_logged_in() ) {
+			return;
+		}
+
 		$surrogate_control = $this::$surrogate_control_header;
 		$seconds = apply_filters( 'purgely_surrogate_control', $surrogate_control->get_seconds() );
 
@@ -246,6 +255,15 @@ class Purgely {
 	 * @return void
 	 */
 	public function send_cache_control() {
+		/**
+		 * If a user is logged in, surrogate control headers should be ignored. We do not want to cache any logged in
+		 * user views. WordPress sets a "Cache-Control:no-cache, must-revalidate, max-age=0" header for logged in views
+		 * and this should be sufficient for keeping logged in views uncached.
+		 */
+		if ( is_user_logged_in() ) {
+			return;
+		}
+
 		$headers = $this::$cache_control_headers;
 
 		do_action( 'purgely_pre_send_cache_control', $headers );
