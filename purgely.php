@@ -144,7 +144,7 @@ class Purgely {
 		}
 
 		// Send the surrogate keys.
-		add_action( 'wp', array( $this, 'send_surrogate_keys' ), 101 );
+		add_action( 'template_redirect', array( $this, 'send_surrogate_keys' ), 9 );
 
 		// Set and send the surrogate control header.
 		add_action( 'template_redirect', array( $this, 'send_surrogate_control' ), 9 );
