@@ -79,7 +79,7 @@ class Purgely_Purge {
 
 		// Set up our default args.
 		$default_args = array(
-			'soft-purge' => false,
+			'purge-type' => ( defined( 'PURGELY_DEFAULT_PURGE_TYPE' ) ) ? PURGELY_DEFAULT_PURGE_TYPE : 'instant',
 		);
 
 		$purge_args = array_merge( $default_args, $purge_args );
@@ -179,7 +179,7 @@ class Purgely_Purge {
 	 * @return array The potentially modified remote request args.
 	 */
 	private function _maybe_add_soft_purge( $purge_args, $remote_request_args ) {
-		if ( isset( $purge_args['soft-purge'] ) && true === $purge_args['soft-purge'] ) {
+		if ( isset( $purge_args['purge-type'] ) && 'soft' === $purge_args['purge-type'] ) {
 			$remote_request_args = $this->_add_soft_purge( $remote_request_args );
 		}
 
