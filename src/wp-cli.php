@@ -90,7 +90,7 @@ if ( ! class_exists( 'Purgely_Command' ) ) :
 
 			if ( isset( $assoc_args['soft'] ) ) {
 				$purge_args['purge-type'] = 'soft';
-			} else if ( $assoc_args['instant'] ) {
+			} else if ( isset( $assoc_args['instant'] ) ) {
 				$purge_args['purge-type'] = 'instant';
 			}
 
