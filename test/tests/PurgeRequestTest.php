@@ -15,6 +15,9 @@ class PurgeRequestTest extends PHPUnit_Framework_TestCase {
 				$url,
 				array(
 					'method' => 'PURGE',
+					'headers' => array(
+						'Fastly-Soft-Purge' => 1,
+					),
 				)
 			),
 			'times'  => 1,
@@ -43,6 +46,9 @@ class PurgeRequestTest extends PHPUnit_Framework_TestCase {
 				$url,
 				array(
 					'method' => 'PURGE',
+					'headers' => array(
+						'Fastly-Soft-Purge' => 1,
+					),
 				)
 			),
 			'times'  => 1,
@@ -71,7 +77,7 @@ class PurgeRequestTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( 'success', $purge->get_result() );
 	}
 
-	public function test_successful_purge_request_for_individual_url_with_soft_purge() {
+	public function test_successful_purge_request_for_individual_url_with_instant_purge() {
 		$url             = 'http://www.example.org/2015/05/test-post';
 		$expected_result = MockData::purge_url_response_200();
 
@@ -81,9 +87,6 @@ class PurgeRequestTest extends PHPUnit_Framework_TestCase {
 				$url,
 				array(
 					'method'  => 'PURGE',
-					'headers' => array(
-						'Fastly-Soft-Purge' => 1,
-					),
 				),
 			),
 			'times'  => 1,
@@ -91,7 +94,7 @@ class PurgeRequestTest extends PHPUnit_Framework_TestCase {
 		) );
 
 		$purge         = new Purgely_Purge();
-		$actual_result = $purge->purge( 'url', $url, array( 'soft-purge' => true ) );
+		$actual_result = $purge->purge( 'url', $url, array( 'purge-type' => 'instant' ) );
 
 		$this->assertEquals( $expected_result, $actual_result );
 		$this->assertEquals( $expected_result, $purge->get_response() );
@@ -122,6 +125,9 @@ class PurgeRequestTest extends PHPUnit_Framework_TestCase {
 				$url,
 				array(
 					'method' => 'PURGE',
+					'headers' => array(
+						'Fastly-Soft-Purge' => 1,
+					),
 				)
 			),
 			'times'  => 1,
@@ -163,6 +169,7 @@ class PurgeRequestTest extends PHPUnit_Framework_TestCase {
 					'method'  => 'POST',
 					'headers' => array(
 						'Fastly-Key' => PURGELY_FASTLY_KEY,
+						'Fastly-Soft-Purge' => 1,
 					),
 				),
 			),
@@ -211,6 +218,7 @@ class PurgeRequestTest extends PHPUnit_Framework_TestCase {
 					'method'  => 'POST',
 					'headers' => array(
 						'Fastly-Key' => PURGELY_FASTLY_KEY,
+						'Fastly-Soft-Purge' => 1,
 					),
 				),
 			),
@@ -258,6 +266,7 @@ class PurgeRequestTest extends PHPUnit_Framework_TestCase {
 					'method'  => 'POST',
 					'headers' => array(
 						'Fastly-Key' => PURGELY_FASTLY_KEY,
+						'Fastly-Soft-Purge' => 1,
 					),
 				),
 			),

@@ -11,5 +11,6 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue( defined( 'PURGELY_ENABLE_STALE_WHILE_ERROR' ) );
 		$this->assertTrue( defined( 'PURGELY_STALE_WHILE_ERROR_TTL' ) );
 		$this->assertTrue( defined( 'PURGELY_SURROGATE_CONTROL_TTL' ) );
+		$this->assertTrue( defined( 'PURGELY_DEFAULT_PURGE_TYPE' ) );
 	}
 }
