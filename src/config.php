@@ -79,3 +79,14 @@ if ( ! defined( 'PURGELY_STALE_WHILE_ERROR_TTL' ) ) {
 if ( ! defined( 'PURGELY_SURROGATE_CONTROL_TTL' ) ) {
 	define( 'PURGELY_SURROGATE_CONTROL_TTL', 60 * 5 ); // 5 minutes
 }
+
+/**
+ * Set the default purge type for all purges.
+ *
+ * The currently supported values are "soft" and "instant".
+ *
+ * @since 1.0.0.
+ */
+if ( ! defined( 'PURGELY_DEFAULT_PURGE_TYPE' ) ) {
+	define( 'PURGELY_DEFAULT_PURGE_TYPE', 'soft' );
+}

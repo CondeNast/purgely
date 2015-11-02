@@ -31,7 +31,17 @@ if ( ! class_exists( 'Purgely_Command' ) ) :
 		 *
 		 * [--soft]
 		 *
-		 * : Issue a Fastly "soft purge" for the purge request or requests.
+		 * : Issue a Fastly "soft purge" for the purge request or requests. Note that the default behavior without this
+		 * flag depends on the PURGELY_DEFAULT_PURGE_TYPE configuration value. If PURGELY_DEFAULT_PURGE_TYPE is set to
+		 * "soft", soft purges will be issued by default. If PURGELY_DEFAULT_PURGE_TYPE is set to "instant",
+		 * setting the "soft" flag will change the purge to soft.
+		 *
+		 * [--instant]
+		 *
+		 * : Issue an instant Fastly purge for the purge request or requests. Note that the default behavior without
+		 * this flag depends on the PURGELY_DEFAULT_PURGE_TYPE configuration value. If PURGELY_DEFAULT_PURGE_TYPE is set
+		 * to "instant", instant purges will be issued by default. If PURGELY_DEFAULT_PURGE_TYPE is set to "soft",
+		 * setting the "instant" flag will change the purge to instant.
 		 *
 		 * ## EXAMPLES
 		 *
@@ -47,6 +57,7 @@ if ( ! class_exists( 'Purgely_Command' ) ) :
 		 *   # Add purge args
 		 *   wp fp http://www.wired.com/category/design/ --soft
 		 *   wp fp section-front --soft
+		 *   wp fp --all --instant
 		 *
 		 *   # Purge related URLs
 		 *   wp fp http://www.wired.com/2015/10/apple-google-war --related
@@ -74,9 +85,14 @@ if ( ! class_exists( 'Purgely_Command' ) ) :
 			$thing = ( isset( $args[0] ) ) ? $args[0] : '';
 
 			// Collect the secondary arguments.
-			$purge_args               = array();
-			$purge_args['soft-purge'] = ( isset( $assoc_args['soft'] ) ) ? true : false;
-			$purge_args['related']    = ( isset( $assoc_args['related'] ) ) ? true : false;
+			$purge_args            = array();
+			$purge_args['related'] = ( isset( $assoc_args['related'] ) ) ? true : false;
+
+			if ( isset( $assoc_args['soft'] ) ) {
+				$purge_args['purge-type'] = 'soft';
+			} else if ( $assoc_args['instant'] ) {
+				$purge_args['purge-type'] = 'instant';
+			}
 
 			// Determine the type of request.
 			if ( true === $this->_is_ids( $args ) ) {
