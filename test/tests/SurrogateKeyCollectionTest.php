@@ -121,6 +121,12 @@ class SurrogateKeyCollectionTest extends PHPUnit_Framework_TestCase {
 			)
 		);
 
+		\WP_Mock::wpFunction( 'get_queried_object', array(
+			'args'   => array(),
+			'times'  => 5,
+			'return' => $wp_query->post
+		) );
+
 		\WP_Mock::wpFunction( 'get_the_terms', array(
 			'args' => array(
 				\WP_Mock\Functions::type( 'int' ),
@@ -207,12 +213,31 @@ class SurrogateKeyCollectionTest extends PHPUnit_Framework_TestCase {
 			clone $post2,
 		);
 
+		$category = (object) array(
+			'term_id'          => '4',
+			'name'             => 'Ham',
+			'slug'             => 'ham',
+			'term_group'       => '',
+			'term_taxonomy_id' => '23',
+			'taxonomy'         => 'category',
+			'description'      => '',
+			'parent'           => '',
+			'count'            => '64'
+		);
+
+		\WP_Mock::wpFunction( 'get_queried_object', array(
+			'args'   => array(),
+			'times'  => 1,
+			'return' => $category
+		) );
+
 		$object = new Purgely_Surrogate_Key_Collection( $wp_query );
 
 		$expected_keys = array (
 			0 => 'post-' . $wp_query->post->ID ,
 			1 => 'post-' . $post2->ID ,
 			2 => 'template-' . $template_type,
+			3 => 'category-' . $category->slug,
 		);
 
 		$this->assertEquals( $expected_keys, $object->get_keys() );
