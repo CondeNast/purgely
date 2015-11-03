@@ -46,30 +46,30 @@ if ( ! class_exists( 'Purgely_Command' ) ) :
 		 * ## EXAMPLES
 		 *
 		 *   # Purge a url
-		 *   wp fp http://www.wired.com/category/design/
+		 *   wp fastly purge http://www.wired.com/category/design/
 		 *
 		 *   # Purge a key
-		 *   wp fp section-front
+		 *   wp fastly purge section-front
 		 *
 		 *   # Purge all
-		 *   wp fp all
+		 *   wp fastly purge all
 		 *
 		 *   # Add purge args
-		 *   wp fp http://www.wired.com/category/design/ --soft
-		 *   wp fp section-front --soft
-		 *   wp fp --all --instant
+		 *   wp fastly purge http://www.wired.com/category/design/ --soft
+		 *   wp fastly purge section-front --soft
+		 *   wp fastly purge --all --instant
 		 *
 		 *   # Purge related URLs
-		 *   wp fp http://www.wired.com/2015/10/apple-google-war --related
+		 *   wp fastly purge http://www.wired.com/2015/10/apple-google-war --related
 		 *
 		 *   # Purge a list of posts
-		 *   wp fp 471930 27501 23857 24581 66038
+		 *   wp fastly purge 471930 27501 23857 24581 66038
 		 *
 		 *   # Purge a list of posts and related URLs
-		 *   wp fp 471930 27501 23857 24581 66038 --related
+		 *   wp fastly purge 471930 27501 23857 24581 66038 --related
 		 *
 		 *   # Purge the 10 latest published posts
-		 *   wp fp $(wp post list --field=ID --post_status=publish --posts_per_page=10)
+		 *   wp fastly purge $(wp post list --field=ID --post_status=publish --posts_per_page=10)
 		 *
 		 * @since 1.0.0.
 		 *
@@ -80,7 +80,7 @@ if ( ! class_exists( 'Purgely_Command' ) ) :
 		 * @param  array $assoc_args The flagged args.
 		 * @return void
 		 */
-		public function __invoke( $args, $assoc_args ) {
+		public function purge( $args, $assoc_args ) {
 			// Collect the main arguments.
 			$thing = ( isset( $args[0] ) ) ? $args[0] : '';
 
@@ -246,4 +246,4 @@ if ( ! class_exists( 'Purgely_Command' ) ) :
 	}
 endif;
 
-WP_CLI::add_command( 'fp', 'Purgely_Command' );
+WP_CLI::add_command( 'fastly', 'Purgely_Command' );
