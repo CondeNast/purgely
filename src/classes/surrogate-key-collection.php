@@ -36,11 +36,19 @@ class Purgely_Surrogate_Key_Collection {
 			$taxonomies = apply_filters( 'purgely_taxonomy_keys', (array) get_taxonomies() );
 
 			foreach ( $taxonomies as $taxonomy ) {
-				$term_keys = array_merge( $term_keys, $this->_add_key_terms( $wp_query->post->ID, $taxonomy ) );
+				$term_keys = array_merge( $term_keys, $this->_add_key_terms( $wp_query->post->ID, $taxonomy, $wp_query ) );
 			}
 
 			// Get author information.
 			$author_keys = $this->_add_key_author( $wp_query->post );
+		}
+
+		if ( $wp_query->is_category() ) {
+			$term_keys = $this->_add_key_terms( 0, 'category', $wp_query );
+		}
+
+		if ( $wp_query->is_tag() ) {
+			$term_keys = $this->_add_key_terms( 0, 'post_tag', $wp_query );
 		}
 
 		// Merge, de-dupe, and prune empties.
@@ -152,13 +160,21 @@ class Purgely_Surrogate_Key_Collection {
 	 *
 	 * @since 1.0.0.
 	 *
-	 * @param  int    $post_id  Post ID.
-	 * @param  string $taxonomy The taxonomy to look for associated terms.
-	 * @return array                  The term slug/taxonomy combos for the post.
+	 * @param  int      $post_id  Post ID.
+	 * @param  string   $taxonomy The taxonomy to look for associated terms.
+	 * @param  WP_Query $wp_query The current wp_query to investigate.
+	 * @return array              The term slug/taxonomy combos for the post.
 	 */
-	private function _add_key_terms( $post_id, $taxonomy ) {
-		$terms = get_the_terms( $post_id, $taxonomy );
-		$keys  = array();
+	private function _add_key_terms( $post_id, $taxonomy, $wp_query ) {
+		$terms          = array();
+		$keys           = array();
+		$queried_object = get_queried_object();
+
+		if ( $wp_query->is_single() ) {
+			$terms = get_the_terms( $post_id, $taxonomy );
+		} else if ( isset( $queried_object->slug ) && isset( $queried_object->taxonomy ) && $taxonomy === $queried_object->taxonomy ) {
+			$terms[] = $queried_object;
+		}
 
 		if ( is_array( $terms ) ) {
 			foreach ( $terms as $term ) {
