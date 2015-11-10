@@ -43,12 +43,11 @@ Additionally, the plugin exposes a WP CLI command to provide more flexible purgi
 Purgely provides a number of constants that can be used to control the behavior of the plugin and Fastly's cache. Users
 who wish to change these values should define the constants in `wp-config.php`.
 
-After installing, you should define `PURGELY_FASTLY_KEY` in `wp-config.php`. The plugin will work without it; however,
-you will not be able to purge by surrogate key or purge all without configuring this option. To define
-`PURGELY_FASTLY_KEY`, copy the following code to your `wp-config.php` file and update the key to use your key:
+After installing, you should define `PURGELY_FASTLY_KEY` and `PURGELY_FASTLY_SERVICE_ID` in `wp-config.php`. The plugin will work without them; however, you will not be able to purge by surrogate key or purge all without configuring these options. To define them copy the following code to your `wp-config.php` file, update the key to use your key, and the service ID to match the fastly service you're using:
 
 ```
 define( 'PURGELY_FASTLY_KEY', '39c4820390d8f050giweda50268c7583' );
+define( 'PURGELY_FASTLY_SERVICE_ID', 'abcdefghijklmn1234567890' );
 ```
 
 Configuring other constants is similarly done by defining the constant in `wp-config.php`. All constants are explained
