@@ -120,8 +120,8 @@ class Purgely_Settings {
 
 		if ( isset( $negotiated_settings[ $setting ] ) ) {
 			$value = $negotiated_settings[ $setting ];
-		} elseif ( isset( $registered_settings[ $setting ][ 'default' ] ) ) {
-			$value = $registered_settings[ $setting ][ 'default' ];
+		} elseif ( isset( $registered_settings[ $setting ]['default'] ) ) {
+			$value = $registered_settings[ $setting ]['default'];
 		}
 
 		return $value;
