@@ -122,6 +122,10 @@ class Purgely {
 		include $this->src_dir . '/classes/header-surrogate-keys.php';
 		include $this->src_dir . '/classes/surrogate-key-collection.php';
 
+		if ( is_admin() ) {
+			include $this->src_dir . '/settings.php';
+		}
+
 		// Handle all automatic purges.
 		include $this->src_dir . '/wp-purges.php';
 

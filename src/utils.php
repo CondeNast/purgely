@@ -111,3 +111,84 @@ function purgely_set_stale_while_error( $seconds ) {
 	$purgely = get_purgely_instance();
 	return $purgely->add_cache_control_header( $seconds, 'stale-while-error' );
 }
+
+/**
+ * Get an individual settings value.
+ *
+ * @since 1.0.0.
+ *
+ * @param  string $name The name of the option to retrieve.
+ * @return string       The option value.
+ */
+function purgely_get_option( $name ) {
+	$value   = '';
+	$options = purgely_get_options();
+
+	if ( isset( $options[ $name ] ) ) {
+		$value = $options[ $name ];
+	}
+
+	return $value;
+}
+
+/**
+ * Get all of the Purgely options.
+ *
+ * Gets the options set by the user and falls back to the constant configuration if the value is not set in options.
+ *
+ * @since 1.0.0.
+ *
+ * @return array Array of all Purgely options.
+ */
+function purgely_get_options() {
+	$option_keys = array(
+		'fastly_key',
+		'fastly_service_id',
+		'allow_purge_all',
+		'api_endpoint',
+		'enable_stale_while_revalidate',
+		'stale_while_revalidate_ttl',
+		'enable_stale_while_error',
+		'stale_while_error_ttl',
+		'surrogate_control_ttl',
+		'default_purge_type',
+	);
+
+	$options = array();
+
+	foreach ( $option_keys as $key ) {
+		$constant = 'PURGELY_' . strtoupper( $key );
+
+		if ( defined( $constant ) ) {
+			$options[ $key ] = constant( $constant );
+		}
+	}
+
+	$options = get_option( 'purgely-settings', $options );
+
+	return $options;
+}
+
+/**
+ * Sanitize a Fastly Service ID or API Key.
+ *
+ * Restricts a value to only a-z, A-Z, and 0-9.
+ *
+ * @param  string $key Unsantizied key.
+ * @return string      Sanitized key.
+ */
+function purgely_sanitize_key( $key ) {
+	return preg_replace( '/[^a-zA-B0-9]/', '', $key );
+}
+
+/**
+ * Callback function for sanitizing a checkbox setting.
+ *
+ * @since 1.0.0.
+ *
+ * @param  mixed $value Unsanitized setting.
+ * @return bool         Whether or not value is valid.
+ */
+function purgely_sanitize_checkbox( $value ) {
+	return ( in_array( $value, array( '1', 1, 'true', true ), true ) );
+}
