@@ -41,6 +41,15 @@ class Purgely {
 	private static $cache_control_headers = array();
 
 	/**
+	 * An array of the current value of the settings.
+	 *
+	 * @since 1.0.0.
+	 *
+	 * @var array The settings values for the plugin.
+	 */
+	public static $settings = array();
+
+	/**
 	 * Current plugin version.
 	 *
 	 * @since 1.0.0
@@ -130,22 +139,27 @@ class Purgely {
 		// Handle all automatic purges.
 		include $this->src_dir . '/wp-purges.php';
 
+		// Read and set the settings.
+		$this::$settings = Purgely_Settings::get_settings();
+
 		// Initialize the key collector.
 		$this::$surrogate_keys_header = new Purgely_Surrogate_Keys_Header();
 
 		// Initialize the surrogate control header.
-		$this::$surrogate_control_header = new Purgely_Surrogate_Control_Header( PURGELY_SURROGATE_CONTROL_TTL );
+		if ( isset( $this::$settings['surrogate_control_ttl'] ) ) {
+			$this::$surrogate_control_header = new Purgely_Surrogate_Control_Header( $this::$settings['surrogate_control_ttl'] );
+		}
 
 		// Add the surrogate keys.
 		add_action( 'wp', array( $this, 'set_standard_keys' ), 100 );
 
 		// Set the default stale while revalidate and stale while error values.
-		if ( true === PURGELY_ENABLE_STALE_WHILE_REVALIDATE ) {
-			$this->add_cache_control_header( PURGELY_STALE_WHILE_REVALIDATE_TTL, 'stale-while-revalidate' );
+		if ( isset( $this::$settings['enable_stale_while_revalidate'] ) && true === $this::$settings['enable_stale_while_revalidate'] && isset( $this::$settings['stale_while_revalidate_ttl'] ) ) {
+			$this->add_cache_control_header( $this::$settings['stale_while_revalidate_ttl'], 'stale-while-revalidate' );
 		}
 
-		if ( true === PURGELY_ENABLE_STALE_WHILE_ERROR ) {
-			$this->add_cache_control_header( PURGELY_STALE_WHILE_ERROR_TTL, 'stale-while-error' );
+		if ( isset( $this::$settings['enable_stale_while_error'] ) && true === $this::$settings['enable_stale_while_error'] && isset( $this::$settings['stale_while_error_ttl'] ) ) {
+			$this->add_cache_control_header( $this::$settings['stale_while_error_ttl'], 'stale-while-error' );
 		}
 
 		// Send the surrogate keys.
