@@ -105,12 +105,36 @@ class Purgely_Settings_Page {
 			'purgely-fastly_settings'
 		);
 
+		// Set up the general settings.
+		add_settings_section(
+			'purgely-general_settings',
+			__( 'General settings', 'purgely' ),
+			array( $this, 'general_settings_callback' ),
+			'purgely-settings'
+		);
+
 		add_settings_field(
 			'allow_purge_all',
 			__( 'Allow Purge All?', 'purgely' ),
 			array( $this, 'allow_purge_all_render' ),
 			'purgely-settings',
-			'purgely-settings_section'
+			'purgely-general_settings'
+		);
+
+		add_settings_field(
+			'surrogate_control_ttl',
+			__( 'Surrogate Control TTL', 'purgely' ),
+			array( $this, 'surrogate_control_render' ),
+			'purgely-settings',
+			'purgely-general_settings'
+		);
+
+		add_settings_field(
+			'default_purge_type',
+			__( 'Default Purge Type', 'purgely' ),
+			array( $this, 'default_purge_type_render' ),
+			'purgely-settings',
+			'purgely-general_settings'
 		);
 
 		add_settings_field(
@@ -144,22 +168,17 @@ class Purgely_Settings_Page {
 			'purgely-settings',
 			'purgely-settings_section'
 		);
+	}
 
-		add_settings_field(
-			'surrogate_control_ttl',
-			__( 'Surrogate Control TTL', 'purgely' ),
-			array( $this, 'surrogate_control_render' ),
-			'purgely-settings',
-			'purgely-settings_section'
-		);
-
-		add_settings_field(
-			'default_purge_type',
-			__( 'Default Purge Type', 'purgely' ),
-			array( $this, 'default_purge_type_render' ),
-			'purgely-settings',
-			'purgely-settings_section'
-		);
+	/**
+	 * Print the description general settings section.
+	 *
+	 * @since 1.0.0.
+	 *
+	 * @return void
+	 */
+	public function general_settings_callback() {
+		esc_html_e( 'Configure the general settings to control caching behavior.', 'purgely' );
 	}
 
 	/**
@@ -214,6 +233,17 @@ class Purgely_Settings_Page {
 	}
 
 	/**
+	 * Print the description for the settings page.
+	 *
+	 * @since 1.0.0.
+	 *
+	 * @return void
+	 */
+	public function fastly_settings_callback() {
+		esc_html_e( 'Configure settings to integrate with Fastly\'s API. These settings are critical for controlling the purging behaviors.', 'purgely' );
+	}
+
+	/**
 	 * Render the setting input.
 	 *
 	 * @since 1.0.0.
@@ -227,6 +257,49 @@ class Purgely_Settings_Page {
 		<input type='radio' name='purgely-settings[allow_purge_all]' <?php checked( isset( $options['allow_purge_all'] ) && false === $options['allow_purge_all'] ); ?> value='false'>No
 		<p class="description">
 			<?php esc_html_e( 'Enable or disable purge all.', 'purgely' ); ?>
+		</p>
+		<?php
+	}
+
+	/**
+	 * Render the setting input.
+	 *
+	 * @since 1.0.0.
+	 *
+	 * @return void
+	 */
+	public function surrogate_control_render() {
+		$options = Purgely_Settings::get_settings();
+		?>
+		<input type='text' name='purgely-settings[surrogate_control_ttl]' value='<?php echo esc_attr( $options['surrogate_control_ttl'] ); ?>'>
+		<p class="description">
+			<?php esc_html_e( 'The Time to Live (TTL) value for the whole site.', 'purgely' ); ?>
+		</p>
+		<?php
+	}
+
+	/**
+	 * Render the setting input.
+	 *
+	 * @since 1.0.0.
+	 *
+	 * @return void
+	 */
+	public function default_purge_type_render() {
+		$options = Purgely_Settings::get_settings();
+
+		$purge_types = array(
+			'soft'    => __( 'Soft', 'purgely' ),
+			'instant' => __( 'Instant', 'purgely' ),
+		);
+		?>
+		<select name="purgely-settings[default_purge_type]">
+			<?php foreach ( $purge_types as $key => $label ) : ?>
+				<option value="<?php echo esc_attr( $key ); ?>"<?php selected( $options['default_purge_type'], $key ); ?>><?php echo esc_html( $label ); ?></option>
+			<?php endforeach; ?>
+		</select>
+		<p class="description">
+			<?php esc_html_e( 'The default purge behavior for purges issued via Purgely.', 'purgely' ); ?>
 		</p>
 		<?php
 	}
@@ -299,60 +372,6 @@ class Purgely_Settings_Page {
 			<?php esc_html_e( 'The Time to Live (TTL) value for the stale while error behavior.', 'purgely' ); ?>
 		</p>
 		<?php
-	}
-
-	/**
-	 * Render the setting input.
-	 *
-	 * @since 1.0.0.
-	 *
-	 * @return void
-	 */
-	public function surrogate_control_render() {
-		$options = Purgely_Settings::get_settings();
-		?>
-		<input type='text' name='purgely-settings[surrogate_control_ttl]' value='<?php echo esc_attr( $options['surrogate_control_ttl'] ); ?>'>
-		<p class="description">
-			<?php esc_html_e( 'The Time to Live (TTL) value for the whole site.', 'purgely' ); ?>
-		</p>
-		<?php
-	}
-
-	/**
-	 * Render the setting input.
-	 *
-	 * @since 1.0.0.
-	 *
-	 * @return void
-	 */
-	public function default_purge_type_render() {
-		$options = Purgely_Settings::get_settings();
-
-		$purge_types = array(
-			'soft'    => __( 'Soft', 'purgely' ),
-			'instant' => __( 'Instant', 'purgely' ),
-		);
-		?>
-		<select name="purgely-settings[default_purge_type]">
-			<?php foreach ( $purge_types as $key => $label ) : ?>
-			<option value="<?php echo esc_attr( $key ); ?>"<?php selected( $options['default_purge_type'], $key ); ?>><?php echo esc_html( $label ); ?></option>
-			<?php endforeach; ?>
-		</select>
-		<p class="description">
-			<?php esc_html_e( 'The default purge behavior for purges issued via Purgely.', 'purgely' ); ?>
-		</p>
-		<?php
-	}
-
-	/**
-	 * Print the description for the settings page.
-	 *
-	 * @since 1.0.0.
-	 *
-	 * @return void
-	 */
-	public function fastly_settings_callback() {
-		esc_html_e( 'Configure settings to integrate with Fastly\'s API. These settings are critical for controlling the purging behaviors.', 'purgely' );
 	}
 
 	/**
