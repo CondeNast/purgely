@@ -4,8 +4,16 @@ class HeaderCacheControlTest extends PHPUnit_Framework_TestCase {
 	public function setUp() {
 		\WP_Mock::setUp();
 
-		// Mock the remote request
+		// We are not testing escaping functions so let them passthrough
 		\WP_Mock::wpPassthruFunction( 'absint' );
+		\WP_Mock::wpPassthruFunction( 'esc_url' );
+
+		\WP_Mock::wpFunction( 'get_option', array(
+			'args' => array(
+				'purgely-settings',
+			),
+			'return' => array()
+		) );
 	}
 
 	public function test_object_is_constructed_correctly() {
