@@ -113,6 +113,7 @@ class Purgely {
 		// Include dependent files.
 		include $this->src_dir . '/config.php';
 		include $this->src_dir . '/utils.php';
+		include $this->src_dir . '/settings.php';
 		include $this->src_dir . '/classes/related-urls.php';
 		include $this->src_dir . '/classes/purge-request-collection.php';
 		include $this->src_dir . '/classes/purge-request.php';
