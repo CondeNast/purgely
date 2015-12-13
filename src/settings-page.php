@@ -74,9 +74,9 @@ class Purgely_Settings_Page {
 
 		// Set up the settings section.
 		add_settings_section(
-			'purgely-settings_section',
-			__( 'Configure your site\'s caching behavior by overriding default cache setting values using the settings below.', 'purgely' ),
-			array( $this, 'settings_section_callback' ),
+			'purgely-fastly_settings',
+			__( 'Fastly settings', 'purgely' ),
+			array( $this, 'fastly_settings_callback' ),
 			'purgely-settings'
 		);
 
@@ -86,7 +86,7 @@ class Purgely_Settings_Page {
 			__( 'Fastly API Key', 'purgely' ),
 			array( $this, 'fastly_key_render' ),
 			'purgely-settings',
-			'purgely-settings_section'
+			'purgely-fastly_settings'
 		);
 
 		add_settings_field(
@@ -94,21 +94,21 @@ class Purgely_Settings_Page {
 			__( 'Fastly Service ID', 'purgely' ),
 			array( $this, 'fastly_service_id_render' ),
 			'purgely-settings',
-			'purgely-settings_section'
-		);
-
-		add_settings_field(
-			'allow_purge_all',
-			__( 'Allow Purge All?', 'purgely' ),
-			array( $this, 'allow_purge_all_render' ),
-			'purgely-settings',
-			'purgely-settings_section'
+			'purgely-fastly_settings'
 		);
 
 		add_settings_field(
 			'api_endpoint',
 			__( 'Fastly API Endpoint', 'purgely' ),
 			array( $this, 'api_endpoint_render' ),
+			'purgely-settings',
+			'purgely-fastly_settings'
+		);
+
+		add_settings_field(
+			'allow_purge_all',
+			__( 'Allow Purge All?', 'purgely' ),
+			array( $this, 'allow_purge_all_render' ),
 			'purgely-settings',
 			'purgely-settings_section'
 		);
@@ -203,13 +203,12 @@ class Purgely_Settings_Page {
 	 *
 	 * @return void
 	 */
-	public function allow_purge_all_render() {
+	public function api_endpoint_render() {
 		$options = Purgely_Settings::get_settings();
 		?>
-		<input type='radio' name='purgely-settings[allow_purge_all]' <?php checked( isset( $options['allow_purge_all'] ) && true === $options['allow_purge_all'] ); ?> value='true'>Yes
-		<input type='radio' name='purgely-settings[allow_purge_all]' <?php checked( isset( $options['allow_purge_all'] ) && false === $options['allow_purge_all'] ); ?> value='false'>No
+		<input type='text' name='purgely-settings[api_endpoint]' value='<?php echo esc_attr( $options['api_endpoint'] ); ?>'>
 		<p class="description">
-			<?php esc_html_e( 'Enable or disable purge all.', 'purgely' ); ?>
+			<?php esc_html_e( 'API endpoint for this service.', 'purgely' ); ?>
 		</p>
 		<?php
 	}
@@ -221,12 +220,13 @@ class Purgely_Settings_Page {
 	 *
 	 * @return void
 	 */
-	public function api_endpoint_render() {
+	public function allow_purge_all_render() {
 		$options = Purgely_Settings::get_settings();
 		?>
-		<input type='text' name='purgely-settings[api_endpoint]' value='<?php echo esc_attr( $options['api_endpoint'] ); ?>'>
+		<input type='radio' name='purgely-settings[allow_purge_all]' <?php checked( isset( $options['allow_purge_all'] ) && true === $options['allow_purge_all'] ); ?> value='true'>Yes
+		<input type='radio' name='purgely-settings[allow_purge_all]' <?php checked( isset( $options['allow_purge_all'] ) && false === $options['allow_purge_all'] ); ?> value='false'>No
 		<p class="description">
-			<?php esc_html_e( 'API endpoint for this service.', 'purgely' ); ?>
+			<?php esc_html_e( 'Enable or disable purge all.', 'purgely' ); ?>
 		</p>
 		<?php
 	}
@@ -351,8 +351,8 @@ class Purgely_Settings_Page {
 	 *
 	 * @return void
 	 */
-	public function settings_section_callback() {
-		esc_html_e( 'Configure caching and purging behaviors for Fastly.', 'purgely' );
+	public function fastly_settings_callback() {
+		esc_html_e( 'Configure settings to integrate with Fastly\'s API. These settings are critical for controlling the purging behaviors.', 'purgely' );
 	}
 
 	/**
