@@ -155,7 +155,13 @@ class Purgely_Purge {
 	 * @return string The purge URI.
 	 */
 	private function _build_request_uri_for_surrogate_key( $key ) {
-		return trailingslashit( PURGELY_API_ENDPOINT ) . 'service/' . PURGELY_FASTLY_SERVICE_ID . '/purge/' . purgely_sanitize_surrogate_key( $key );
+		$purgely  = get_purgely_instance();
+		$settings = $purgely::$settings;
+
+		$api_endpoint      = ( isset( $settings['api_endpoint'] ) ) ? $settings['api_endpoint'] : '';
+		$fastly_service_id = ( isset( $settings['fastly_service_id'] ) ) ? $settings['fastly_service_id'] : '';
+
+		return trailingslashit( $api_endpoint ) . 'service/' . $fastly_service_id . '/purge/' . purgely_sanitize_surrogate_key( $key );
 	}
 
 	/**
@@ -166,7 +172,13 @@ class Purgely_Purge {
 	 * @return string The purge URI to purge all items.
 	 */
 	private function _build_request_uri_for_purge_all() {
-		return trailingslashit( PURGELY_API_ENDPOINT ) . 'service/' . PURGELY_FASTLY_SERVICE_ID . '/purge_all';
+		$purgely  = get_purgely_instance();
+		$settings = $purgely::$settings;
+
+		$api_endpoint      = ( isset( $settings['api_endpoint'] ) ) ? $settings['api_endpoint'] : '';
+		$fastly_service_id = ( isset( $settings['fastly_service_id'] ) ) ? $settings['fastly_service_id'] : '';
+
+		return trailingslashit( $api_endpoint ) . 'service/' . $fastly_service_id . '/purge_all';
 	}
 
 	/**
