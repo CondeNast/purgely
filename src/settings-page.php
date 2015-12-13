@@ -137,12 +137,20 @@ class Purgely_Settings_Page {
 			'purgely-general_settings'
 		);
 
+		// Set up the stale content settings.
+		add_settings_section(
+			'purgely-stale_settings',
+			__( 'Stale content settings', 'purgely' ),
+			array( $this, 'stale_settings_callback' ),
+			'purgely-settings'
+		);
+
 		add_settings_field(
 			'enable_stale_while_revalidate',
 			__( 'Enable Stale While Revalidate', 'purgely' ),
 			array( $this, 'enable_stale_while_revalidate_render' ),
 			'purgely-settings',
-			'purgely-settings_section'
+			'purgely-stale_settings'
 		);
 
 		add_settings_field(
@@ -150,7 +158,7 @@ class Purgely_Settings_Page {
 			__( 'Stale While Revalidate TTL', 'purgely' ),
 			array( $this, 'stale_while_revalidate_ttl_render' ),
 			'purgely-settings',
-			'purgely-settings_section'
+			'purgely-stale_settings'
 		);
 
 		add_settings_field(
@@ -158,7 +166,7 @@ class Purgely_Settings_Page {
 			__( 'Enable Stale While Error', 'purgely' ),
 			array( $this, 'enable_stale_while_error_render' ),
 			'purgely-settings',
-			'purgely-settings_section'
+			'purgely-stale_settings'
 		);
 
 		add_settings_field(
@@ -166,7 +174,7 @@ class Purgely_Settings_Page {
 			__( 'Stale While Error TTL', 'purgely' ),
 			array( $this, 'stale_while_error_ttl_render' ),
 			'purgely-settings',
-			'purgely-settings_section'
+			'purgely-stale_settings'
 		);
 	}
 
@@ -302,6 +310,17 @@ class Purgely_Settings_Page {
 			<?php esc_html_e( 'The default purge behavior for purges issued via Purgely.', 'purgely' ); ?>
 		</p>
 		<?php
+	}
+
+	/**
+	 * Print the description for the stale content settings.
+	 *
+	 * @since 1.0.0.
+	 *
+	 * @return void
+	 */
+	public function stale_settings_callback() {
+		esc_html_e( 'Configure settings to control handling of stale content.', 'purgely' );
 	}
 
 	/**
