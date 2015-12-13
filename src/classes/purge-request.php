@@ -78,8 +78,11 @@ class Purgely_Purge {
 		$this->set_purge_args( $purge_args );
 
 		// Set up our default args.
+		$purgely  = get_purgely_instance();
+		$settings = $purgely::$settings;
+
 		$default_args = array(
-			'purge-type' => ( defined( 'PURGELY_DEFAULT_PURGE_TYPE' ) ) ? PURGELY_DEFAULT_PURGE_TYPE : 'instant',
+			'purge-type' => ( isset( $settings['default_purge_type'] ) ) ? $settings['default_purge_type'] : '',
 		);
 
 		$purge_args = array_merge( $default_args, $purge_args );
