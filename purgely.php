@@ -123,7 +123,7 @@ class Purgely {
 		include $this->src_dir . '/classes/surrogate-key-collection.php';
 
 		if ( is_admin() ) {
-			include $this->src_dir . '/settings.php';
+			include $this->src_dir . '/settings-page.php';
 		}
 
 		// Handle all automatic purges.
