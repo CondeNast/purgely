@@ -78,11 +78,8 @@ class Purgely_Purge {
 		$this->set_purge_args( $purge_args );
 
 		// Set up our default args.
-		$purgely  = get_purgely_instance();
-		$settings = $purgely::$settings;
-
 		$default_args = array(
-			'purge-type' => ( isset( $settings['default_purge_type'] ) ) ? $settings['default_purge_type'] : '',
+			'purge-type' => Purgely_Settings::get_setting( 'purge_type' ),
 		);
 
 		$purge_args = array_merge( $default_args, $purge_args );
@@ -158,11 +155,8 @@ class Purgely_Purge {
 	 * @return string The purge URI.
 	 */
 	private function _build_request_uri_for_surrogate_key( $key ) {
-		$purgely  = get_purgely_instance();
-		$settings = $purgely::$settings;
-
-		$api_endpoint      = ( isset( $settings['api_endpoint'] ) ) ? $settings['api_endpoint'] : '';
-		$fastly_service_id = ( isset( $settings['fastly_service_id'] ) ) ? $settings['fastly_service_id'] : '';
+		$api_endpoint      = Purgely_Settings::get_setting( 'api_endpoint' );
+		$fastly_service_id = Purgely_Settings::get_setting( 'fastly_service_id' );
 
 		return trailingslashit( $api_endpoint ) . 'service/' . $fastly_service_id . '/purge/' . purgely_sanitize_surrogate_key( $key );
 	}
@@ -175,11 +169,8 @@ class Purgely_Purge {
 	 * @return string The purge URI to purge all items.
 	 */
 	private function _build_request_uri_for_purge_all() {
-		$purgely  = get_purgely_instance();
-		$settings = $purgely::$settings;
-
-		$api_endpoint      = ( isset( $settings['api_endpoint'] ) ) ? $settings['api_endpoint'] : '';
-		$fastly_service_id = ( isset( $settings['fastly_service_id'] ) ) ? $settings['fastly_service_id'] : '';
+		$api_endpoint      = Purgely_Settings::get_setting( 'api_endpoint' );
+		$fastly_service_id = Purgely_Settings::get_setting( 'fastly_service_id' );
 
 		return trailingslashit( $api_endpoint ) . 'service/' . $fastly_service_id . '/purge_all';
 	}
@@ -241,12 +232,7 @@ class Purgely_Purge {
 	 * @return array The modified remote request args.
 	 */
 	private function _add_credentials( $remote_request_args ) {
-		$purgely  = get_purgely_instance();
-		$settings = $purgely::$settings;
-
-		$fastly_key = ( isset( $settings['fastly_key'] ) ) ? $settings['fastly_key'] : '';
-
-		$remote_request_args['headers']['Fastly-Key'] = $fastly_key;
+		$remote_request_args['headers']['Fastly-Key'] = Purgely_Settings::get_setting( 'fastly_key' );
 		return $remote_request_args;
 	}
 

@@ -105,6 +105,29 @@ class Purgely_Settings {
 	}
 
 	/**
+	 * Get the value of an individual setting.
+	 *
+	 * @since 1.0.0.
+	 *
+	 * @param  string $setting The setting name.
+	 * @return mixed           The setting value.
+	 */
+	public static function get_setting( $setting ) {
+		$value = '';
+
+		$negotiated_settings = self::get_settings();
+		$registered_settings = self::get_registered_settings();
+
+		if ( isset( $negotiated_settings[ $setting ] ) ) {
+			$value = $negotiated_settings[ $setting ];
+		} elseif ( isset( $registered_settings[ $setting ][ 'default' ] ) ) {
+			$value = $registered_settings[ $setting ][ 'default' ];
+		}
+
+		return $value;
+	}
+
+	/**
 	 * Set the settings values.
 	 *
 	 * @since 1.0.0.

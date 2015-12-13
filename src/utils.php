@@ -58,13 +58,8 @@ function purgely_purge_surrogate_key( $key, $purge_args = array() ) {
  * @return array|bool|WP_Error                   The purge response.
  */
 function purgely_purge_all( $purge_args = array() ) {
-	$purgely  = get_purgely_instance();
-	$settings = $purgely::$settings;
-
-	$allow_purge_all = ( isset( $settings['allow_purge_all'] ) ) ? $settings['allow_purge_all'] : '';
-
 	$purgely    = new Purgely_Purge();
-	$purge_args = array_merge( array( 'allow-all' => $allow_purge_all ), $purge_args );
+	$purge_args = array_merge( array( 'allow-all' => Purgely_Settings::get_setting( 'allow_purge_all' ) ), $purge_args );
 
 	$purgely->purge( 'all', '', $purge_args );
 	return $purgely->get_result();
