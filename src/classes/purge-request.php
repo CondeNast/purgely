@@ -238,7 +238,12 @@ class Purgely_Purge {
 	 * @return array The modified remote request args.
 	 */
 	private function _add_credentials( $remote_request_args ) {
-		$remote_request_args['headers']['Fastly-Key'] = PURGELY_FASTLY_KEY;
+		$purgely  = get_purgely_instance();
+		$settings = $purgely::$settings;
+
+		$fastly_key = ( isset( $settings['fastly_key'] ) ) ? $settings['fastly_key'] : '';
+
+		$remote_request_args['headers']['Fastly-Key'] = $fastly_key;
 		return $remote_request_args;
 	}
 
