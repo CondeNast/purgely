@@ -2,31 +2,22 @@
 /**
  * Singleton for setting up Purgely settings.
  */
-class Purgely_Settings {
+class Purgely_Settings_Page {
 	/**
-	 * The one instance of Purgely_Settings.
+	 * The one instance of Purgely_Settings_Page.
 	 *
 	 * @since 1.0.0.
 	 *
-	 * @var Purgely_Settings
+	 * @var Purgely_Settings_Page
 	 */
 	private static $instance;
 
 	/**
-	 * The settings values for the plugin.
+	 * Instantiate or return the one Purgely_Settings_Page instance.
 	 *
 	 * @since 1.0.0.
 	 *
-	 * @var array Holds all of the individual settings for the plugin.
-	 */
-	var $settings = array();
-
-	/**
-	 * Instantiate or return the one Purgely_Settings instance.
-	 *
-	 * @since 1.0.0.
-	 *
-	 * @return Purgely_Settings
+	 * @return Purgely_Settings_Page
 	 */
 	public static function instance() {
 		if ( is_null( self::$instance ) ) {
@@ -41,7 +32,7 @@ class Purgely_Settings {
 	 *
 	 * @since 1.0.0.
 	 *
-	 * @return Purgely_Settings
+	 * @return Purgely_Settings_Page
 	 */
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
@@ -379,121 +370,17 @@ class Purgely_Settings {
 
 		return $settings;
 	}
-
-	/**
-	 * Get the valid settings for the plugin.
-	 *
-	 * @since 1.0.0.
-	 *
-	 * @return array The valid settings including default values and sanitize callback.
-	 */
-	public function get_registered_settings() {
-		return array(
-			'fastly_key'                    => array(
-				'sanitize_callback' => 'purgely_sanitize_key',
-				'default'           => PURGELY_FASTLY_KEY,
-			),
-			'fastly_service_id'             => array(
-				'sanitize_callback' => 'purgely_sanitize_key',
-				'default'           => PURGELY_FASTLY_SERVICE_ID,
-			),
-			'allow_purge_all'               => array(
-				'sanitize_callback' => 'purgely_sanitize_checkbox',
-				'default'           => PURGELY_ALLOW_PURGE_ALL,
-			),
-			'api_endpoint'                  => array(
-				'sanitize_callback' => 'esc_url',
-				'default'           => PURGELY_API_ENDPOINT,
-			),
-			'enable_stale_while_revalidate' => array(
-				'sanitize_callback' => 'purgely_sanitize_checkbox',
-				'default'           => PURGELY_ENABLE_STALE_WHILE_REVALIDATE,
-			),
-			'stale_while_revalidate_ttl'    => array(
-				'sanitize_callback' => 'absint',
-				'default'           => PURGELY_STALE_WHILE_REVALIDATE_TTL,
-			),
-			'enable_stale_while_error'      => array(
-				'sanitize_callback' => 'purgely_sanitize_checkbox',
-				'default'           => PURGELY_ENABLE_STALE_WHILE_ERROR,
-			),
-			'stale_while_error_ttl'         => array(
-				'sanitize_callback' => 'absint',
-				'default'           => PURGELY_STALE_WHILE_ERROR_TTL,
-			),
-			'surrogate_control_ttl'         => array(
-				'sanitize_callback' => 'absint',
-				'default'           => PURGELY_SURROGATE_CONTROL_TTL,
-			),
-			'default_purge_type'            => array(
-				'sanitize_callback' => 'purgely_sanitize_checkbox',
-				'default'           => PURGELY_DEFAULT_PURGE_TYPE,
-			),
-		);
-	}
-
-	/**
-	 * Get an array of settings values.
-	 *
-	 * This method negotiates the database values and the constant values to determine what the current value should be.
-	 * The database value takes precedence over the database value.
-	 *
-	 * @since 1.0.0.
-	 *
-	 * @return array The current settings values.
-	 */
-	public function get_settings() {
-		$negotiated_settings = $this->settings;
-
-		if ( empty( $negotiated_settings ) ) {
-			$registered_settings = $this->get_registered_settings();
-			$saved_settings      = get_option( 'purgely-settings', array() );
-			$negotiated_settings = array();
-
-			foreach ( $registered_settings as $key => $values ) {
-				$value = '';
-
-				if ( isset( $saved_settings[ $key ] ) ) {
-					$value = $saved_settings[ $key ];
-				} else if ( isset( $values['default'] ) ) {
-					$value = $values['default'];
-				}
-
-				if ( isset( $values['sanitize_callback'] ) ) {
-					$value = call_user_func( $values['sanitize_callback'], $value );
-				}
-
-				$negotiated_settings[ $key ] = $value;
-			}
-
-			$this->set_settings( $negotiated_settings );
-		}
-
-		return $negotiated_settings;
-	}
-
-	/**
-	 * Set the settings values.
-	 *
-	 * @since 1.0.0.
-	 *
-	 * @param  array $settings The current settings values.
-	 * @return void
-	 */
-	public function set_settings( $settings ) {
-		$this->settings = $settings;
-	}
 }
 
 /**
- * Instantiate or return the one Purgely_Settings instance.
+ * Instantiate or return the one Purgely_Settings_Page instance.
  *
  * @since 1.0.0.
  *
- * @return Purgely_Settings
+ * @return Purgely_Settings_Page
  */
-function get_purgely_settings_instance() {
-	return Purgely_Settings::instance();
+function get_purgely_settings_page_instance() {
+	return Purgely_Settings_Page::instance();
 }
 
-get_purgely_settings_instance();
+get_purgely_settings_page_instance();
