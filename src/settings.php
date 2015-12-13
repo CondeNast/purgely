@@ -58,7 +58,7 @@ class Purgely_Settings {
 				'default'           => PURGELY_SURROGATE_CONTROL_TTL,
 			),
 			'default_purge_type'            => array(
-				'sanitize_callback' => 'purgely_sanitize_checkbox',
+				'sanitize_callback' => 'sanitize_key',
 				'default'           => PURGELY_DEFAULT_PURGE_TYPE,
 			),
 		);
