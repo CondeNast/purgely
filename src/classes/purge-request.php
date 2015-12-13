@@ -79,7 +79,7 @@ class Purgely_Purge {
 
 		// Set up our default args.
 		$default_args = array(
-			'purge-type' => Purgely_Settings::get_setting( 'purge_type' ),
+			'purge-type' => Purgely_Settings::get_setting( 'default_purge_type' ),
 		);
 
 		$purge_args = array_merge( $default_args, $purge_args );
