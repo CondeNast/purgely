@@ -402,19 +402,21 @@ class Purgely_Settings_Page {
 	 */
 	public function options_page() {
 		?>
-		<form action='options.php' method='post'>
+		<div class="wrap">
+			<form action='options.php' method='post'>
 
-			<h1>
-				<?php esc_html_e( 'Purgely Settings', 'purgely' ); ?>
-			</h1>
+				<h1>
+					<?php esc_html_e( 'Purgely Settings', 'purgely' ); ?>
+				</h1>
 
-			<?php
-			settings_fields( 'purgely-settings' );
-			do_settings_sections( 'purgely-settings' );
-			submit_button();
-			?>
+				<?php
+				settings_fields( 'purgely-settings' );
+				do_settings_sections( 'purgely-settings' );
+				submit_button();
+				?>
 
-		</form>
+			</form>
+		</div>
 		<?php
 	}
 
