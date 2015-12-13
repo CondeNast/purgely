@@ -174,7 +174,7 @@ class Purgely_Settings_Page {
 		?>
 		<input type='text' name='purgely-settings[fastly_key]' value='<?php echo esc_attr( $options['fastly_key'] ); ?>'>
 		<p class="description">
-			<?php _e( 'API key for the Fastly account associated with this site.', 'purgely' ); ?>
+			<?php esc_html_e( 'API key for the Fastly account associated with this site.', 'purgely' ); ?>
 		</p>
 		<?php
 	}
@@ -191,7 +191,7 @@ class Purgely_Settings_Page {
 		?>
 		<input type='text' name='purgely-settings[fastly_service_id]' value='<?php echo esc_attr( $options['fastly_service_id'] ); ?>'>
 		<p class="description">
-			<?php _e( 'Fastly service ID for this site.', 'purgely' ); ?>
+			<?php esc_html_e( 'Fastly service ID for this site.', 'purgely' ); ?>
 		</p>
 		<?php
 	}
@@ -209,7 +209,7 @@ class Purgely_Settings_Page {
 		<input type='radio' name='purgely-settings[allow_purge_all]' <?php checked( isset( $options['allow_purge_all'] ) && true === $options['allow_purge_all'] ); ?> value='true'>Yes
 		<input type='radio' name='purgely-settings[allow_purge_all]' <?php checked( isset( $options['allow_purge_all'] ) && false === $options['allow_purge_all'] ); ?> value='false'>No
 		<p class="description">
-			<?php _e( 'Enable or disable purge all.', 'purgely' ); ?>
+			<?php esc_html_e( 'Enable or disable purge all.', 'purgely' ); ?>
 		</p>
 		<?php
 	}
@@ -226,7 +226,7 @@ class Purgely_Settings_Page {
 		?>
 		<input type='text' name='purgely-settings[api_endpoint]' value='<?php echo esc_attr( $options['api_endpoint'] ); ?>'>
 		<p class="description">
-			<?php _e( 'API endpoint for this service.', 'purgely' ); ?>
+			<?php esc_html_e( 'API endpoint for this service.', 'purgely' ); ?>
 		</p>
 		<?php
 	}
@@ -244,7 +244,7 @@ class Purgely_Settings_Page {
 		<input type='radio' name='purgely-settings[enable_stale_while_revalidate]' <?php checked( isset( $options['enable_stale_while_revalidate'] ) && true === $options['enable_stale_while_revalidate'] ); ?> value='true'>Yes
 		<input type='radio' name='purgely-settings[enable_stale_while_revalidate]' <?php checked( isset( $options['enable_stale_while_revalidate'] ) && false === $options['enable_stale_while_revalidate'] ); ?> value='false'>No
 		<p class="description">
-			<?php _e( 'Turn stale while revalidate behavior on or off.', 'purgely' ); ?>
+			<?php esc_html_e( 'Turn stale while revalidate behavior on or off.', 'purgely' ); ?>
 		</p>
 		<?php
 	}
@@ -261,7 +261,7 @@ class Purgely_Settings_Page {
 		?>
 		<input type='text' name='purgely-settings[stale_while_revalidate_ttl]' value='<?php echo esc_attr( $options['stale_while_revalidate_ttl'] ); ?>'>
 		<p class="description">
-			<?php _e( 'The Time to Live (TTL) value for the stale while revalidate behavior.', 'purgely' ); ?>
+			<?php esc_html_e( 'The Time to Live (TTL) value for the stale while revalidate behavior.', 'purgely' ); ?>
 		</p>
 		<?php
 	}
@@ -279,7 +279,7 @@ class Purgely_Settings_Page {
 		<input type='radio' name='purgely-settings[enable_stale_while_error]' <?php checked( isset( $options['enable_stale_while_error'] ) && true === $options['enable_stale_while_error'] ); ?> value='true'>Yes
 		<input type='radio' name='purgely-settings[enable_stale_while_error]' <?php checked( isset( $options['enable_stale_while_error'] ) && false === $options['enable_stale_while_error'] ); ?> value='false'>No
 		<p class="description">
-			<?php _e( 'Turn stale while error behavior on or off.', 'purgely' ); ?>
+			<?php esc_html_e( 'Turn stale while error behavior on or off.', 'purgely' ); ?>
 		</p>
 		<?php
 	}
@@ -296,7 +296,7 @@ class Purgely_Settings_Page {
 		?>
 		<input type='text' name='purgely-settings[stale_while_error_ttl]' value='<?php echo esc_attr( $options['stale_while_error_ttl'] ); ?>'>
 		<p class="description">
-			<?php _e( 'The Time to Live (TTL) value for the stale while error behavior.', 'purgely' ); ?>
+			<?php esc_html_e( 'The Time to Live (TTL) value for the stale while error behavior.', 'purgely' ); ?>
 		</p>
 		<?php
 	}
@@ -313,7 +313,7 @@ class Purgely_Settings_Page {
 		?>
 		<input type='text' name='purgely-settings[surrogate_control_ttl]' value='<?php echo esc_attr( $options['surrogate_control_ttl'] ); ?>'>
 		<p class="description">
-			<?php _e( 'The Time to Live (TTL) value for the whole site.', 'purgely' ); ?>
+			<?php esc_html_e( 'The Time to Live (TTL) value for the whole site.', 'purgely' ); ?>
 		</p>
 		<?php
 	}
@@ -339,7 +339,7 @@ class Purgely_Settings_Page {
 			<?php endforeach; ?>
 		</select>
 		<p class="description">
-			<?php _e( 'The default purge behavior for purges issued via Purgely.', 'purgely' ); ?>
+			<?php esc_html_e( 'The default purge behavior for purges issued via Purgely.', 'purgely' ); ?>
 		</p>
 		<?php
 	}
