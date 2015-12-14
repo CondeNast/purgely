@@ -186,7 +186,7 @@ class Purgely_Settings_Page {
 	 * @return void
 	 */
 	public function fastly_settings_callback() {
-		esc_html_e( 'Configure settings to integrate with Fastly\'s API. These settings are critical for controlling the purging behaviors.', 'purgely' );
+		esc_html_e( 'Please enter details related to your Fastly account. A Fastly API key and service ID are required for some operations (e.g., surrogate key and full cache purges). ', 'purgely' );
 	}
 
 	/**
@@ -200,9 +200,19 @@ class Purgely_Settings_Page {
 		$options = Purgely_Settings::get_settings();
 		?>
 		<input type='text' name='purgely-settings[fastly_key]' value='<?php echo esc_attr( $options['fastly_key'] ); ?>'>
+		<em><strong><?php esc_html_e( 'Required for surrogate key and full cache purges', 'purgely' ); ?></strong></em>
 		<p class="description">
 			<?php esc_html_e( 'API key for the Fastly account associated with this site.', 'purgely' ); ?>
-			<strong><?php esc_html_e( 'Required for surrogate key and full cache purges', 'purgely' ); ?></strong>.
+			<?php
+			printf(
+				__( 'Please see Fastly\'s documentation for %s.', 'purgely' ),
+				sprintf(
+					'<a href="%1$s" target="_blank">%2$s</a>',
+					'https://docs.fastly.com/guides/account-management-and-security/finding-and-managing-your-account-info#finding-and-regenerating-your-api-key',
+					__( 'more information on finding your API key', 'purgely' )
+				)
+			);
+			?>
 		</p>
 		<?php
 	}
@@ -218,9 +228,19 @@ class Purgely_Settings_Page {
 		$options = Purgely_Settings::get_settings();
 		?>
 		<input type='text' name='purgely-settings[fastly_service_id]' value='<?php echo esc_attr( $options['fastly_service_id'] ); ?>'>
+		<em><strong><?php esc_html_e( 'Required for surrogate key and full cache purges', 'purgely' ); ?></strong></em>
 		<p class="description">
 			<?php esc_html_e( 'Fastly service ID for this site.', 'purgely' ); ?>
-			<strong><?php esc_html_e( 'Required for surrogate key and full cache purges', 'purgely' ); ?></strong>.
+			<?php
+			printf(
+				__( 'Please see Fastly\'s documentation for %s.', 'purgely' ),
+				sprintf(
+					'<a href="%1$s" target="_blank">%2$s</a>',
+					'https://docs.fastly.com/guides/account-management-and-security/finding-and-managing-your-account-info#finding-your-service-id',
+					__( 'more information on finding your service ID', 'purgely' )
+				)
+			);
+			?>
 		</p>
 		<?php
 	}
