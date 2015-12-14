@@ -123,7 +123,7 @@ class Purgely_Settings_Page {
 
 		add_settings_field(
 			'surrogate_control_ttl',
-			__( 'Surrogate Control TTL', 'purgely' ),
+			__( 'Cache TTL (in Seconds)', 'purgely' ),
 			array( $this, 'surrogate_control_render' ),
 			'purgely-settings',
 			'purgely-general_settings'
@@ -303,7 +303,7 @@ class Purgely_Settings_Page {
 		?>
 		<input type='text' name='purgely-settings[surrogate_control_ttl]' value='<?php echo esc_attr( $options['surrogate_control_ttl'] ); ?>'>
 		<p class="description">
-			<?php esc_html_e( 'The Time to Live (TTL) value for the whole site.', 'purgely' ); ?>
+			<?php esc_html_e( 'This setting controls the "surrogate-control" header\'s "max-age" value. It defines the cache duration for all pages on the site.', 'purgely' ); ?>
 		</p>
 		<?php
 	}
