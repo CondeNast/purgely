@@ -270,7 +270,7 @@ class Purgely_Settings_Page {
 	 * @return void
 	 */
 	public function general_settings_callback() {
-		esc_html_e( 'Configure the general settings to control caching behavior.', 'purgely' );
+		esc_html_e( 'This section allows you to configure general cache settings. Note that changes to these settings can cause destabilization to your site if misconfigured. The default setting should be sufficient for most sites.', 'purgely' );
 	}
 
 	/**
