@@ -83,7 +83,7 @@ class Purgely_Settings_Page {
 		// Register all of the individual settings.
 		add_settings_field(
 			'fastly_key',
-			__( 'Fastly API Key', 'purgely' ),
+			__( 'API Key', 'purgely' ),
 			array( $this, 'fastly_key_render' ),
 			'purgely-settings',
 			'purgely-fastly_settings'
@@ -91,7 +91,7 @@ class Purgely_Settings_Page {
 
 		add_settings_field(
 			'fastly_service_id',
-			__( 'Fastly Service ID', 'purgely' ),
+			__( 'Service ID', 'purgely' ),
 			array( $this, 'fastly_service_id_render' ),
 			'purgely-settings',
 			'purgely-fastly_settings'
@@ -99,7 +99,7 @@ class Purgely_Settings_Page {
 
 		add_settings_field(
 			'api_endpoint',
-			__( 'Fastly API Endpoint', 'purgely' ),
+			__( 'API Endpoint', 'purgely' ),
 			array( $this, 'api_endpoint_render' ),
 			'purgely-settings',
 			'purgely-fastly_settings'
