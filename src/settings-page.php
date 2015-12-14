@@ -205,11 +205,11 @@ class Purgely_Settings_Page {
 			<?php esc_html_e( 'API key for the Fastly account associated with this site.', 'purgely' ); ?>
 			<?php
 			printf(
-				__( 'Please see Fastly\'s documentation for %s.', 'purgely' ),
+				esc_html__( 'Please see Fastly\'s documentation for %s.', 'purgely' ),
 				sprintf(
 					'<a href="%1$s" target="_blank">%2$s</a>',
 					'https://docs.fastly.com/guides/account-management-and-security/finding-and-managing-your-account-info#finding-and-regenerating-your-api-key',
-					__( 'more information on finding your API key', 'purgely' )
+					esc_html__( 'more information on finding your API key', 'purgely' )
 				)
 			);
 			?>
@@ -233,11 +233,11 @@ class Purgely_Settings_Page {
 			<?php esc_html_e( 'Fastly service ID for this site.', 'purgely' ); ?>
 			<?php
 			printf(
-				__( 'Please see Fastly\'s documentation for %s.', 'purgely' ),
+				esc_html__( 'Please see Fastly\'s documentation for %s.', 'purgely' ),
 				sprintf(
 					'<a href="%1$s" target="_blank">%2$s</a>',
 					'https://docs.fastly.com/guides/account-management-and-security/finding-and-managing-your-account-info#finding-your-service-id',
-					__( 'more information on finding your service ID', 'purgely' )
+					esc_html__( 'more information on finding your service ID', 'purgely' )
 				)
 			);
 			?>
