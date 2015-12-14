@@ -202,6 +202,7 @@ class Purgely_Settings_Page {
 		<input type='text' name='purgely-settings[fastly_key]' value='<?php echo esc_attr( $options['fastly_key'] ); ?>'>
 		<p class="description">
 			<?php esc_html_e( 'API key for the Fastly account associated with this site.', 'purgely' ); ?>
+			<strong><?php esc_html_e( 'Required for surrogate key and full cache purges', 'purgely' ); ?></strong>.
 		</p>
 		<?php
 	}
@@ -219,6 +220,7 @@ class Purgely_Settings_Page {
 		<input type='text' name='purgely-settings[fastly_service_id]' value='<?php echo esc_attr( $options['fastly_service_id'] ); ?>'>
 		<p class="description">
 			<?php esc_html_e( 'Fastly service ID for this site.', 'purgely' ); ?>
+			<strong><?php esc_html_e( 'Required for surrogate key and full cache purges', 'purgely' ); ?></strong>.
 		</p>
 		<?php
 	}
