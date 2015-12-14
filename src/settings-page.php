@@ -329,7 +329,16 @@ class Purgely_Settings_Page {
 			<?php endforeach; ?>
 		</select>
 		<p class="description">
-			<?php esc_html_e( 'The default purge behavior for purges issued via Purgely.', 'purgely' ); ?>
+			<?php
+			printf(
+				esc_html__( 'The purge type setting controls the manner in which the cache is purged. Instant purging causes the cached object(s) to be purged immediately. Soft purging causes the origin to revalidate the cache and Fastly will serve stale content until revalidation is completed. For more information, please see %s.', 'purgely' ),
+				sprintf(
+					'<a href="%1$s" target="_blank">%2$s</a>',
+					'https://docs.fastly.com/guides/purging/soft-purges',
+					esc_html__( 'Fastly\'s documentation for more information on soft purging', 'purgely' )
+				)
+			);
+			?>
 		</p>
 		<?php
 	}
