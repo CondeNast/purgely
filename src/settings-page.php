@@ -115,7 +115,7 @@ class Purgely_Settings_Page {
 
 		add_settings_field(
 			'allow_purge_all',
-			__( 'Allow Purge All?', 'purgely' ),
+			__( 'Allow Full Cache Purges', 'purgely' ),
 			array( $this, 'allow_purge_all_render' ),
 			'purgely-settings',
 			'purgely-general_settings'
@@ -283,10 +283,10 @@ class Purgely_Settings_Page {
 	public function allow_purge_all_render() {
 		$options = Purgely_Settings::get_settings();
 		?>
-		<input type='radio' name='purgely-settings[allow_purge_all]' <?php checked( isset( $options['allow_purge_all'] ) && true === $options['allow_purge_all'] ); ?> value='true'>Yes
+		<input type='radio' name='purgely-settings[allow_purge_all]' <?php checked( isset( $options['allow_purge_all'] ) && true === $options['allow_purge_all'] ); ?> value='true'>Yes&nbsp;
 		<input type='radio' name='purgely-settings[allow_purge_all]' <?php checked( isset( $options['allow_purge_all'] ) && false === $options['allow_purge_all'] ); ?> value='false'>No
 		<p class="description">
-			<?php esc_html_e( 'Enable or disable purge all.', 'purgely' ); ?>
+			<?php esc_html_e( 'The full cache purging behavior available to WP CLI must be explicitly enabled in order for it to work. Purging the entire cache can cause significant site stability issues and is disable by default.', 'purgely' ); ?>
 		</p>
 		<?php
 	}
