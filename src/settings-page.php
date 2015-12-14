@@ -179,14 +179,14 @@ class Purgely_Settings_Page {
 	}
 
 	/**
-	 * Print the description general settings section.
+	 * Print the description for the settings page.
 	 *
 	 * @since 1.0.0.
 	 *
 	 * @return void
 	 */
-	public function general_settings_callback() {
-		esc_html_e( 'Configure the general settings to control caching behavior.', 'purgely' );
+	public function fastly_settings_callback() {
+		esc_html_e( 'Configure settings to integrate with Fastly\'s API. These settings are critical for controlling the purging behaviors.', 'purgely' );
 	}
 
 	/**
@@ -243,14 +243,14 @@ class Purgely_Settings_Page {
 	}
 
 	/**
-	 * Print the description for the settings page.
+	 * Print the description general settings section.
 	 *
 	 * @since 1.0.0.
 	 *
 	 * @return void
 	 */
-	public function fastly_settings_callback() {
-		esc_html_e( 'Configure settings to integrate with Fastly\'s API. These settings are critical for controlling the purging behaviors.', 'purgely' );
+	public function general_settings_callback() {
+		esc_html_e( 'Configure the general settings to control caching behavior.', 'purgely' );
 	}
 
 	/**
