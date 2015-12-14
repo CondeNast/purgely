@@ -140,7 +140,7 @@ class Purgely_Settings_Page {
 		// Set up the stale content settings.
 		add_settings_section(
 			'purgely-stale_settings',
-			__( 'Stale content settings', 'purgely' ),
+			__( 'Content revalidation settings', 'purgely' ),
 			array( $this, 'stale_settings_callback' ),
 			'purgely-settings'
 		);
@@ -155,7 +155,7 @@ class Purgely_Settings_Page {
 
 		add_settings_field(
 			'stale_while_revalidate_ttl',
-			__( 'Stale While Revalidate TTL', 'purgely' ),
+			__( 'Stale While Revalidate TTL (in Seconds)', 'purgely' ),
 			array( $this, 'stale_while_revalidate_ttl_render' ),
 			'purgely-settings',
 			'purgely-stale_settings'
@@ -171,7 +171,7 @@ class Purgely_Settings_Page {
 
 		add_settings_field(
 			'stale_while_error_ttl',
-			__( 'Stale While Error TTL', 'purgely' ),
+			__( 'Stale While Error TTL (in Seconds)', 'purgely' ),
 			array( $this, 'stale_while_error_ttl_render' ),
 			'purgely-settings',
 			'purgely-stale_settings'
@@ -351,7 +351,7 @@ class Purgely_Settings_Page {
 	 * @return void
 	 */
 	public function stale_settings_callback() {
-		esc_html_e( 'Configure settings to control handling of stale content.', 'purgely' );
+		esc_html_e( 'This section allows you to configure how content is handled as it is revalidated. It is important that proper consideration is given to how content is regenerated after it expires from cache. The default settings take a conservative approach by allowing stale content to be served while new content is generated.', 'purgely' );
 	}
 
 	/**
@@ -364,10 +364,19 @@ class Purgely_Settings_Page {
 	public function enable_stale_while_revalidate_render() {
 		$options = Purgely_Settings::get_settings();
 		?>
-		<input type='radio' name='purgely-settings[enable_stale_while_revalidate]' <?php checked( isset( $options['enable_stale_while_revalidate'] ) && true === $options['enable_stale_while_revalidate'] ); ?> value='true'>Yes
+		<input type='radio' name='purgely-settings[enable_stale_while_revalidate]' <?php checked( isset( $options['enable_stale_while_revalidate'] ) && true === $options['enable_stale_while_revalidate'] ); ?> value='true'>Yes&nbsp;
 		<input type='radio' name='purgely-settings[enable_stale_while_revalidate]' <?php checked( isset( $options['enable_stale_while_revalidate'] ) && false === $options['enable_stale_while_revalidate'] ); ?> value='false'>No
 		<p class="description">
-			<?php esc_html_e( 'Turn stale while revalidate behavior on or off.', 'purgely' ); ?>
+			<?php
+			printf(
+				esc_html__( 'Turn the "stale while revalidate" behavior on or off. The stale while revalidate behavior allows stale content to be served while content is regenerated. Please see %s', 'purgely' ),
+				sprintf(
+					'<a href="%1$s" target="_blank">%2$s</a>',
+					'https://www.fastly.com/blog/stale-while-revalidate',
+					esc_html__( 'Fastly\'s documentation for more information on stale while revalidate', 'purgely' )
+				)
+			);
+			?>
 		</p>
 		<?php
 	}
@@ -384,7 +393,7 @@ class Purgely_Settings_Page {
 		?>
 		<input type='text' name='purgely-settings[stale_while_revalidate_ttl]' value='<?php echo esc_attr( $options['stale_while_revalidate_ttl'] ); ?>'>
 		<p class="description">
-			<?php esc_html_e( 'The Time to Live (TTL) value for the stale while revalidate behavior.', 'purgely' ); ?>
+			<?php esc_html_e( 'This setting determines the amount of time that stale content will be served while new content is generated.', 'purgely' ); ?>
 		</p>
 		<?php
 	}
@@ -399,10 +408,19 @@ class Purgely_Settings_Page {
 	public function enable_stale_while_error_render() {
 		$options = Purgely_Settings::get_settings();
 		?>
-		<input type='radio' name='purgely-settings[enable_stale_while_error]' <?php checked( isset( $options['enable_stale_while_error'] ) && true === $options['enable_stale_while_error'] ); ?> value='true'>Yes
+		<input type='radio' name='purgely-settings[enable_stale_while_error]' <?php checked( isset( $options['enable_stale_while_error'] ) && true === $options['enable_stale_while_error'] ); ?> value='true'>Yes&nbsp;
 		<input type='radio' name='purgely-settings[enable_stale_while_error]' <?php checked( isset( $options['enable_stale_while_error'] ) && false === $options['enable_stale_while_error'] ); ?> value='false'>No
 		<p class="description">
-			<?php esc_html_e( 'Turn stale while error behavior on or off.', 'purgely' ); ?>
+			<?php
+			printf(
+				esc_html__( 'Turn the "stale while error" behavior on or off. The stale while error behavior allows stale content to be served while the origin is returning an error state. Please see %s', 'purgely' ),
+				sprintf(
+					'<a href="%1$s" target="_blank">%2$s</a>',
+					'https://www.fastly.com/blog/stale-while-revalidate',
+					esc_html__( 'Fastly\'s documentation for more information on stale while error', 'purgely' )
+				)
+			);
+			?>
 		</p>
 		<?php
 	}
@@ -419,7 +437,7 @@ class Purgely_Settings_Page {
 		?>
 		<input type='text' name='purgely-settings[stale_while_error_ttl]' value='<?php echo esc_attr( $options['stale_while_error_ttl'] ); ?>'>
 		<p class="description">
-			<?php esc_html_e( 'The Time to Live (TTL) value for the stale while error behavior.', 'purgely' ); ?>
+			<?php esc_html_e( 'This setting determines the amount of time that stale content will be served while the origin is returning an error state.', 'purgely' ); ?>
 		</p>
 		<?php
 	}
