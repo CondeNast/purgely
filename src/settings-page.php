@@ -114,17 +114,17 @@ class Purgely_Settings_Page {
 		);
 
 		add_settings_field(
-			'allow_purge_all',
-			__( 'Allow Full Cache Purges', 'purgely' ),
-			array( $this, 'allow_purge_all_render' ),
+			'surrogate_control_ttl',
+			__( 'Cache TTL (in Seconds)', 'purgely' ),
+			array( $this, 'surrogate_control_render' ),
 			'purgely-settings',
 			'purgely-general_settings'
 		);
 
 		add_settings_field(
-			'surrogate_control_ttl',
-			__( 'Cache TTL (in Seconds)', 'purgely' ),
-			array( $this, 'surrogate_control_render' ),
+			'allow_purge_all',
+			__( 'Allow Full Cache Purges', 'purgely' ),
+			array( $this, 'allow_purge_all_render' ),
 			'purgely-settings',
 			'purgely-general_settings'
 		);
@@ -280,13 +280,12 @@ class Purgely_Settings_Page {
 	 *
 	 * @return void
 	 */
-	public function allow_purge_all_render() {
+	public function surrogate_control_render() {
 		$options = Purgely_Settings::get_settings();
 		?>
-		<input type='radio' name='purgely-settings[allow_purge_all]' <?php checked( isset( $options['allow_purge_all'] ) && true === $options['allow_purge_all'] ); ?> value='true'>Yes&nbsp;
-		<input type='radio' name='purgely-settings[allow_purge_all]' <?php checked( isset( $options['allow_purge_all'] ) && false === $options['allow_purge_all'] ); ?> value='false'>No
+		<input type='text' name='purgely-settings[surrogate_control_ttl]' value='<?php echo esc_attr( $options['surrogate_control_ttl'] ); ?>'>
 		<p class="description">
-			<?php esc_html_e( 'The full cache purging behavior available to WP CLI must be explicitly enabled in order for it to work. Purging the entire cache can cause significant site stability issues and is disable by default.', 'purgely' ); ?>
+			<?php esc_html_e( 'This setting controls the "surrogate-control" header\'s "max-age" value. It defines the cache duration for all pages on the site.', 'purgely' ); ?>
 		</p>
 		<?php
 	}
@@ -298,12 +297,13 @@ class Purgely_Settings_Page {
 	 *
 	 * @return void
 	 */
-	public function surrogate_control_render() {
+	public function allow_purge_all_render() {
 		$options = Purgely_Settings::get_settings();
 		?>
-		<input type='text' name='purgely-settings[surrogate_control_ttl]' value='<?php echo esc_attr( $options['surrogate_control_ttl'] ); ?>'>
+		<input type='radio' name='purgely-settings[allow_purge_all]' <?php checked( isset( $options['allow_purge_all'] ) && true === $options['allow_purge_all'] ); ?> value='true'>Yes&nbsp;
+		<input type='radio' name='purgely-settings[allow_purge_all]' <?php checked( isset( $options['allow_purge_all'] ) && false === $options['allow_purge_all'] ); ?> value='false'>No
 		<p class="description">
-			<?php esc_html_e( 'This setting controls the "surrogate-control" header\'s "max-age" value. It defines the cache duration for all pages on the site.', 'purgely' ); ?>
+			<?php esc_html_e( 'The full cache purging behavior available to WP CLI must be explicitly enabled in order for it to work. Purging the entire cache can cause significant site stability issues and is disable by default.', 'purgely' ); ?>
 		</p>
 		<?php
 	}
