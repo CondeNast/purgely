@@ -147,7 +147,7 @@ class Purgely_Settings_Page {
 
 		add_settings_field(
 			'enable_stale_while_revalidate',
-			__( 'Enable Stale While Revalidate', 'purgely' ),
+			__( 'Enable Stale while Revalidate', 'purgely' ),
 			array( $this, 'enable_stale_while_revalidate_render' ),
 			'purgely-settings',
 			'purgely-stale_settings'
@@ -155,7 +155,7 @@ class Purgely_Settings_Page {
 
 		add_settings_field(
 			'stale_while_revalidate_ttl',
-			__( 'Stale While Revalidate TTL (in Seconds)', 'purgely' ),
+			__( 'Stale while Revalidate TTL (in Seconds)', 'purgely' ),
 			array( $this, 'stale_while_revalidate_ttl_render' ),
 			'purgely-settings',
 			'purgely-stale_settings'
@@ -163,7 +163,7 @@ class Purgely_Settings_Page {
 
 		add_settings_field(
 			'enable_stale_while_error',
-			__( 'Enable Stale While Error', 'purgely' ),
+			__( 'Enable Stale if Error', 'purgely' ),
 			array( $this, 'enable_stale_while_error_render' ),
 			'purgely-settings',
 			'purgely-stale_settings'
@@ -171,7 +171,7 @@ class Purgely_Settings_Page {
 
 		add_settings_field(
 			'stale_while_error_ttl',
-			__( 'Stale While Error TTL (in Seconds)', 'purgely' ),
+			__( 'Stale if Error TTL (in Seconds)', 'purgely' ),
 			array( $this, 'stale_while_error_ttl_render' ),
 			'purgely-settings',
 			'purgely-stale_settings'
@@ -413,11 +413,11 @@ class Purgely_Settings_Page {
 		<p class="description">
 			<?php
 			printf(
-				esc_html__( 'Turn the "stale while error" behavior on or off. The stale while error behavior allows stale content to be served while the origin is returning an error state. Please see %s', 'purgely' ),
+				esc_html__( 'Turn the "stale if error" behavior on or off. The stale if error behavior allows stale content to be served while the origin is returning an error state. Please see %s', 'purgely' ),
 				sprintf(
 					'<a href="%1$s" target="_blank">%2$s</a>',
 					'https://www.fastly.com/blog/stale-while-revalidate',
-					esc_html__( 'Fastly\'s documentation for more information on stale while error', 'purgely' )
+					esc_html__( 'Fastly\'s documentation for more information on stale if error', 'purgely' )
 				)
 			);
 			?>
