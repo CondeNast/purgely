@@ -1,14 +1,6 @@
 <?php
 
-class PurgeRequestCollectionTest extends PHPUnit_Framework_TestCase {
-	public function setUp() {
-		\WP_Mock::setUp();
-	}
-
-	public function tearDown() {
-		\WP_Mock::tearDown();
-	}
-
+class PurgeRequestCollectionTest extends PurgelyBase {
 	public function test_setup_object() {
 		$url        = 'http://example.com/2015/09/my-url';
 		$purge_args = array( 'soft-purge' => true );
@@ -51,6 +43,15 @@ class PurgeRequestCollectionTest extends PHPUnit_Framework_TestCase {
 			),
 			'times'  => 15, // One for each URL in the collection
 			'return' => MockData::purge_url_response_200(),
+		) );
+
+		\WP_Mock::wpFunction( 'get_option', array(
+			'args'   => array(
+				'purgely-settings',
+				array()
+			),
+			'times'  => 1,
+			'return' => array()
 		) );
 
 		$object->purge_related();

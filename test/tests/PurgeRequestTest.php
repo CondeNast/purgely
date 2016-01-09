@@ -1,10 +1,6 @@
 <?php
 
-class PurgeRequestTest extends PHPUnit_Framework_TestCase {
-	public function setUp() {
-		\WP_Mock::setUp();
-	}
-
+class PurgeRequestTest extends PurgelyBase {
 	public function test_purge_sets_all_vars() {
 		$url             = 'http://www.example.org/2015/05/test-post';
 		$expected_result = MockData::purge_url_response_200();
@@ -307,9 +303,5 @@ class PurgeRequestTest extends PHPUnit_Framework_TestCase {
 		$actual_result = $purge->purge( 'all' );
 
 		$this->assertEquals( false, $actual_result );
-	}
-
-	public function tearDown() {
-		\WP_Mock::tearDown();
 	}
 }

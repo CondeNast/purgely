@@ -1,8 +1,8 @@
 <?php
 
-class HeaderSurrogateKeysTest extends PHPUnit_Framework_TestCase {
+class HeaderSurrogateKeysTest extends PurgelyBase {
 	public function setUp() {
-		\WP_Mock::setUp();
+		parent::setUp();
 
 		// Mock the remote request
 		\WP_Mock::wpPassthruFunction( 'absint' );
@@ -122,9 +122,5 @@ class HeaderSurrogateKeysTest extends PHPUnit_Framework_TestCase {
 		if ( function_exists( 'xdebug_get_headers' ) ) {
 			$this->assertEquals( array( 'Surrogate-Key: ' . $keys_string ), xdebug_get_headers() );
 		}
-	}
-
-	public function tearDown() {
-		\WP_Mock::tearDown();
 	}
 }

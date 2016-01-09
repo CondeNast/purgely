@@ -113,6 +113,7 @@ class Purgely {
 		// Include dependent files.
 		include $this->src_dir . '/config.php';
 		include $this->src_dir . '/utils.php';
+		include $this->src_dir . '/classes/settings.php';
 		include $this->src_dir . '/classes/related-urls.php';
 		include $this->src_dir . '/classes/purge-request-collection.php';
 		include $this->src_dir . '/classes/purge-request.php';
@@ -122,6 +123,10 @@ class Purgely {
 		include $this->src_dir . '/classes/header-surrogate-keys.php';
 		include $this->src_dir . '/classes/surrogate-key-collection.php';
 
+		if ( is_admin() ) {
+			include $this->src_dir . '/settings-page.php';
+		}
+
 		// Handle all automatic purges.
 		include $this->src_dir . '/wp-purges.php';
 
@@ -129,18 +134,18 @@ class Purgely {
 		$this::$surrogate_keys_header = new Purgely_Surrogate_Keys_Header();
 
 		// Initialize the surrogate control header.
-		$this::$surrogate_control_header = new Purgely_Surrogate_Control_Header( PURGELY_SURROGATE_CONTROL_TTL );
+		$this::$surrogate_control_header = new Purgely_Surrogate_Control_Header( Purgely_Settings::get_setting( 'surrogate_control_ttl' ) );
 
 		// Add the surrogate keys.
 		add_action( 'wp', array( $this, 'set_standard_keys' ), 100 );
 
-		// Set the default stale while revalidate and stale while error values.
-		if ( true === PURGELY_ENABLE_STALE_WHILE_REVALIDATE ) {
-			$this->add_cache_control_header( PURGELY_STALE_WHILE_REVALIDATE_TTL, 'stale-while-revalidate' );
+		// Set the default stale while revalidate and stale if error values.
+		if ( true === Purgely_Settings::get_setting( 'enable_stale_while_revalidate' ) ) {
+			$this->add_cache_control_header( Purgely_Settings::get_setting( 'stale_while_revalidate_ttl' ), 'stale-while-revalidate' );
 		}
 
-		if ( true === PURGELY_ENABLE_STALE_WHILE_ERROR ) {
-			$this->add_cache_control_header( PURGELY_STALE_WHILE_ERROR_TTL, 'stale-while-error' );
+		if ( true === Purgely_Settings::get_setting( 'enable_stale_if_error' ) ) {
+			$this->add_cache_control_header( Purgely_Settings::get_setting( 'stale_if_error_ttl' ), 'stale-if-error' );
 		}
 
 		// Send the surrogate keys.

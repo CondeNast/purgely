@@ -14,6 +14,7 @@ if ( ! defined( 'PURGELY_FASTLY_KEY' ) ) {
 
 include __DIR__ . '/../src/config.php';
 include __DIR__ . '/../src/utils.php';
+include __DIR__ . '/../src/classes/settings.php';
 include __DIR__ . '/../src/classes/related-urls.php';
 include __DIR__ . '/../src/classes/purge-request-collection.php';
 include __DIR__ . '/../src/classes/purge-request.php';
@@ -22,6 +23,9 @@ include __DIR__ . '/../src/classes/header-cache-control.php';
 include __DIR__ . '/../src/classes/header-surrogate-control.php';
 include __DIR__ . '/../src/classes/header-surrogate-keys.php';
 include __DIR__ . '/../src/classes/surrogate-key-collection.php';
+
+// Bring in the base class
+include __DIR__ . '/base.php';
 
 class MockData {
 	static public function purge_url_response_200() {

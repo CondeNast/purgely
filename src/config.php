@@ -54,21 +54,21 @@ if ( ! defined( 'PURGELY_STALE_WHILE_REVALIDATE_TTL' ) ) {
 }
 
 /**
- * Turn stale-while-error on or off.
+ * Turn stale-if-error on or off.
  *
  * @since 1.0.0.
  */
-if ( ! defined( 'PURGELY_ENABLE_STALE_WHILE_ERROR' ) ) {
-	define( 'PURGELY_ENABLE_STALE_WHILE_ERROR', true );
+if ( ! defined( 'PURGELY_ENABLE_STALE_IF_ERROR' ) ) {
+	define( 'PURGELY_ENABLE_STALE_IF_ERROR', true );
 }
 
 /**
- * Set the default stale-while-error TTL.
+ * Set the default stale-if-error TTL.
  *
  * @since 1.0.0.
  */
-if ( ! defined( 'PURGELY_STALE_WHILE_ERROR_TTL' ) ) {
-	define( 'PURGELY_STALE_WHILE_ERROR_TTL', 60 * 60 * 24 ); // 24 hours
+if ( ! defined( 'PURGELY_STALE_IF_ERROR_TTL' ) ) {
+	define( 'PURGELY_STALE_IF_ERROR_TTL', 60 * 60 * 24 ); // 24 hours
 }
 
 /**

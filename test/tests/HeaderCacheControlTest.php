@@ -1,11 +1,12 @@
 <?php
 
-class HeaderCacheControlTest extends PHPUnit_Framework_TestCase {
+class HeaderCacheControlTest extends PurgelyBase {
 	public function setUp() {
-		\WP_Mock::setUp();
+		parent::setUp();
 
-		// Mock the remote request
+		// We are not testing escaping functions so let them passthrough
 		\WP_Mock::wpPassthruFunction( 'absint' );
+		\WP_Mock::wpPassthruFunction( 'esc_url' );
 	}
 
 	public function test_object_is_constructed_correctly() {
@@ -54,9 +55,5 @@ class HeaderCacheControlTest extends PHPUnit_Framework_TestCase {
 		if ( function_exists( 'xdebug_get_headers' ) ) {
 			$this->assertEquals( array( 'Cache-Control: ' . $directive . '=' . $seconds ), xdebug_get_headers() );
 		}
-	}
-
-	public function tearDown() {
-		\WP_Mock::tearDown();
 	}
 }

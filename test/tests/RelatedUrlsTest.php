@@ -1,14 +1,6 @@
 <?php
 
-class RelatedUrlsTest extends PHPUnit_Framework_TestCase {
-	public function setUp() {
-		\WP_Mock::setUp();
-	}
-
-	public function tearDown() {
-		\WP_Mock::tearDown();
-	}
-
+class RelatedUrlsTest extends PurgelyBase {
 	public function test_object_sets_up_correctly() {
 		$id       = 5;
 		$url      = 'http://example.org/2015/05/test-post';
