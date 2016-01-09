@@ -18,7 +18,7 @@ solution for Fastly cache management.
 The plugin handles the following:
 
 * Sets the `Surrogate-Control` header to control the expiration time for pages
-* Sets the `stale-while-revalidate` and `stale-while-error` `Cache-Control` directives for managing these special Fastly
+* Sets the `stale-while-revalidate` and `stale-if-error` `Cache-Control` directives for managing these special Fastly
 behaviors
 * Set groups of `Surrogate-Keys` for all pages to provide purging across multiple pages with one command
 * Provides invalidation of posts and related posts on save
@@ -84,18 +84,18 @@ content while new content is generated for the duration of the value that is set
 
 *default: (int) 86400*
 
-**PURGELY_ENABLE_STALE_WHILE_ERROR**
+**PURGELY_ENABLE_STALE_IF_ERROR**
 
-Determines whether or not the plugin sets the `stale-while-error` directive for the `Cache-Control` header. Setting
-this value to `false` will turn off the `stale-while-error` behavior. Note that you can manually control this
+Determines whether or not the plugin sets the `stale-if-error` directive for the `Cache-Control` header. Setting
+this value to `false` will turn off the `stale-if-error` behavior. Note that you can manually control this
 behavior via the functions exposed in the plugin regardless of this configuration option. This option only controls the
 default plugin behavior.
 
 *default: (bool) true*
 
-**PURGELY_STALE_WHILE_ERROR_TTL**
+**PURGELY_STALE_IF_ERROR_TTL**
 
-Sets the TTL for the `stale-while-error` directive in seconds. The value instructs Fastly to continue serving stale
+Sets the TTL for the `stale-if-error` directive in seconds. The value instructs Fastly to continue serving stale
 content while the origin site is serving an error for the duration of the value that is set.
 
 *default: (int) 86400*

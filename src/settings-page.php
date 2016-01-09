@@ -162,17 +162,17 @@ class Purgely_Settings_Page {
 		);
 
 		add_settings_field(
-			'enable_stale_while_error',
+			'enable_stale_if_error',
 			__( 'Enable Stale if Error', 'purgely' ),
-			array( $this, 'enable_stale_while_error_render' ),
+			array( $this, 'enable_stale_if_error_render' ),
 			'purgely-settings',
 			'purgely-stale_settings'
 		);
 
 		add_settings_field(
-			'stale_while_error_ttl',
+			'stale_if_error_ttl',
 			__( 'Stale if Error TTL (in Seconds)', 'purgely' ),
-			array( $this, 'stale_while_error_ttl_render' ),
+			array( $this, 'stale_if_error_ttl_render' ),
 			'purgely-settings',
 			'purgely-stale_settings'
 		);
@@ -405,11 +405,11 @@ class Purgely_Settings_Page {
 	 *
 	 * @return void
 	 */
-	public function enable_stale_while_error_render() {
+	public function enable_stale_if_error_render() {
 		$options = Purgely_Settings::get_settings();
 		?>
-		<input type='radio' name='purgely-settings[enable_stale_while_error]' <?php checked( isset( $options['enable_stale_while_error'] ) && true === $options['enable_stale_while_error'] ); ?> value='true'>Yes&nbsp;
-		<input type='radio' name='purgely-settings[enable_stale_while_error]' <?php checked( isset( $options['enable_stale_while_error'] ) && false === $options['enable_stale_while_error'] ); ?> value='false'>No
+		<input type='radio' name='purgely-settings[enable_stale_if_error]' <?php checked( isset( $options['enable_stale_if_error'] ) && true === $options['enable_stale_if_error'] ); ?> value='true'>Yes&nbsp;
+		<input type='radio' name='purgely-settings[enable_stale_if_error]' <?php checked( isset( $options['enable_stale_if_error'] ) && false === $options['enable_stale_if_error'] ); ?> value='false'>No
 		<p class="description">
 			<?php
 			printf(
@@ -432,10 +432,10 @@ class Purgely_Settings_Page {
 	 *
 	 * @return void
 	 */
-	public function stale_while_error_ttl_render() {
+	public function stale_if_error_ttl_render() {
 		$options = Purgely_Settings::get_settings();
 		?>
-		<input type='text' name='purgely-settings[stale_while_error_ttl]' value='<?php echo esc_attr( $options['stale_while_error_ttl'] ); ?>'>
+		<input type='text' name='purgely-settings[stale_if_error_ttl]' value='<?php echo esc_attr( $options['stale_if_error_ttl'] ); ?>'>
 		<p class="description">
 			<?php esc_html_e( 'This setting determines the amount of time that stale content will be served while the origin is returning an error state.', 'purgely' ); ?>
 		</p>

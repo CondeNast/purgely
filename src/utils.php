@@ -102,14 +102,14 @@ function purgely_set_stale_while_revalidate( $seconds ) {
 }
 
 /**
- * Set the stale while error directive.
+ * Set the stale if error directive.
  *
- * @param  int $seconds The TTL for stale while error.
+ * @param  int $seconds The TTL for stale if error.
  * @return array                All of the cache control headers.
  */
-function purgely_set_stale_while_error( $seconds ) {
+function purgely_set_stale_if_error( $seconds ) {
 	$purgely = get_purgely_instance();
-	return $purgely->add_cache_control_header( $seconds, 'stale-while-error' );
+	return $purgely->add_cache_control_header( $seconds, 'stale-if-error' );
 }
 
 /**
@@ -148,8 +148,8 @@ function purgely_get_options() {
 		'api_endpoint',
 		'enable_stale_while_revalidate',
 		'stale_while_revalidate_ttl',
-		'enable_stale_while_error',
-		'stale_while_error_ttl',
+		'enable_stale_if_error',
+		'stale_if_error_ttl',
 		'surrogate_control_ttl',
 		'default_purge_type',
 	);

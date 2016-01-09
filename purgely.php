@@ -144,8 +144,8 @@ class Purgely {
 			$this->add_cache_control_header( Purgely_Settings::get_setting( 'stale_while_revalidate_ttl' ), 'stale-while-revalidate' );
 		}
 
-		if ( true === Purgely_Settings::get_setting( 'enable_stale_while_error' ) ) {
-			$this->add_cache_control_header( Purgely_Settings::get_setting( 'stale_while_error_ttl' ), 'stale-while-error' );
+		if ( true === Purgely_Settings::get_setting( 'enable_stale_if_error' ) ) {
+			$this->add_cache_control_header( Purgely_Settings::get_setting( 'stale_if_error_ttl' ), 'stale-if-error' );
 		}
 
 		// Send the surrogate keys.

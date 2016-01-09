@@ -45,13 +45,13 @@ class Purgely_Settings {
 				'sanitize_callback' => 'absint',
 				'default'           => PURGELY_STALE_WHILE_REVALIDATE_TTL,
 			),
-			'enable_stale_while_error'      => array(
+			'enable_stale_if_error'      => array(
 				'sanitize_callback' => 'purgely_sanitize_checkbox',
-				'default'           => PURGELY_ENABLE_STALE_WHILE_ERROR,
+				'default'           => PURGELY_ENABLE_STALE_IF_ERROR,
 			),
-			'stale_while_error_ttl'         => array(
+			'stale_if_error_ttl'         => array(
 				'sanitize_callback' => 'absint',
-				'default'           => PURGELY_STALE_WHILE_ERROR_TTL,
+				'default'           => PURGELY_STALE_IF_ERROR_TTL,
 			),
 			'surrogate_control_ttl'         => array(
 				'sanitize_callback' => 'absint',
@@ -68,7 +68,7 @@ class Purgely_Settings {
 	 * Get an array of settings values.
 	 *
 	 * This method negotiates the database values and the constant values to determine what the current value should be.
-	 * The database value takes precedence over the database value.
+	 * The database value takes precedence over the constant value.
 	 *
 	 * @since 1.0.0.
 	 *

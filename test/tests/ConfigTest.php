@@ -8,8 +8,8 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue( defined( 'PURGELY_ALLOW_PURGE_ALL' ) );
 		$this->assertTrue( defined( 'PURGELY_ENABLE_STALE_WHILE_REVALIDATE' ) );
 		$this->assertTrue( defined( 'PURGELY_STALE_WHILE_REVALIDATE_TTL' ) );
-		$this->assertTrue( defined( 'PURGELY_ENABLE_STALE_WHILE_ERROR' ) );
-		$this->assertTrue( defined( 'PURGELY_STALE_WHILE_ERROR_TTL' ) );
+		$this->assertTrue( defined( 'PURGELY_ENABLE_STALE_IF_ERROR' ) );
+		$this->assertTrue( defined( 'PURGELY_STALE_IF_ERROR_TTL' ) );
 		$this->assertTrue( defined( 'PURGELY_SURROGATE_CONTROL_TTL' ) );
 		$this->assertTrue( defined( 'PURGELY_DEFAULT_PURGE_TYPE' ) );
 	}
