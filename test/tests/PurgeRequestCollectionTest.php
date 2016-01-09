@@ -78,6 +78,9 @@ class PurgeRequestCollectionTest extends PHPUnit_Framework_TestCase {
 		foreach ( $object->get_purge_requests() as $purge_request ) {
 			$this->assertInstanceOf( 'Purgely_Purge', $purge_request );
 		}
+
+		// Reset the options array
+		Purgely_Settings::set_settings( array() );
 	}
 
 	public function test_purge_related_when_there_are_no_urls_to_purge() {
@@ -121,10 +124,22 @@ class PurgeRequestCollectionTest extends PHPUnit_Framework_TestCase {
 			'return' => '200',
 		) );
 
+		\WP_Mock::wpFunction( 'get_option', array(
+			'args'   => array(
+				'purgely-settings',
+				array()
+			),
+			'times'  => 1,
+			'return' => array()
+		) );
+
 		$object->purge_related();
 		$result = $object->get_result();
 
 		$this->assertEquals( 'success', $result );
+
+		// Reset the options array
+		Purgely_Settings::set_settings( array() );
 	}
 
 	public function test_purge_related_result_when_there_are_no_requests() {
