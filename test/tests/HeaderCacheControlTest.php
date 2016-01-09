@@ -2,7 +2,7 @@
 
 class HeaderCacheControlTest extends PurgelyBase {
 	public function setUp() {
-		\WP_Mock::setUp();
+		parent::setUp();
 
 		// We are not testing escaping functions so let them passthrough
 		\WP_Mock::wpPassthruFunction( 'absint' );
@@ -55,9 +55,5 @@ class HeaderCacheControlTest extends PurgelyBase {
 		if ( function_exists( 'xdebug_get_headers' ) ) {
 			$this->assertEquals( array( 'Cache-Control: ' . $directive . '=' . $seconds ), xdebug_get_headers() );
 		}
-	}
-
-	public function tearDown() {
-		\WP_Mock::tearDown();
 	}
 }

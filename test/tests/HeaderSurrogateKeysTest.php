@@ -2,7 +2,7 @@
 
 class HeaderSurrogateKeysTest extends PurgelyBase {
 	public function setUp() {
-		\WP_Mock::setUp();
+		parent::setUp();
 
 		// Mock the remote request
 		\WP_Mock::wpPassthruFunction( 'absint' );
@@ -122,9 +122,5 @@ class HeaderSurrogateKeysTest extends PurgelyBase {
 		if ( function_exists( 'xdebug_get_headers' ) ) {
 			$this->assertEquals( array( 'Surrogate-Key: ' . $keys_string ), xdebug_get_headers() );
 		}
-	}
-
-	public function tearDown() {
-		\WP_Mock::tearDown();
 	}
 }

@@ -2,7 +2,7 @@
 
 class HeaderSurrogateControlTest extends PurgelyBase {
 	public function setUp() {
-		\WP_Mock::setUp();
+		parent::setUp();
 
 		// Mock the remote request
 		\WP_Mock::wpPassthruFunction( 'absint' );
@@ -37,9 +37,5 @@ class HeaderSurrogateControlTest extends PurgelyBase {
 		if ( function_exists( 'xdebug_get_headers' ) ) {
 			$this->assertEquals( array( 'Surrogate-Control: max-age=' . $seconds ), xdebug_get_headers() );
 		}
-	}
-
-	public function tearDown() {
-		\WP_Mock::tearDown();
 	}
 }

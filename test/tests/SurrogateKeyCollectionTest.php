@@ -2,12 +2,8 @@
 
 class SurrogateKeyCollectionTest extends PurgelyBase {
 	public function setUp() {
-		\WP_Mock::setUp();
+		parent::setUp();
 		\WP_Mock::wpPassthruFunction( 'absint' );
-	}
-
-	public function tearDown() {
-		\WP_Mock::tearDown();
 	}
 
 	public function test_single_post_keys() {

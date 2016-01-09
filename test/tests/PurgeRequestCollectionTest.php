@@ -1,14 +1,6 @@
 <?php
 
 class PurgeRequestCollectionTest extends PurgelyBase {
-	public function setUp() {
-		\WP_Mock::setUp();
-	}
-
-	public function tearDown() {
-		\WP_Mock::tearDown();
-	}
-
 	public function test_setup_object() {
 		$url        = 'http://example.com/2015/09/my-url';
 		$purge_args = array( 'soft-purge' => true );
