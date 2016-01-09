@@ -45,11 +45,11 @@ class Purgely_Settings {
 				'sanitize_callback' => 'absint',
 				'default'           => PURGELY_STALE_WHILE_REVALIDATE_TTL,
 			),
-			'enable_stale_if_error'      => array(
+			'enable_stale_if_error'         => array(
 				'sanitize_callback' => 'purgely_sanitize_checkbox',
 				'default'           => PURGELY_ENABLE_STALE_IF_ERROR,
 			),
-			'stale_if_error_ttl'         => array(
+			'stale_if_error_ttl'            => array(
 				'sanitize_callback' => 'absint',
 				'default'           => PURGELY_STALE_IF_ERROR_TTL,
 			),
