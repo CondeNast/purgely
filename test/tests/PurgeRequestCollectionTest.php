@@ -7,6 +7,9 @@ class PurgeRequestCollectionTest extends PHPUnit_Framework_TestCase {
 
 	public function tearDown() {
 		\WP_Mock::tearDown();
+
+		// Reset the options array
+		Purgely_Settings::set_settings( array() );
 	}
 
 	public function test_setup_object() {
@@ -78,9 +81,6 @@ class PurgeRequestCollectionTest extends PHPUnit_Framework_TestCase {
 		foreach ( $object->get_purge_requests() as $purge_request ) {
 			$this->assertInstanceOf( 'Purgely_Purge', $purge_request );
 		}
-
-		// Reset the options array
-		Purgely_Settings::set_settings( array() );
 	}
 
 	public function test_purge_related_when_there_are_no_urls_to_purge() {
@@ -137,9 +137,6 @@ class PurgeRequestCollectionTest extends PHPUnit_Framework_TestCase {
 		$result = $object->get_result();
 
 		$this->assertEquals( 'success', $result );
-
-		// Reset the options array
-		Purgely_Settings::set_settings( array() );
 	}
 
 	public function test_purge_related_result_when_there_are_no_requests() {
@@ -155,6 +152,15 @@ class PurgeRequestCollectionTest extends PHPUnit_Framework_TestCase {
 	public function test_purge_related_result_when_one_request_fails() {
 		$url    = 'http://example.com/2015/09/my-url';
 		$object = $this->setup_standard_collection( $url );
+
+		\WP_Mock::wpFunction( 'get_option', array(
+			'args'   => array(
+				'purgely-settings',
+				array()
+			),
+			'times'  => 1,
+			'return' => array()
+		) );
 
 		// We are going to issue a number of remote requests, which need some mocking
 		\WP_Mock::wpFunction( 'wp_remote_request', array(
@@ -208,6 +214,15 @@ class PurgeRequestCollectionTest extends PHPUnit_Framework_TestCase {
 	public function test_purge_related_result_when_one_request_produces_a_wp_error() {
 		$url    = 'http://example.com/2015/09/my-url';
 		$object = $this->setup_standard_collection( $url );
+
+		\WP_Mock::wpFunction( 'get_option', array(
+			'args'   => array(
+				'purgely-settings',
+				array()
+			),
+			'times'  => 1,
+			'return' => array()
+		) );
 
 		// We are going to issue a number of remote requests, which need some mocking
 		\WP_Mock::wpFunction( 'wp_remote_request', array(
