@@ -351,7 +351,7 @@ class Purgely_Settings_Page {
 	 * @return void
 	 */
 	public function stale_settings_callback() {
-		esc_html_e( 'This section allows you to configure how content is handled as it is revalidated. It is important that proper consideration is given to how content is regenerated after it expires from cache. The default settings take a conservative approach by allowing stale content to be served while new content is generated.', 'purgely' );
+		esc_html_e( 'This section allows you to configure how content is handled as it is revalidated. It is important that proper consideration is given to how content is regenerated after it expires from cache. The default settings take a conservative approach by allowing stale content to be served while new content is regenerated in the background.', 'purgely' );
 	}
 
 	/**
@@ -369,7 +369,7 @@ class Purgely_Settings_Page {
 		<p class="description">
 			<?php
 			printf(
-				esc_html__( 'Turn the "stale while revalidate" behavior on or off. The stale while revalidate behavior allows stale content to be served while content is regenerated. Please see %s', 'purgely' ),
+				esc_html__( 'Turn the "stale while revalidate" behavior on or off. The stale while revalidate behavior allows stale content to be served while content is regenerated in the background. Please see %s', 'purgely' ),
 				sprintf(
 					'<a href="%1$s" target="_blank">%2$s</a>',
 					'https://www.fastly.com/blog/stale-while-revalidate',
