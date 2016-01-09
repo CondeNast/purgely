@@ -139,7 +139,7 @@ class Purgely {
 		// Add the surrogate keys.
 		add_action( 'wp', array( $this, 'set_standard_keys' ), 100 );
 
-		// Set the default stale while revalidate and stale while error values.
+		// Set the default stale while revalidate and stale if error values.
 		if ( true === Purgely_Settings::get_setting( 'enable_stale_while_revalidate' ) ) {
 			$this->add_cache_control_header( Purgely_Settings::get_setting( 'stale_while_revalidate_ttl' ), 'stale-while-revalidate' );
 		}
