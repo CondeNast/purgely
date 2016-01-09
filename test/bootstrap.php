@@ -14,7 +14,7 @@ if ( ! defined( 'PURGELY_FASTLY_KEY' ) ) {
 
 include __DIR__ . '/../src/config.php';
 include __DIR__ . '/../src/utils.php';
-include __DIR__ . '/../src/settings.php';
+include __DIR__ . '/../src/classes/settings.php';
 include __DIR__ . '/../src/classes/related-urls.php';
 include __DIR__ . '/../src/classes/purge-request-collection.php';
 include __DIR__ . '/../src/classes/purge-request.php';
