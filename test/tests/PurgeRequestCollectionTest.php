@@ -53,6 +53,15 @@ class PurgeRequestCollectionTest extends PHPUnit_Framework_TestCase {
 			'return' => MockData::purge_url_response_200(),
 		) );
 
+		\WP_Mock::wpFunction( 'get_option', array(
+			'args'   => array(
+				'purgely-settings',
+				array()
+			),
+			'times'  => 1,
+			'return' => array()
+		) );
+
 		$object->purge_related();
 
 		$responses = array();
