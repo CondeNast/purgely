@@ -1,6 +1,6 @@
 <?php
 
-class HeaderCacheControlTest extends PHPUnit_Framework_TestCase {
+class HeaderCacheControlTest extends PurgelyBase {
 	public function setUp() {
 		\WP_Mock::setUp();
 

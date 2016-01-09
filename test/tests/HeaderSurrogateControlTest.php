@@ -1,6 +1,6 @@
 <?php
 
-class HeaderSurrogateControlTest extends PHPUnit_Framework_TestCase {
+class HeaderSurrogateControlTest extends PurgelyBase {
 	public function setUp() {
 		\WP_Mock::setUp();
 

@@ -1,15 +1,12 @@
 <?php
 
-class PurgeRequestCollectionTest extends PHPUnit_Framework_TestCase {
+class PurgeRequestCollectionTest extends PurgelyBase {
 	public function setUp() {
 		\WP_Mock::setUp();
 	}
 
 	public function tearDown() {
 		\WP_Mock::tearDown();
-
-		// Reset the options array
-		Purgely_Settings::set_settings( array() );
 	}
 
 	public function test_setup_object() {
@@ -124,15 +121,6 @@ class PurgeRequestCollectionTest extends PHPUnit_Framework_TestCase {
 			'return' => '200',
 		) );
 
-		\WP_Mock::wpFunction( 'get_option', array(
-			'args'   => array(
-				'purgely-settings',
-				array()
-			),
-			'times'  => 1,
-			'return' => array()
-		) );
-
 		$object->purge_related();
 		$result = $object->get_result();
 
@@ -152,15 +140,6 @@ class PurgeRequestCollectionTest extends PHPUnit_Framework_TestCase {
 	public function test_purge_related_result_when_one_request_fails() {
 		$url    = 'http://example.com/2015/09/my-url';
 		$object = $this->setup_standard_collection( $url );
-
-		\WP_Mock::wpFunction( 'get_option', array(
-			'args'   => array(
-				'purgely-settings',
-				array()
-			),
-			'times'  => 1,
-			'return' => array()
-		) );
 
 		// We are going to issue a number of remote requests, which need some mocking
 		\WP_Mock::wpFunction( 'wp_remote_request', array(
@@ -214,15 +193,6 @@ class PurgeRequestCollectionTest extends PHPUnit_Framework_TestCase {
 	public function test_purge_related_result_when_one_request_produces_a_wp_error() {
 		$url    = 'http://example.com/2015/09/my-url';
 		$object = $this->setup_standard_collection( $url );
-
-		\WP_Mock::wpFunction( 'get_option', array(
-			'args'   => array(
-				'purgely-settings',
-				array()
-			),
-			'times'  => 1,
-			'return' => array()
-		) );
 
 		// We are going to issue a number of remote requests, which need some mocking
 		\WP_Mock::wpFunction( 'wp_remote_request', array(

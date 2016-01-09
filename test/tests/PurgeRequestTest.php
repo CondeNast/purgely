@@ -1,6 +1,6 @@
 <?php
 
-class PurgeRequestTest extends PHPUnit_Framework_TestCase {
+class PurgeRequestTest extends PurgelyBase {
 	public function setUp() {
 		\WP_Mock::setUp();
 	}

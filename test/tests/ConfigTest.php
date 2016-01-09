@@ -1,6 +1,6 @@
 <?php
 
-class ConfigTest extends PHPUnit_Framework_TestCase {
+class ConfigTest extends PurgelyBase {
 	public function test_constants_are_set() {
 		$this->assertTrue( defined( 'PURGELY_API_ENDPOINT' ) );
 		$this->assertTrue( defined( 'PURGELY_FASTLY_KEY' ) );

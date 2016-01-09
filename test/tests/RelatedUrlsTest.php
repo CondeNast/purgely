@@ -1,6 +1,6 @@
 <?php
 
-class RelatedUrlsTest extends PHPUnit_Framework_TestCase {
+class RelatedUrlsTest extends PurgelyBase {
 	public function setUp() {
 		\WP_Mock::setUp();
 	}

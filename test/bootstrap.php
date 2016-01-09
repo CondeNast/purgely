@@ -24,6 +24,9 @@ include __DIR__ . '/../src/classes/header-surrogate-control.php';
 include __DIR__ . '/../src/classes/header-surrogate-keys.php';
 include __DIR__ . '/../src/classes/surrogate-key-collection.php';
 
+// Bring in the base class
+include __DIR__ . '/base.php';
+
 class MockData {
 	static public function purge_url_response_200() {
 		return array(
