@@ -48,7 +48,7 @@ class Purgely_Settings_Page {
 	 */
 	function add_admin_menu() {
 		add_submenu_page(
-			'tools.php',
+			'options-general.php',
 			__( 'Purgely', 'purgely' ),
 			__( 'Purgely', 'purgely' ),
 			'manage_options',
