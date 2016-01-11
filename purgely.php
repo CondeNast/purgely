@@ -149,13 +149,13 @@ class Purgely {
 		}
 
 		// Send the surrogate keys.
-		add_action( 'template_redirect', array( $this, 'send_surrogate_keys' ), 9 );
+		add_action( 'wp', array( $this, 'send_surrogate_keys' ), 101 );
 
 		// Set and send the surrogate control header.
-		add_action( 'template_redirect', array( $this, 'send_surrogate_control' ), 9 );
+		add_action( 'wp', array( $this, 'send_surrogate_control' ), 101 );
 
 		// Set and send the surrogate control header.
-		add_action( 'template_redirect', array( $this, 'send_cache_control' ), 9 );
+		add_action( 'wp', array( $this, 'send_cache_control' ), 101 );
 
 		// Load in WP CLI.
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
