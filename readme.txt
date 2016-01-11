@@ -2,7 +2,7 @@
 Contributors: tollmanz
 Tags: caching, fastly, page cache, cache invalidation
 Requires at least: 4.2.0
-Tested up to: 4.3.1
+Tested up to: trunk
 Stable tag: 1.0.0
 License: MIT
 License URI: https://opensource.org/licenses/MIT
