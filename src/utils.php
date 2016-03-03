@@ -178,7 +178,7 @@ function purgely_get_options() {
  * @return string      Sanitized key.
  */
 function purgely_sanitize_key( $key ) {
-	return preg_replace( '/[^a-zA-B0-9]/', '', $key );
+	return preg_replace( '/[^a-zA-Z0-9]/', '', $key );
 }
 
 /**
