@@ -3,7 +3,7 @@ Contributors: tollmanz
 Tags: caching, fastly, page cache, cache invalidation
 Requires at least: 4.2.0
 Tested up to: trunk
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -108,10 +108,16 @@ unless it is cached within the app. Changing this value changes the value for th
 
 == Changelog ==
 
+= 1.0.1 =
+* Update key saniziation to allow all capital letters, not just A-B.
+
 = 1.0.0 =
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Update key saniziation to allow all capital letters, not just A-B.
 
 = 1.0.0 =
 Initial release.

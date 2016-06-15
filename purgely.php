@@ -3,7 +3,7 @@
  * Plugin Name: Purgely
  * Description: A plugin to manage Fastly caching behavior and purging.
  * Author:      Zack Tollman, WIRED Tech Team
- * Version:     1.0.0
+ * Version:     1.0.1
  * Text Domain: purgely
  * Domain Path: /languages
  */
@@ -47,7 +47,7 @@ class Purgely {
 	 *
 	 * @var   string    The semantically versioned plugin version number.
 	 */
-	var $version = '1.0.0';
+	var $version = '1.0.1';
 
 	/**
 	 * File path to the plugin dir (e.g., /var/www/mysite/wp-content/plugins/purgely).
